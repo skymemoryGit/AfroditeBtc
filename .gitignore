@@ -22,3 +22,6 @@ Thumbs.db
 # Materiale di altri progetti portato come spunto: conteneva token in chiaro (sessione 11).
 # Resta sul PC, non va mai nel repository.
 docs/spunti/
+
+# Istruzioni per gli agenti: restano solo sul PC, non vanno nel repository (richiesta dell utente).
+CLAUDE.md
