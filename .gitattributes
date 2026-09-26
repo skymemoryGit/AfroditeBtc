@@ -1,0 +1,13 @@
+# Fine riga: il bot gira su Linux (VPS), si sviluppa su Windows.
+# I file di systemd DEVONO restare LF: con CRLF systemd legge "\r" dentro i valori e il servizio non parte.
+*.py        text eol=lf
+*.md        text eol=lf
+*.txt       text eol=lf
+*.service   text eol=lf
+*.timer     text eol=lf
+*.bat       text eol=crlf
+
+# Dati validati: restano byte per byte come scaricati (alcuni hanno CRLF perché presi da PowerShell).
+data/*.csv  -text
+*.docx      binary
+*.sqlite3   binary

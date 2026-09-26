@@ -1,0 +1,24 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Segreti e configurazione locale (token Telegram, chiavi, ecc.)
+.env
+*.secret
+config.local.*
+
+# Stato del bot in esecuzione (non va versionato: è dati, non codice)
+*.db
+*.sqlite3
+*.log
+logs/
+
+# Sistema
+.DS_Store
+Thumbs.db
+
+# Materiale di altri progetti portato come spunto: conteneva token in chiaro (sessione 11).
+# Resta sul PC, non va mai nel repository.
+docs/spunti/

@@ -1,0 +1,4 @@
+# Dipendenze del SOLO livello bot/ (Telegram). La libreria botbtc/ resta senza dipendenze:
+# gli indicatori, i fetcher, la cache e il motore girano con la sola libreria standard.
+# Decisione D21 (sessione 06).
+python-telegram-bot>=21.0

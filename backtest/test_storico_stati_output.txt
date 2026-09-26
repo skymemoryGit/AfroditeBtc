@@ -1,0 +1,91 @@
+====================================================================================================
+TEST DI ACCETTAZIONE DELLA REGOLA DEI TRE STATI — parametri fissati in docs/04 §1
+====================================================================================================
+
+Serie: 2010-07-18 -> 2026-09-19 (5908 giorni), fonte coinmetrics (PriceUSD, csv)
+Giorni con punteggio calcolabile: 5452 (dal 2011-10-17)
+Soglie calibrate solo sulla quota di giorni: straordinario >= 0.4257, freno >= 0.2315
+Conferma richiesta: 2 giorni consecutivi · freno solo dopo 60 giorni consecutivi sopra la soglia (giro 2)
+
+Quota di giorni dopo la conferma: straordinario 12.0% · normale 83.5% · freno 4.4%
+
+----------------------------------------------------------------------------------------------------
+(a) e (b) — le fasi economiche devono accendersi
+  OK  dicembre 2018    31 giorni accesi, dal 2018-12-01 al 2018-12-31
+  OK  marzo 2020       19 giorni accesi, dal 2020-03-13 al 2020-03-31
+  OK  novembre 2022    27 giorni accesi, dal 2022-11-01 al 2022-11-30
+  OK  giugno 2026      13 giorni accesi, dal 2026-06-05 al 2026-06-30
+
+----------------------------------------------------------------------------------------------------
+(c) — quota dello stato straordinario: 12.0% (dentro dall'intervallo 10-15% del piano)
+
+----------------------------------------------------------------------------------------------------
+(d) — nessun giorno straordinario nei 3 mesi prima di un massimo di ciclo
+  OK  massimo 2017-12-16: 0 giorni straordinari nei 90 giorni prima
+  OK  massimo 2021-04-13: 0 giorni straordinari nei 90 giorni prima
+  OK  massimo 2021-11-08: 0 giorni straordinari nei 90 giorni prima
+  OK  massimo 2025-10-06: 0 giorni straordinari nei 90 giorni prima
+
+----------------------------------------------------------------------------------------------------
+(e) e (f) ORIGINALI — sono risultati INCOMPATIBILI fra loro: la prova qui sotto
+  acceso  massimo 2017-12-16: 33 giorni di freno nei 90 giorni prima
+  acceso  massimo 2021-04-13: 91 giorni di freno nei 90 giorni prima
+  spento  massimo 2021-11-08: 0 giorni di freno nei 90 giorni prima
+  spento  massimo 2025-10-06: 0 giorni di freno nei 90 giorni prima
+  massimi colti: 2/4 (il criterio (e) ne chiedeva 3)
+  novembre-dicembre 2020: 4 giorni di freno (il criterio (f) ne chiedeva 0)
+
+  PROVA DELL'INCOMPATIBILITA' (punteggio 'caro' senza requisito di durata):
+    data             prezzo   caro   MVRV  Mayer  RSI-W
+    2020-12-15       19,433  0.395   2.48   1.60   82.8   inizio rialzo
+    2020-12-31       29,023  0.720   3.14   2.17   91.7   inizio rialzo
+    2021-11-08       67,542  0.488   2.85   1.48   70.2   MASSIMO
+    2025-10-06      124,824  0.433   2.29   1.18   65.2   MASSIMO
+    -> dicembre 2020 e' PIU' caro dei due massimi piu' recenti: nessuna soglia sul livello
+       puo' accendersi a quei massimi e restare spenta li'. Da qui il requisito di durata.
+
+----------------------------------------------------------------------------------------------------
+(e') e (f') RISCRITTI — il freno non deve 'prendere i massimi' ma essere raro e informativo
+  quota di giorni in freno: 4.4% (richiesto: raro, <= 10%)
+  quota dei giorni di freno che cadono entro 12 mesi da un massimo: 79% (richiesto >= 60%)
+  rendimento a +12 mesi dei giorni di freno: mediana -18% (41% positivi) — richiesto: mediana negativa
+  giorni di freno in nov-dic 2020: 4 (tollerati <= 5, solo su estremi dichiarati)
+    il primo e' il 2020-12-28: MVRV 3.03, Mayer 2.06, RSI settimanale 91
+
+----------------------------------------------------------------------------------------------------
+(g) — sensibilita' alla finestra del percentile. Perimetro dichiarato: 3, 4 e 5 anni.
+      La finestra di 2 anni e' piu' corta di un ciclo di mercato ed e' mostrata solo per informazione.
+  finestra   soglie                straord.   freno    dicembre 2018      marzo 2020   novembre 2022     giugno 2026
+   730 gg   0.708/0.413           12.0%    3.8%           acceso              NO          acceso          acceso   cambi vs 4 anni: 12.3%  [fuori perimetro]
+  1095 gg   0.591/0.314           11.8%    5.1%           acceso          acceso          acceso          acceso   cambi vs 4 anni: 6.8%
+  1460 gg   0.426/0.232           12.0%    4.4%           acceso          acceso          acceso          acceso   (riferimento)
+  1825 gg   0.457/0.221           12.1%    4.5%           acceso          acceso          acceso          acceso   cambi vs 4 anni: 2.5%
+
+----------------------------------------------------------------------------------------------------
+F2.2-bis — le tre logiche di combinazione a confronto
+  logica                    straord.    freno   giugno 2026   +12 mesi (mediana)  positivi
+  AND stretto (tutti)           9.2%     7.3%        acceso                  51%       71%
+  AND morbido (5 su 7)         14.8%    17.0%        acceso                  59%       79%
+  OR largo (almeno 1)          58.7%    37.9%        acceso                  82%       73%
+  PUNTEGGIO (scelta)           12.0%     4.4%        acceso                  79%       87%
+  Lettura: l'AND stretto non si accende quasi mai (basta un ingrediente fuori posto),
+  l'OR largo si accende troppo e perde qualita'. Il punteggio sta in mezzo per costruzione.
+
+====================================================================================================
+ESITO
+  PASSA  (b) dicembre 2018
+  PASSA  (b) marzo 2020
+  PASSA  (b) novembre 2022
+  PASSA  (a) giugno 2026
+  PASSA  (c) quota straordinario 10-15%
+  PASSA  (d) niente straordinario prima dei massimi
+  PASSA  (e') freno raro e informativo
+  PASSA  (f') freno quasi muto a inizio rialzo 2020
+  PASSA  (g) stabile a 3, 4 e 5 anni (cambi < 15%, stesse date accese)
+
+  9/9 criteri operativi superati
+
+  Criteri originali del piano, sostituiti dopo la prova di incompatibilita'
+  (decisione dell'utente del 2026-09-20, motivazione in docs/04 §3):
+    non passava: (e) ORIGINALE: freno vicino ad almeno 3 massimi su 4
+    non passava: (f) ORIGINALE: zero freno a inizio rialzo 2020

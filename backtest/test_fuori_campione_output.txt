@@ -1,0 +1,31 @@
+====================================================================================================
+TEST FUORI CAMPIONE — soglie calibrate solo sul passato, poi congelate
+====================================================================================================
+
+Calibrato fino al 2018-12-31 (2633 giorni) → soglie 0.4148 / 0.2401
+  giorni mai visti dalla calibrazione: 2819 (2019-01-01 → 2026-09-19)
+  quota straordinario sui giorni nuovi: 13.6% (atteso 10-15%)
+  OK  marzo 2020: 19 giorni accesi, dal 2020-03-13
+  OK  novembre 2022: 27 giorni accesi, dal 2022-11-01
+  OK  giugno 2026: 14 giorni accesi, dal 2026-06-04
+  OK  nessuno straordinario nei 90 giorni prima del massimo 2021-04-13
+  OK  nessuno straordinario nei 90 giorni prima del massimo 2021-11-08
+  OK  nessuno straordinario nei 90 giorni prima del massimo 2025-10-06
+  rendimento a +12 mesi dei giorni straordinari NUOVI: mediana +73% (91% positivi) contro +48% di un giorno qualsiasi
+
+Calibrato fino al 2020-12-31 (3364 giorni) → soglie 0.4181 / 0.2276
+  giorni mai visti dalla calibrazione: 2088 (2021-01-01 → 2026-09-19)
+  quota straordinario sui giorni nuovi: 13.3% (atteso 10-15%)
+  OK  novembre 2022: 27 giorni accesi, dal 2022-11-01
+  OK  giugno 2026: 13 giorni accesi, dal 2026-06-05
+  OK  nessuno straordinario nei 90 giorni prima del massimo 2021-04-13
+  OK  nessuno straordinario nei 90 giorni prima del massimo 2021-11-08
+  OK  nessuno straordinario nei 90 giorni prima del massimo 2025-10-06
+  rendimento a +12 mesi dei giorni straordinari NUOVI: mediana +40% (88% positivi) contro +21% di un giorno qualsiasi
+
+Calibrato fino al 2022-12-31 (4094 giorni) → soglie 0.5115 / 0.2289
+  giorni mai visti dalla calibrazione: 1358 (2023-01-01 → 2026-09-19)
+  quota straordinario sui giorni nuovi: 1.1% (atteso 10-15%)
+  OK  giugno 2026: 5 giorni accesi, dal 2026-06-26
+  OK  nessuno straordinario nei 90 giorni prima del massimo 2025-10-06
+  rendimento a +12 mesi dei giorni straordinari NUOVI: mediana +163% (100% positivi) contro +79% di un giorno qualsiasi

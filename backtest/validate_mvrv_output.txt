@@ -1,0 +1,143 @@
+====================================================================================================
+SERIE: 2010-07-18 -> 2026-09-19 (5908 giorni, 0 buchi)
+MVRV oggi: 1.526 | Z-score espansivo: 0.92 | Z 4 anni rolling: -0.41
+
+====================================================================================================
+MASSIMI E MINIMI DI CICLO (trovati dai dati, non inseriti a mano)
+tipo    data             prezzo   MVRV  Z esp.   Z 4y  RSI-W  Mayer  P/200WMA  PiRatio
+TOP     2011-06-08           29   7.39     n/d    n/d   98.6  13.07       n/d      n/d
+BOTTOM  2011-11-18            2   0.42   -0.59    n/d   33.6   0.23       n/d     0.54
+TOP     2013-04-09          231   5.64   10.66    n/d   99.6   8.26       n/d     1.05
+BOTTOM  2013-07-06           66   1.35    0.53    n/d   46.1   0.93       n/d     1.20
+TOP     2013-12-04        1,135   4.72    7.71    n/d   97.1   5.71       n/d     1.00
+BOTTOM  2015-01-14          176   0.56   -0.60  -1.26   25.8   0.40      0.91     0.35
+TOP     2017-12-16       19,641   4.43    9.36   3.70   90.4   3.78     15.65     1.00
+BOTTOM  2018-12-15        3,185   0.69   -0.49  -1.33   29.0   0.51      1.00     0.38
+TOP     2021-04-13       63,446   3.43    5.38   1.93   74.2   1.97      5.53     1.00
+BOTTOM  2021-07-20       29,767   1.54    1.02  -0.44   40.4   0.67      2.13     0.69
+TOP     2021-11-08       67,542   2.85    3.53   1.41   70.2   1.48      3.89     0.57
+BOTTOM  2022-11-09       15,758   0.75   -0.36  -1.45   30.6   0.67      0.66     0.32
+TOP     2025-10-06      124,824   2.29    2.53   0.99   65.2   1.18      2.32     0.57
+
+====================================================================================================
+DERIVA DELLE SOGLIE TRA CICLI (massimo/minimo raggiunto in ogni finestra di ciclo)
+finestra                   MVRV max  Z esp max  Z4y max  MVRV min  Z esp min  Z4y min
+2010-07-18 -> 2011-06-08     146.04        n/d      n/d      2.17        n/d      n/d
+2011-06-08 -> 2013-04-09       7.39      10.66      n/d      0.39      -0.69      n/d
+2013-04-09 -> 2013-12-04       5.88      10.66      n/d      1.35       0.53      n/d
+2013-12-04 -> 2017-12-16       4.72      10.09     4.17      0.56      -0.60    -1.26
+2017-12-16 -> 2021-04-13       4.43       9.36     3.70      0.69      -0.49    -1.40
+2021-04-13 -> 2021-11-08       3.43       5.38     1.93      1.54       1.02    -0.44
+2021-11-08 -> 2025-10-06       2.85       3.53     1.52      0.75      -0.36    -1.45
+
+====================================================================================================
+RENDIMENTO FUTURO A 365 GIORNI PER BANDA DI MVRV (solo giorni con 365 gg di futuro disponibili)
+
+-- storia completa 2010->
+banda MVRV      giorni  mediana +1y  media +1y  peggiore  migliore  % positivi
+0-1                775         123%       177%      -27%     3800%         99%
+1-1.5             1282         112%       269%      -58%     4654%         84%
+1.5-2             1525         112%       522%      -67%     8931%         66%
+2-2.5              924          47%       253%      -73%     5173%         55%
+2.5-3.5            703          38%       324%      -78%     8125%         62%
+3.5-99             333         474%      3608%      -84%    27667%         71%
+
+-- solo 2017->
+banda MVRV      giorni  mediana +1y  media +1y  peggiore  migliore  % positivi
+0-1                319          92%       111%       13%     1064%        100%
+1-1.5              712          90%       130%      -56%      989%         91%
+1.5-2              910          32%       118%      -66%     1621%         60%
+2-2.5              736          -5%       117%      -73%     1816%         48%
+2.5-3.5            458          11%        58%      -78%     1228%         56%
+3.5-99              49         -31%       -23%      -84%      172%         18%
+
+====================================================================================================
+STESSA COSA CON LO Z-SCORE ESPANSIVO (bande classiche delle dashboard)
+banda Z         giorni  mediana +1y  media +1y  peggiore  migliore  % positivi
+-99-0              319          92%       111%       13%     1064%        100%
+0-1                830          99%       140%      -50%      989%         91%
+1-2                942          49%       122%      -67%     1816%         61%
+2-3                623         -16%        98%      -73%     1599%         42%
+3-5                323          16%        64%      -77%      786%         61%
+5-99               147         -22%       -13%      -84%      214%         24%
+
+====================================================================================================
+PI CYCLE TOP: incroci 111-DMA sopra 2x350-DMA
+  2013-04-06  prezzo        143  -> massimo di ciclo successivo 2013-04-09 (3 gg dopo, prezzo 231 = +61% rispetto al segnale)
+  2013-12-05  prezzo      1,027  -> massimo di ciclo successivo 2017-12-16 (1472 gg dopo, prezzo 19,641 = +1812% rispetto al segnale)
+  2017-12-16  prezzo     19,641  -> massimo di ciclo successivo 2017-12-16 (0 gg dopo, prezzo 19,641 = +0% rispetto al segnale)
+  2021-04-12  prezzo     59,906  -> massimo di ciclo successivo 2021-04-13 (1 gg dopo, prezzo 63,446 = +6% rispetto al segnale)
+
+====================================================================================================
+200-WMA: quanto spesso il prezzo ci sta sotto e quanto va sotto
+  giorni con 200-WMA disponibile: 4521  |  giorni sotto: 387 (8.6%)
+  massimo sfondamento: 2022-11-21 a -34% sotto la 200-WMA
+  anni con prezzo sotto la 200-WMA: 2015 (31 gg, min -9%), 2018 (1 gg, min -0%), 2020 (6 gg, min -10%), 2022 (177 gg, min -34%), 2023 (145 gg, min -32%), 2026 (27 gg, min -7%)
+
+====================================================================================================
+STABILITA' DELLE SOGLIE: valore dell'indicatore ai massimi/minimi di ciclo
+data         tipo    MVRV  Z esp   Z 4y  pct 4y  pct 2y  Mayer
+2011-06-08   TOP     7.39    n/d    n/d     n/d     n/d  13.07
+2013-04-09   TOP     5.64  10.66    n/d     n/d    98.1   8.26
+2013-12-04   TOP     4.72   7.71    n/d     n/d    97.3   5.71
+2017-12-16   TOP     4.43   9.36   3.70    99.9    99.9   3.78
+2021-04-13   TOP     3.43   5.38   1.93    95.8    95.3   1.97
+2021-11-08   TOP     2.85   3.53   1.41    88.3    83.8   1.48
+2025-10-06   TOP     2.29   2.53   0.99    83.6    74.5   1.18
+2011-11-18   BOT     0.42  -0.59    n/d     n/d     n/d   0.23
+2013-07-06   BOT     1.35   0.53    n/d     n/d    42.2   0.93
+2015-01-14   BOT     0.56  -0.60  -1.26     2.6     0.0   0.40
+2018-12-15   BOT     0.69  -0.49  -1.33     0.4     0.0   0.51
+2021-07-20   BOT     1.54   1.02  -0.44    37.2    22.6   0.67
+2022-11-09   BOT     0.75  -0.36  -1.45     0.7     0.0   0.67
+
+Coefficiente di variazione ai 4 massimi dell'era moderna 2017-12-16, 2021-04-13, 2021-11-08, 2025-10-06
+(piu' basso = soglia che si ripete di ciclo in ciclo; piu' alto = soglia che va ritarata ogni volta)
+   MVRV grezzo          [4.43, 3.43, 2.85, 2.29]  CV = 0.244
+   Z-score espansivo    [9.36, 5.38, 3.53, 2.53]  CV = 0.502
+   Z-score 4y rolling   [3.7, 1.93, 1.41, 0.99]  CV = 0.514
+   percentile 4 anni    [99.93, 95.75, 88.35, 83.55]  CV = 0.069
+   Mayer multiple       [3.78, 1.97, 1.48, 1.18]  CV = 0.479
+
+====================================================================================================
+RENDIMENTO A +365 GIORNI PER PERCENTILE MVRV SU 4 ANNI (dal 2017)
+percentile    giorni   mediana  positivi  peggiore  migliore
+0-10             189      127%      100%       13%     1064%
+10-25            370       83%       92%      -14%      854%
+25-50            732       88%       83%      -59%      686%
+50-75            876       13%       55%      -69%     1621%
+75-90            729        2%       50%      -77%     1816%
+90-101           288        9%       55%      -84%      568%
+
+====================================================================================================
+MVRV AGGIUNGE QUALCOSA RISPETTO AL MAYER MULTIPLE?
+  correlazione MVRV/Mayer dal 2017: r = 0.852 su 3549 giorni (molto correlati, ma non identici)
+  dentro ogni banda di Mayer, spacco i giorni in MVRV sotto/sopra la mediana della banda:
+  banda Mayer     giorni  MVRV mediano   +1y con MVRV basso   +1y con MVRV alto
+  0-0.8              523          1.05                 88%                 13%
+  0.8-1.0            680          1.54                 73%                -26%
+  1.0-1.2            677          1.80                166%                -30%
+  1.2-1.5            707          2.06                130%                  2%
+  1.5-2.4            538          2.73                 25%                 13%
+
+====================================================================================================
+PI CYCLE: quanto si e' avvicinato al segnale in ogni finestra (rapporto 111-DMA / 2x350-DMA, segnale a 1.00)
+  2014-01-01 -> 2018-06-30: massimo 1.183 il 2014-02-10
+  2018-07-01 -> 2021-12-31: massimo 1.004 il 2021-04-17
+  2022-01-01 -> 2026-09-19: massimo 0.736 il 2024-06-01
+
+====================================================================================================
+FOTOGRAFIA DI OGGI (2026-09-19)
+  prezzo (CoinMetrics PriceUSD): 81,262 USD
+  mayer            1.15
+  dd365            -34.9
+  rsi14_d          64.3
+  rsi14_w          58.8
+  price_vs_wma200  1.24
+  pi_ratio         0.43
+  mvrv             1.526
+  mvrv_z           0.92
+  mvrv_z_4y        -0.41
+  mvrv_pct4y       43.0
+  mvrv_pct2y       32.2
+  realized cap: 1,069,885,926,397 USD  |  market cap: 1,632,287,115,291 USD

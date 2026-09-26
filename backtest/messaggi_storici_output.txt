@@ -1,0 +1,700 @@
+
+=================================== 2018-12-15 — minimo di ciclo ===================================
+
+--- POLSO (quotidiano, deve stare in due o tre righe) ---------------------------------------------
+🟢 <b>3.185 $</b> · <b>STRAORDINARIO</b> — fase rara ed economica: varrebbe versare più del solito, in più colpi
+In linea con la media a 200 settimane, in avvicinamento da 3 giorni · settimana da 3x (~100 EUR in più, in più colpi) · <i>dati del 15/12 · MVRV del 15/12</i>.
+[2 righe, 271 caratteri]
+
+--- CAMBIO DI STATO (solo quando cambia davvero) -------------------------------------------------
+Cambio di stato: da normale a STRAORDINARIO (15/12/2018)
+
+Cosa vuol dire: fase rara ed economica: varrebbe versare più del solito, in più colpi.
+
+BTC 3.185 $ · in linea con la media a 200 settimane, in avvicinamento da 3 giorni.
+
+Perché: MVRV a 0,69: negli ultimi 4 anni è stato più alto di oggi in 1.453 giorni su 1.460 (100%); prezzo a 1,00 volte la media a 200 settimane: negli ultimi 4 anni è stato più alto di oggi in 1.428 giorni su 1.460 (98%); prezzo a -84% dal massimo dell'ultimo anno: il valore più basso degli ultimi 4 anni.
+
+Sforzo suggerito: settimana da 3x, cioè circa 100 EUR in più del ricorrente, da mettere in almeno 3 colpi e mai in uno solo. Tetto del ciclo: non l'hai ancora deciso, quindi non tengo un saldo e non propongo tranche oltre questa.
+
+Da tenere presente: questa fase può durare e peggiorare — nel 2022 il prezzo è rimasto 177 giorni sotto la media a 200 settimane, fino a -34% (docs/02 §5). Per questo lo sforzo va spalmato.
+
+L'ultima fase simile è cominciata il 23/08/2015 (6 giorni, prezzo 229 $) — da lì: dopo 6 mesi +92%, dopo 12 mesi +156%. Un solo precedente recente non è una previsione, e l'ampiezza dei cicli si sta riducendo.
+
+Dati usati: prezzo del 15/12/2018 (coinmetrics (PriceUSD, csv)) · MVRV del 15/12/2018.
+[1257 caratteri]
+
+--- ANALISI COMPLETA (su richiesta, un solo messaggio Telegram) ----------------------------------
+₿ <b>AphroditeBTC</b> · analisi del 15/12/2018
+
+🟢 <b>STRAORDINARIO</b>
+<i>fase rara ed economica: varrebbe versare più del solito, in più colpi</i>
+▸ quanto è ECONOMICO  ▮▮▮▮▮  <b>100% della strada</b> <i>(0,97 su 0,43 → straordinario)</i>
+     <i>spingono: MVRV, prezzo rispetto alla media a 200 settimane, distanza dal massimo dell'ultimo anno e altri 3</i>
+▸ quanto è CARO       ▯▯▯▯▯  <b>0% della strada</b> <i>(0,00 su 0,23 → caldo)</i>
+     <i>nessuno dei 7 indicatori è in zona cara</i>
+
+💵 <b>PREZZO</b>  <b>3.185 $</b>
+🔴 -0,4% 24h   🔴 -6,5% 7g   🔴 -42,5% 30g
+▸ dal massimo degli ultimi 12 mesi <b>-83,8%</b>
+     <i>19.641 $ il 16/12/2017 — è anche il massimo storico</i>
+▸ Mayer (media 200 giorni) <b>0,51</b>
+     <i>↳ negli ultimi 4 anni è stato più alto di oggi in 1.453 giorni su 1.460 (100%) · zona economica</i>
+▸ media 200 settimane <b>-0%</b>
+     <i>↳ negli ultimi 4 anni è stato più alto di oggi in 1.428 giorni su 1.460 (98%) · zona economica</i>
+
+⛓ <b>MVRV</b>  <b>0,69</b>
+     <i>↳ negli ultimi 4 anni è stato più alto di oggi in 1.453 giorni su 1.460 (100%) · zona economica</i>
+▸ ai massimi passati 4,43 · 3,43 · 2,85 · <b>2,29</b> (2017 → 2025)
+▸ dato del 15/12/2018
+
+📈 <b>MOMENTUM</b>
+▸ RSI <b>29</b> settimana · 27 giorno
+     <i>sotto 30 venduto · sopra 70 comprato</i>
+▸ Pi Cycle 0,38 <i>(spara a 1,00)</i>
+
+👥 <b>ATTENZIONE DELLA GENTE</b>
+▸ Fear &amp; Greed <b>11</b>/100 <i>(+1 vs ieri)</i>
+▸ ricerche Google <b>14</b>/100 <i>(mensile)</i>
+     <i>ai massimi passati 100 · 51 · 34 · <b>32</b> (2017 → 2025)</i>
+
+💶 <b>COSA VARREBBE FARE</b>
+• Sforzo suggerito: settimana da 3x, cioè circa 100 EUR in più del ricorrente, da mettere in almeno 3 colpi e mai in uno solo.
+• Tetto del ciclo: non l'hai ancora deciso, quindi non tengo un saldo e non propongo tranche oltre questa.
+
+⚠️ <b>ONESTÀ</b>
+• questa fase può durare e peggiorare
+   ↳ nel 2022 il prezzo è rimasto 177 giorni sotto la media a 200 settimane, fino a -34% (docs/02 §5)
+
+🕐 <b>L'ULTIMA VOLTA COSÌ</b>
+▸ 23/08/2015 · 6 giorni · 229 $
+     6 mesi <b>+92%</b> · 12 mesi <b>+156%</b>
+<i>Un solo precedente non è una previsione.</i>
+
+━━━━━━━━━━━━━━━
+📄 <i>Dati usati: prezzo del 15/12/2018 (coinmetrics (PriceUSD, csv)) · MVRV del 15/12/2018.</i>
+[2233 caratteri, limite Telegram 4096]
+
+=============================== 2019-06-26 — rimbalzo dopo il minimo ===============================
+
+--- POLSO (quotidiano, deve stare in due o tre righe) ---------------------------------------------
+🟠 <b>12.863 $</b> · <b>normale · CALDO da 13 giorni</b> — niente extra · freno a 60 giorni · non vuol dire vendere
+A +227% sopra la media a 200 settimane, in allontanamento da 8 giorni · <i>dati del 26/06 · MVRV del 26/06</i>.
+[2 righe, 226 caratteri]
+
+--- CAMBIO DI STATO (solo quando cambia davvero) -------------------------------------------------
+Cambio di stato: da STRAORDINARIO a normale (26/06/2019)
+
+Cosa vuol dire: mercato tirato: niente versamenti straordinari. Il freno scatta a 60 giorni di fila (ne mancano 47). Non è un segnale di vendita.
+
+BTC 12.863 $ · a +227% sopra la media a 200 settimane, in allontanamento da 8 giorni.
+
+Perché: Mayer multiple a 2,48: negli ultimi 4 anni è stato più alto di oggi in 27 giorni su 1.460 (2%); MVRV a 2,57: negli ultimi 4 anni è stato più alto di oggi in 212 giorni su 1.460 (15%); prezzo a 0% dal massimo dell'ultimo anno: negli ultimi 4 anni non è mai stato più alto di oggi (uguale in 121 giorni su 1.460); mercato caro da 13 giorni: sotto i 60 richiesti perché sia una fase matura.
+
+L'ultima fase simile è cominciata il 19/05/2019 (3 giorni, prezzo 8.220 $) — da lì: dopo 6 mesi +3%, dopo 12 mesi +18%. Un solo precedente non è una previsione.
+
+Dati usati: prezzo del 26/06/2019 (coinmetrics (PriceUSD, csv)) · MVRV del 26/06/2019.
+[937 caratteri]
+
+--- ANALISI COMPLETA (su richiesta, un solo messaggio Telegram) ----------------------------------
+₿ <b>AphroditeBTC</b> · analisi del 26/06/2019
+
+🟠 <b>NORMALE · CALDO DA 13 GIORNI</b>
+<i>mercato tirato: niente versamenti straordinari. Il freno scatta a 60 giorni di fila (ne mancano 47). Non è un segnale di vendita</i>
+▸ quanto è ECONOMICO  ▯▯▯▯▯  <b>0% della strada</b> <i>(0,00 su 0,43 → straordinario)</i>
+     <i>nessuno dei 7 indicatori è in zona economica</i>
+▸ quanto è CARO       ▮▮▮▮▮  <b>100% della strada</b> <i>(0,63 su 0,23 → caldo)</i>
+     <i>spingono: Mayer multiple (prezzo/media 200 giorni), MVRV, distanza dal massimo dell'ultimo anno e altri 4</i>
+
+💵 <b>PREZZO</b>  <b>12.863 $</b>
+🟢 +9,7% 24h   🟢 +38,5% 7g   🟢 +45,9% 30g
+▸ dal massimo degli ultimi 12 mesi <b>0,0%</b>
+     <i>12.863 $ il 26/06/2019 · massimo storico 19.641 $ del 16/12/2017, da lì -34,5%</i>
+▸ Mayer (media 200 giorni) <b>2,48</b>
+     <i>↳ negli ultimi 4 anni è stato più alto di oggi in 27 giorni su 1.460 (2%) · zona cara</i>
+▸ media 200 settimane <b>+227%</b>
+     <i>↳ negli ultimi 4 anni è stato più alto di oggi in 375 giorni su 1.460 (26%) · zona cara</i>
+
+⛓ <b>MVRV</b>  <b>2,57</b>
+     <i>↳ negli ultimi 4 anni è stato più alto di oggi in 212 giorni su 1.460 (15%) · zona cara</i>
+▸ ai massimi passati 4,43 · 3,43 · 2,85 · <b>2,29</b> (2017 → 2025)
+▸ dato del 26/06/2019
+
+📈 <b>MOMENTUM</b>
+▸ RSI <b>82</b> settimana · 86 giorno
+     <i>sotto 30 venduto · sopra 70 comprato</i>
+▸ Pi Cycle 0,57 <i>(spara a 1,00)</i>
+
+👥 <b>ATTENZIONE DELLA GENTE</b>
+▸ Fear &amp; Greed <b>95</b>/100 <i>(+8 vs ieri)</i>
+▸ ricerche Google <b>15</b>/100 <i>(mensile)</i>
+     <i>ai massimi passati 100 · 51 · 34 · <b>32</b> (2017 → 2025)</i>
+
+🕐 <b>L'ULTIMA VOLTA COSÌ</b>
+▸ 19/05/2019 · 3 giorni · 8.220 $
+     6 mesi <b>+3%</b> · 12 mesi <b>+18%</b>
+<i>Un solo precedente non è una previsione.</i>
+
+━━━━━━━━━━━━━━━
+📄 <i>Dati usati: prezzo del 26/06/2019 (coinmetrics (PriceUSD, csv)) · MVRV del 26/06/2019.</i>
+[1893 caratteri, limite Telegram 4096]
+
+================================== 2020-03-13 — crollo del covid ===================================
+
+--- POLSO (quotidiano, deve stare in due o tre righe) ---------------------------------------------
+🟢 <b>5.628 $</b> · <b>STRAORDINARIO</b> — fase rara ed economica: varrebbe versare più del solito, in più colpi
+A +2% sopra la media a 200 settimane · settimana da 2x (~50 EUR in più, in più colpi) · <i>dati del 13/03 · MVRV del 13/03</i>.
+[2 righe, 239 caratteri]
+
+--- CAMBIO DI STATO (solo quando cambia davvero) -------------------------------------------------
+Cambio di stato: da normale a STRAORDINARIO (13/03/2020)
+
+Cosa vuol dire: fase rara ed economica: varrebbe versare più del solito, in più colpi.
+
+BTC 5.628 $ · a +2% sopra la media a 200 settimane.
+
+Perché: prezzo a 1,02 volte la media a 200 settimane: negli ultimi 4 anni è stato più alto di oggi in 1.453 giorni su 1.460 (100%); MVRV a 1,00: negli ultimi 4 anni è stato più alto di oggi in 1.324 giorni su 1.460 (91%); Mayer multiple a 0,65: negli ultimi 4 anni è stato più alto di oggi in 1.370 giorni su 1.460 (94%).
+
+Sforzo suggerito: settimana da 2x, cioè circa 50 EUR in più del ricorrente, da mettere in almeno 3 colpi e mai in uno solo. Tetto del ciclo: non l'hai ancora deciso, quindi non tengo un saldo e non propongo tranche oltre questa.
+
+Da tenere presente: questa fase può durare e peggiorare — nel 2022 il prezzo è rimasto 177 giorni sotto la media a 200 settimane, fino a -34% (docs/02 §5). Per questo lo sforzo va spalmato.
+
+L'ultima fase simile è cominciata il 12/12/2019 (9 giorni, prezzo 7.193 $) — da lì: dopo 6 mesi +29%, dopo 12 mesi +151%. Un solo precedente recente non è una previsione, e l'ampiezza dei cicli si sta riducendo.
+
+Dati usati: prezzo del 13/03/2020 (coinmetrics (PriceUSD, csv)) · MVRV del 13/03/2020.
+[1242 caratteri]
+
+--- ANALISI COMPLETA (su richiesta, un solo messaggio Telegram) ----------------------------------
+₿ <b>AphroditeBTC</b> · analisi del 13/03/2020
+
+🟢 <b>STRAORDINARIO</b>
+<i>fase rara ed economica: varrebbe versare più del solito, in più colpi</i>
+▸ quanto è ECONOMICO  ▮▮▮▮▮  <b>100% della strada</b> <i>(0,74 su 0,43 → straordinario)</i>
+     <i>spingono: prezzo rispetto alla media a 200 settimane, MVRV, Mayer multiple (prezzo/media 200 giorni) e altri 4</i>
+▸ quanto è CARO       ▯▯▯▯▯  <b>0% della strada</b> <i>(0,00 su 0,23 → caldo)</i>
+     <i>nessuno dei 7 indicatori è in zona cara</i>
+
+💵 <b>PREZZO</b>  <b>5.628 $</b>
+🟢 +13,5% 24h   🔴 -38,5% 7g   🔴 -45,7% 30g
+▸ dal massimo degli ultimi 12 mesi <b>-56,3%</b>
+     <i>12.863 $ il 26/06/2019 · massimo storico 19.641 $ del 16/12/2017, da lì -71,3%</i>
+▸ Mayer (media 200 giorni) <b>0,65</b>
+     <i>↳ negli ultimi 4 anni è stato più alto di oggi in 1.370 giorni su 1.460 (94%) · zona economica</i>
+▸ media 200 settimane <b>+2%</b>
+     <i>↳ negli ultimi 4 anni è stato più alto di oggi in 1.453 giorni su 1.460 (100%) · zona economica</i>
+
+⛓ <b>MVRV</b>  <b>1,00</b>
+     <i>↳ negli ultimi 4 anni è stato più alto di oggi in 1.324 giorni su 1.460 (91%) · zona economica</i>
+▸ ai massimi passati 4,43 · 3,43 · 2,85 · <b>2,29</b> (2017 → 2025)
+▸ dato del 13/03/2020
+
+📈 <b>MOMENTUM</b>
+▸ RSI <b>34</b> settimana · 25 giorno
+     <i>sotto 30 venduto · sopra 70 comprato</i>
+▸ Pi Cycle 0,48 <i>(spara a 1,00)</i>
+
+👥 <b>ATTENZIONE DELLA GENTE</b>
+▸ Fear &amp; Greed <b>10</b>/100 <i>(-4 vs ieri)</i>
+▸ ricerche Google <b>14</b>/100 <i>(mensile)</i>
+     <i>ai massimi passati 100 · 51 · 34 · <b>32</b> (2017 → 2025)</i>
+
+💶 <b>COSA VARREBBE FARE</b>
+• Sforzo suggerito: settimana da 2x, cioè circa 50 EUR in più del ricorrente, da mettere in almeno 3 colpi e mai in uno solo.
+• Tetto del ciclo: non l'hai ancora deciso, quindi non tengo un saldo e non propongo tranche oltre questa.
+
+⚠️ <b>ONESTÀ</b>
+• questa fase può durare e peggiorare
+   ↳ nel 2022 il prezzo è rimasto 177 giorni sotto la media a 200 settimane, fino a -34% (docs/02 §5)
+
+🕐 <b>L'ULTIMA VOLTA COSÌ</b>
+▸ 12/12/2019 · 9 giorni · 7.193 $
+     6 mesi <b>+29%</b> · 12 mesi <b>+151%</b>
+<i>Un solo precedente non è una previsione.</i>
+
+━━━━━━━━━━━━━━━
+📄 <i>Dati usati: prezzo del 13/03/2020 (coinmetrics (PriceUSD, csv)) · MVRV del 13/03/2020.</i>
+[2265 caratteri, limite Telegram 4096]
+
+================== 2020-12-30 — inizio del rialzo: il caso difficile per il freno ==================
+
+--- POLSO (quotidiano, deve stare in due o tre righe) ---------------------------------------------
+🔴 <b>28.845 $</b> · <b>FRENO</b> — fase cara da mesi: nessun versamento extra (non è un invito a vendere)
+A +266% sopra la media a 200 settimane, in allontanamento da 3 giorni · mercato caro da 63 giorni di fila · <i>dati del 30/12 · MVRV del 30/12</i>.
+[2 righe, 253 caratteri]
+
+--- CAMBIO DI STATO (solo quando cambia davvero) -------------------------------------------------
+Cambio di stato: da normale a FRENO (30/12/2020)
+
+Cosa vuol dire: fase cara da mesi: nessun versamento extra (non è un invito a vendere).
+
+BTC 28.845 $ · a +266% sopra la media a 200 settimane, in allontanamento da 3 giorni · mercato caro da 63 giorni di fila.
+
+Perché: MVRV a 3,15: negli ultimi 4 anni è stato più alto di oggi in 60 giorni su 1.460 (4%); Mayer multiple a 2,17: negli ultimi 4 anni è stato più alto di oggi in 72 giorni su 1.460 (5%); prezzo a 0% dal massimo dell'ultimo anno: negli ultimi 4 anni non è mai stato più alto di oggi (uguale in 121 giorni su 1.460).
+
+Nota: «freno» vuol dire solo non aggiungere extra. Non è un invito a vendere, e su 4 massimi storici questo segnale ne ha colti 2.
+
+L'ultima fase simile è cominciata il 14/11/2017 (70 giorni, prezzo 6.592 $) — da lì: dopo 6 mesi +29%, dopo 12 mesi -15%. Un solo precedente non è una previsione.
+
+Dati usati: prezzo del 30/12/2020 (coinmetrics (PriceUSD, csv)) · MVRV del 30/12/2020.
+[963 caratteri]
+
+--- ANALISI COMPLETA (su richiesta, un solo messaggio Telegram) ----------------------------------
+₿ <b>AphroditeBTC</b> · analisi del 30/12/2020
+
+🔴 <b>FRENO</b>
+<i>fase cara da mesi: nessun versamento extra (non è un invito a vendere)</i>
+▸ quanto è ECONOMICO  ▯▯▯▯▯  <b>0% della strada</b> <i>(0,00 su 0,43 → straordinario)</i>
+     <i>nessuno dei 7 indicatori è in zona economica</i>
+▸ quanto è CARO       ▮▮▮▮▮  <b>100% della strada</b> <i>(0,72 su 0,23 → caldo)</i>
+     <i>spingono: MVRV, Mayer multiple (prezzo/media 200 giorni), distanza dal massimo dell'ultimo anno e altri 4</i>
+
+💵 <b>PREZZO</b>  <b>28.845 $</b>
+🟢 +5,9% 24h   🟢 +23,8% 7g   🟢 +46,7% 30g
+▸ dal massimo degli ultimi 12 mesi <b>0,0%</b>
+     <i>28.845 $ il 30/12/2020 — è anche il massimo storico</i>
+▸ Mayer (media 200 giorni) <b>2,17</b>
+     <i>↳ negli ultimi 4 anni è stato più alto di oggi in 72 giorni su 1.460 (5%) · zona cara</i>
+▸ media 200 settimane <b>+266%</b>
+     <i>↳ negli ultimi 4 anni è stato più alto di oggi in 345 giorni su 1.460 (24%) · zona cara</i>
+
+⛓ <b>MVRV</b>  <b>3,15</b>
+     <i>↳ negli ultimi 4 anni è stato più alto di oggi in 60 giorni su 1.460 (4%) · zona cara</i>
+▸ ai massimi passati 4,43 · 3,43 · 2,85 · <b>2,29</b> (2017 → 2025)
+▸ dato del 30/12/2020
+
+📈 <b>MOMENTUM</b>
+▸ RSI <b>92</b> settimana · 84 giorno
+     <i>sotto 30 venduto · sopra 70 comprato</i>
+▸ Pi Cycle 0,70 <i>(spara a 1,00)</i>
+
+👥 <b>ATTENZIONE DELLA GENTE</b>
+▸ Fear &amp; Greed <b>91</b>/100 <i>(+0 vs ieri)</i>
+▸ ricerche Google <b>23</b>/100 <i>(mensile)</i>
+     <i>ai massimi passati 100 · 51 · 34 · <b>32</b> (2017 → 2025)</i>
+
+🕐 <b>L'ULTIMA VOLTA COSÌ</b>
+▸ 14/11/2017 · 70 giorni · 6.592 $
+     6 mesi <b>+29%</b> · 12 mesi <b>-15%</b>
+<i>Un solo precedente non è una previsione.</i>
+
+━━━━━━━━━━━━━━━
+📄 <i>Dati usati: prezzo del 30/12/2020 (coinmetrics (PriceUSD, csv)) · MVRV del 30/12/2020.</i>
+[1785 caratteri, limite Telegram 4096]
+
+================================== 2021-11-08 — massimo di ciclo ===================================
+
+--- POLSO (quotidiano, deve stare in due o tre righe) ---------------------------------------------
+🟠 <b>67.542 $</b> · <b>normale · CALDO da 12 giorni</b> — niente extra · freno a 60 giorni · non vuol dire vendere
+A +289% sopra la media a 200 settimane, in allontanamento da 3 giorni · <i>dati del 08/11 · MVRV del 08/11</i>.
+[2 righe, 226 caratteri]
+
+--- CAMBIO DI STATO (solo quando cambia davvero) -------------------------------------------------
+Cambio di stato: da FRENO a normale (08/11/2021)
+
+Cosa vuol dire: mercato tirato: niente versamenti straordinari. Il freno scatta a 60 giorni di fila (ne mancano 48). Non è un segnale di vendita.
+
+BTC 67.542 $ · a +289% sopra la media a 200 settimane, in allontanamento da 3 giorni.
+
+Perché: MVRV a 2,85: negli ultimi 4 anni è stato più alto di oggi in 170 giorni su 1.460 (12%); prezzo a 0% dal massimo dell'ultimo anno: negli ultimi 4 anni non è mai stato più alto di oggi (uguale in 84 giorni su 1.460); prezzo a 3,89 volte la media a 200 settimane: negli ultimi 4 anni è stato più alto di oggi in 286 giorni su 1.460 (20%); mercato caro da 12 giorni: sotto i 60 richiesti perché sia una fase matura.
+
+L'ultima fase simile è cominciata il 29/10/2020 (60 giorni, prezzo 13.475 $) — da lì: dopo 6 mesi +298%, dopo 12 mesi +362%. Un solo precedente non è una previsione.
+
+Dati usati: prezzo del 08/11/2021 (coinmetrics (PriceUSD, csv)) · MVRV del 08/11/2021.
+[958 caratteri]
+
+--- ANALISI COMPLETA (su richiesta, un solo messaggio Telegram) ----------------------------------
+₿ <b>AphroditeBTC</b> · analisi del 08/11/2021
+
+🟠 <b>NORMALE · CALDO DA 12 GIORNI</b>
+<i>mercato tirato: niente versamenti straordinari. Il freno scatta a 60 giorni di fila (ne mancano 48). Non è un segnale di vendita</i>
+▸ quanto è ECONOMICO  ▯▯▯▯▯  <b>0% della strada</b> <i>(0,00 su 0,43 → straordinario)</i>
+     <i>nessuno dei 7 indicatori è in zona economica</i>
+▸ quanto è CARO       ▮▮▮▮▮  <b>100% della strada</b> <i>(0,49 su 0,23 → caldo)</i>
+     <i>spingono: MVRV, distanza dal massimo dell'ultimo anno, prezzo rispetto alla media a 200 settimane e altri 4</i>
+
+💵 <b>PREZZO</b>  <b>67.542 $</b>
+🟢 +7,1% 24h   🟢 +10,6% 7g   🟢 +22,8% 30g
+▸ dal massimo degli ultimi 12 mesi <b>0,0%</b>
+     <i>67.542 $ il 08/11/2021 — è anche il massimo storico</i>
+▸ Mayer (media 200 giorni) <b>1,48</b>
+     <i>↳ negli ultimi 4 anni è stato più alto di oggi in 349 giorni su 1.460 (24%) · zona cara</i>
+▸ media 200 settimane <b>+289%</b>
+     <i>↳ negli ultimi 4 anni è stato più alto di oggi in 286 giorni su 1.460 (20%) · zona cara</i>
+
+⛓ <b>MVRV</b>  <b>2,85</b>
+     <i>↳ negli ultimi 4 anni è stato più alto di oggi in 170 giorni su 1.460 (12%) · zona cara</i>
+▸ ai massimi passati 4,43 · 3,43 · 2,85 · <b>2,29</b> (2017 → 2025)
+▸ dato del 08/11/2021
+
+📈 <b>MOMENTUM</b>
+▸ RSI <b>70</b> settimana · 69 giorno
+     <i>sotto 30 venduto · sopra 70 comprato</i>
+▸ Pi Cycle 0,57 <i>(spara a 1,00)</i>
+
+👥 <b>ATTENZIONE DELLA GENTE</b>
+▸ Fear &amp; Greed <b>75</b>/100 <i>(+2 vs ieri)</i>
+▸ ricerche Google <b>36</b>/100 <i>(mensile)</i>
+     <i>ai massimi passati 100 · 51 · 34 · <b>32</b> (2017 → 2025)</i>
+
+🕐 <b>L'ULTIMA VOLTA COSÌ</b>
+▸ 29/10/2020 · 60 giorni · 13.475 $
+     6 mesi <b>+298%</b> · 12 mesi <b>+362%</b>
+<i>Un solo precedente non è una previsione.</i>
+
+━━━━━━━━━━━━━━━
+📄 <i>Dati usati: prezzo del 08/11/2021 (coinmetrics (PriceUSD, csv)) · MVRV del 08/11/2021.</i>
+[1875 caratteri, limite Telegram 4096]
+
+================================ 2022-06-18 — mercato orso profondo ================================
+
+--- POLSO (quotidiano, deve stare in due o tre righe) ---------------------------------------------
+🟢 <b>19.014 $</b> · <b>STRAORDINARIO</b> — fase rara ed economica: varrebbe versare più del solito, in più colpi
+A 15% sotto la media a 200 settimane · settimana da 3x (~100 EUR in più, in più colpi) · <i>dati del 18/06 · MVRV del 18/06</i>.
+[2 righe, 241 caratteri]
+
+--- CAMBIO DI STATO (solo quando cambia davvero) -------------------------------------------------
+Cambio di stato: da normale a STRAORDINARIO (18/06/2022)
+
+Cosa vuol dire: fase rara ed economica: varrebbe versare più del solito, in più colpi.
+
+BTC 19.014 $ · a 15% sotto la media a 200 settimane.
+
+Perché: MVRV a 0,84: negli ultimi 4 anni è stato più alto di oggi in 1.390 giorni su 1.460 (95%); prezzo a 0,85 volte la media a 200 settimane: il valore più basso degli ultimi 4 anni; Mayer multiple a 0,48: il valore più basso degli ultimi 4 anni.
+
+Sforzo suggerito: settimana da 3x, cioè circa 100 EUR in più del ricorrente, da mettere in almeno 3 colpi e mai in uno solo. Tetto del ciclo: non l'hai ancora deciso, quindi non tengo un saldo e non propongo tranche oltre questa.
+
+Da tenere presente: questa fase può durare e peggiorare — nel 2022 il prezzo è rimasto 177 giorni sotto la media a 200 settimane, fino a -34% (docs/02 §5). Per questo lo sforzo va spalmato.
+
+L'ultima fase simile è cominciata il 13/03/2020 (25 giorni, prezzo 5.628 $) — da lì: dopo 6 mesi +85%, dopo 12 mesi +989%. Un solo precedente recente non è una previsione, e l'ampiezza dei cicli si sta riducendo.
+
+Dati usati: prezzo del 18/06/2022 (coinmetrics (PriceUSD, csv)) · MVRV del 18/06/2022.
+[1172 caratteri]
+
+--- ANALISI COMPLETA (su richiesta, un solo messaggio Telegram) ----------------------------------
+₿ <b>AphroditeBTC</b> · analisi del 18/06/2022
+
+🟢 <b>STRAORDINARIO</b>
+<i>fase rara ed economica: varrebbe versare più del solito, in più colpi</i>
+▸ quanto è ECONOMICO  ▮▮▮▮▮  <b>100% della strada</b> <i>(0,94 su 0,43 → straordinario)</i>
+     <i>spingono: MVRV, prezzo rispetto alla media a 200 settimane, Mayer multiple (prezzo/media 200 giorni) e altri 4</i>
+▸ quanto è CARO       ▯▯▯▯▯  <b>0% della strada</b> <i>(0,00 su 0,23 → caldo)</i>
+     <i>nessuno dei 7 indicatori è in zona cara</i>
+
+💵 <b>PREZZO</b>  <b>19.014 $</b>
+🔴 -7,1% 24h   🔴 -33,0% 7g   🔴 -37,2% 30g
+▸ dal massimo degli ultimi 12 mesi <b>-71,8%</b>
+     <i>67.542 $ il 08/11/2021 — è anche il massimo storico</i>
+▸ Mayer (media 200 giorni) <b>0,48</b>
+     <i>↳ il valore più basso degli ultimi 4 anni · zona economica</i>
+▸ media 200 settimane <b>-15%</b>
+     <i>↳ il valore più basso degli ultimi 4 anni · zona economica</i>
+
+⛓ <b>MVRV</b>  <b>0,84</b>
+     <i>↳ negli ultimi 4 anni è stato più alto di oggi in 1.390 giorni su 1.460 (95%) · zona economica</i>
+▸ ai massimi passati 4,43 · 3,43 · 2,85 · <b>2,29</b> (2017 → 2025)
+▸ dato del 18/06/2022
+
+📈 <b>MOMENTUM</b>
+▸ RSI <b>25</b> settimana · 21 giorno
+     <i>sotto 30 venduto · sopra 70 comprato</i>
+▸ Pi Cycle 0,42 <i>(spara a 1,00)</i>
+
+👥 <b>ATTENZIONE DELLA GENTE</b>
+▸ Fear &amp; Greed <b>6</b>/100 <i>(-3 vs ieri)</i>
+▸ ricerche Google <b>36</b>/100 <i>(mensile)</i>
+     <i>ai massimi passati 100 · 51 · 34 · <b>32</b> (2017 → 2025)</i>
+
+💶 <b>COSA VARREBBE FARE</b>
+• Sforzo suggerito: settimana da 3x, cioè circa 100 EUR in più del ricorrente, da mettere in almeno 3 colpi e mai in uno solo.
+• Tetto del ciclo: non l'hai ancora deciso, quindi non tengo un saldo e non propongo tranche oltre questa.
+
+⚠️ <b>ONESTÀ</b>
+• questa fase può durare e peggiorare
+   ↳ nel 2022 il prezzo è rimasto 177 giorni sotto la media a 200 settimane, fino a -34% (docs/02 §5)
+
+🕐 <b>L'ULTIMA VOLTA COSÌ</b>
+▸ 13/03/2020 · 25 giorni · 5.628 $
+     6 mesi <b>+85%</b> · 12 mesi <b>+989%</b>
+<i>Un solo precedente non è una previsione.</i>
+
+━━━━━━━━━━━━━━━
+📄 <i>Dati usati: prezzo del 18/06/2022 (coinmetrics (PriceUSD, csv)) · MVRV del 18/06/2022.</i>
+[2167 caratteri, limite Telegram 4096]
+
+=================================== 2022-11-09 — minimo di ciclo ===================================
+
+--- POLSO (quotidiano, deve stare in due o tre righe) ---------------------------------------------
+🟢 <b>15.758 $</b> · <b>STRAORDINARIO</b> — fase rara ed economica: varrebbe versare più del solito, in più colpi
+A 34% sotto la media a 200 settimane, in avvicinamento da 4 giorni · settimana da 2,5x (~75 EUR in più, in più colpi) · <i>dati del 09/11 · MVRV del 09/11</i>.
+[2 righe, 272 caratteri]
+
+--- CAMBIO DI STATO (solo quando cambia davvero) -------------------------------------------------
+Cambio di stato: da normale a STRAORDINARIO (09/11/2022)
+
+Cosa vuol dire: fase rara ed economica: varrebbe versare più del solito, in più colpi.
+
+BTC 15.758 $ · a 34% sotto la media a 200 settimane, in avvicinamento da 4 giorni.
+
+Perché: MVRV a 0,75: negli ultimi 4 anni è stato più alto di oggi in 1.449 giorni su 1.460 (99%); prezzo a 0,66 volte la media a 200 settimane: il valore più basso degli ultimi 4 anni; prezzo a -76% dal massimo dell'ultimo anno: negli ultimi 4 anni è stato più alto di oggi in 1.412 giorni su 1.460 (97%).
+
+Sforzo suggerito: settimana da 2,5x, cioè circa 75 EUR in più del ricorrente, da mettere in almeno 3 colpi e mai in uno solo. Tetto del ciclo: non l'hai ancora deciso, quindi non tengo un saldo e non propongo tranche oltre questa.
+
+Da tenere presente: questa fase può durare e peggiorare — nel 2022 il prezzo è rimasto 177 giorni sotto la media a 200 settimane, fino a -34% (docs/02 §5). Per questo lo sforzo va spalmato.
+
+L'ultima fase simile è cominciata il 02/06/2022 (5 giorni, prezzo 30.504 $) — da lì: dopo 6 mesi -44%, dopo 12 mesi -11%. Un solo precedente recente non è una previsione, e l'ampiezza dei cicli si sta riducendo.
+
+Dati usati: prezzo del 09/11/2022 (coinmetrics (PriceUSD, csv)) · MVRV del 09/11/2022.
+[1259 caratteri]
+
+--- ANALISI COMPLETA (su richiesta, un solo messaggio Telegram) ----------------------------------
+₿ <b>AphroditeBTC</b> · analisi del 09/11/2022
+
+🟢 <b>STRAORDINARIO</b>
+<i>fase rara ed economica: varrebbe versare più del solito, in più colpi</i>
+▸ quanto è ECONOMICO  ▮▮▮▮▮  <b>100% della strada</b> <i>(0,82 su 0,43 → straordinario)</i>
+     <i>spingono: MVRV, prezzo rispetto alla media a 200 settimane, distanza dal massimo dell'ultimo anno e altri 3</i>
+▸ quanto è CARO       ▯▯▯▯▯  <b>0% della strada</b> <i>(0,00 su 0,23 → caldo)</i>
+     <i>nessuno dei 7 indicatori è in zona cara</i>
+
+💵 <b>PREZZO</b>  <b>15.758 $</b>
+🔴 -14,9% 24h   🔴 -21,8% 7g   🔴 -17,7% 30g
+▸ dal massimo degli ultimi 12 mesi <b>-75,8%</b>
+     <i>65.032 $ il 14/11/2021 · massimo storico 67.542 $ del 08/11/2021, da lì -76,7%</i>
+▸ Mayer (media 200 giorni) <b>0,67</b>
+     <i>↳ negli ultimi 4 anni è stato più alto di oggi in 1.293 giorni su 1.460 (89%) · zona economica</i>
+▸ media 200 settimane <b>-34%</b>
+     <i>↳ il valore più basso degli ultimi 4 anni · zona economica</i>
+
+⛓ <b>MVRV</b>  <b>0,75</b>
+     <i>↳ negli ultimi 4 anni è stato più alto di oggi in 1.449 giorni su 1.460 (99%) · zona economica</i>
+▸ ai massimi passati 4,43 · 3,43 · 2,85 · <b>2,29</b> (2017 → 2025)
+▸ dato del 09/11/2022
+
+📈 <b>MOMENTUM</b>
+▸ RSI <b>31</b> settimana · 24 giorno
+     <i>sotto 30 venduto · sopra 70 comprato</i>
+▸ Pi Cycle 0,32 <i>(spara a 1,00)</i>
+
+👥 <b>ATTENZIONE DELLA GENTE</b>
+▸ Fear &amp; Greed <b>29</b>/100 <i>(-2 vs ieri)</i>
+▸ ricerche Google <b>17</b>/100 <i>(mensile)</i>
+     <i>ai massimi passati 100 · 51 · 34 · <b>32</b> (2017 → 2025)</i>
+
+💶 <b>COSA VARREBBE FARE</b>
+• Sforzo suggerito: settimana da 2,5x, cioè circa 75 EUR in più del ricorrente, da mettere in almeno 3 colpi e mai in uno solo.
+• Tetto del ciclo: non l'hai ancora deciso, quindi non tengo un saldo e non propongo tranche oltre questa.
+
+⚠️ <b>ONESTÀ</b>
+• questa fase può durare e peggiorare
+   ↳ nel 2022 il prezzo è rimasto 177 giorni sotto la media a 200 settimane, fino a -34% (docs/02 §5)
+
+🕐 <b>L'ULTIMA VOLTA COSÌ</b>
+▸ 02/06/2022 · 5 giorni · 30.504 $
+     6 mesi <b>-44%</b> · 12 mesi <b>-11%</b>
+<i>Un solo precedente non è una previsione.</i>
+
+━━━━━━━━━━━━━━━
+📄 <i>Dati usati: prezzo del 09/11/2022 (coinmetrics (PriceUSD, csv)) · MVRV del 09/11/2022.</i>
+[2229 caratteri, limite Telegram 4096]
+
+============================= 2025-10-06 — massimo di ciclo (presunto) =============================
+
+--- POLSO (quotidiano, deve stare in due o tre righe) ---------------------------------------------
+🟠 <b>124.824 $</b> · <b>normale · CALDO da 5 giorni</b> — niente extra · freno a 60 giorni · non vuol dire vendere
+A +132% sopra la media a 200 settimane, in allontanamento da 6 giorni · <i>dati del 06/10 · MVRV del 06/10</i>.
+[2 righe, 226 caratteri]
+
+--- CAMBIO DI STATO (solo quando cambia davvero) -------------------------------------------------
+Cambio di stato: da normale a normale (06/10/2025)
+
+Cosa vuol dire: mercato tirato: niente versamenti straordinari. Il freno scatta a 60 giorni di fila (ne mancano 55). Non è un segnale di vendita.
+
+BTC 124.824 $ · a +132% sopra la media a 200 settimane, in allontanamento da 6 giorni.
+
+Perché: prezzo a 2,32 volte la media a 200 settimane: negli ultimi 4 anni è stato più alto di oggi in 145 giorni su 1.460 (10%); prezzo a 0% dal massimo dell'ultimo anno: negli ultimi 4 anni non è mai stato più alto di oggi (uguale in 76 giorni su 1.460); MVRV a 2,29: negli ultimi 4 anni è stato più alto di oggi in 240 giorni su 1.460 (16%); mercato caro da 5 giorni: sotto i 60 richiesti perché sia una fase matura.
+
+L'ultima fase simile è cominciata il 07/08/2025 (8 giorni, prezzo 117.445 $) — da lì: dopo 6 mesi -46%, dopo 12 mesi -45%. Un solo precedente non è una previsione.
+
+Dati usati: prezzo del 06/10/2025 (coinmetrics (PriceUSD, csv)) · MVRV del 06/10/2025.
+[958 caratteri]
+
+--- ANALISI COMPLETA (su richiesta, un solo messaggio Telegram) ----------------------------------
+₿ <b>AphroditeBTC</b> · analisi del 06/10/2025
+
+🟠 <b>NORMALE · CALDO DA 5 GIORNI</b>
+<i>mercato tirato: niente versamenti straordinari. Il freno scatta a 60 giorni di fila (ne mancano 55). Non è un segnale di vendita</i>
+▸ quanto è ECONOMICO  ▯▯▯▯▯  <b>0% della strada</b> <i>(0,00 su 0,43 → straordinario)</i>
+     <i>nessuno dei 7 indicatori è in zona economica</i>
+▸ quanto è CARO       ▮▮▮▮▮  <b>100% della strada</b> <i>(0,43 su 0,23 → caldo)</i>
+     <i>spingono: prezzo rispetto alla media a 200 settimane, distanza dal massimo dell'ultimo anno, MVRV e altri 2</i>
+
+💵 <b>PREZZO</b>  <b>124.824 $</b>
+🟢 +1,1% 24h   🟢 +9,2% 7g   🟢 +13,2% 30g
+▸ dal massimo degli ultimi 12 mesi <b>0,0%</b>
+     <i>124.824 $ il 06/10/2025 — è anche il massimo storico</i>
+▸ Mayer (media 200 giorni) <b>1,18</b>
+     <i>↳ negli ultimi 4 anni è stato più alto di oggi in 549 giorni su 1.460 (38%)</i>
+▸ media 200 settimane <b>+132%</b>
+     <i>↳ negli ultimi 4 anni è stato più alto di oggi in 145 giorni su 1.460 (10%) · zona cara</i>
+
+⛓ <b>MVRV</b>  <b>2,29</b>
+     <i>↳ negli ultimi 4 anni è stato più alto di oggi in 240 giorni su 1.460 (16%) · zona cara</i>
+▸ ai massimi passati 4,43 · 3,43 · 2,85 · <b>2,29</b> (2017 → 2025)
+▸ dato del 06/10/2025
+
+📈 <b>MOMENTUM</b>
+▸ RSI <b>65</b> settimana · 73 giorno
+     <i>sotto 30 venduto · sopra 70 comprato</i>
+▸ Pi Cycle 0,57 <i>(spara a 1,00)</i>
+
+👥 <b>ATTENZIONE DELLA GENTE</b>
+▸ Fear &amp; Greed <b>50</b>/100 <i>(+1 vs ieri)</i>
+▸ ricerche Google <b>26</b>/100 <i>(mensile)</i>
+     <i>ai massimi passati 100 · 51 · 34 · <b>32</b> (2017 → 2025)</i>
+
+🕐 <b>L'ULTIMA VOLTA COSÌ</b>
+▸ 07/08/2025 · 8 giorni · 117.445 $
+     6 mesi <b>-46%</b> · 12 mesi <b>-45%</b>
+<i>Un solo precedente non è una previsione.</i>
+
+━━━━━━━━━━━━━━━
+📄 <i>Dati usati: prezzo del 06/10/2025 (coinmetrics (PriceUSD, csv)) · MVRV del 06/10/2025.</i>
+[1861 caratteri, limite Telegram 4096]
+
+====================== 2026-06-29 — il caso che ha fatto nascere il progetto =======================
+
+--- POLSO (quotidiano, deve stare in due o tre righe) ---------------------------------------------
+🟢 <b>60.175 $</b> · <b>STRAORDINARIO</b> — fase rara ed economica: varrebbe versare più del solito, in più colpi
+A 4% sotto la media a 200 settimane · settimana da 1,5x (~25 EUR in più, in più colpi) · <i>dati del 29/06 · MVRV del 29/06</i>.
+[2 righe, 241 caratteri]
+
+--- CAMBIO DI STATO (solo quando cambia davvero) -------------------------------------------------
+Cambio di stato: da normale a STRAORDINARIO (29/06/2026)
+
+Cosa vuol dire: fase rara ed economica: varrebbe versare più del solito, in più colpi.
+
+BTC 60.175 $ · a 4% sotto la media a 200 settimane.
+
+Perché: MVRV a 1,13: negli ultimi 4 anni è stato più alto di oggi in 1.236 giorni su 1.460 (85%); prezzo a 0,96 volte la media a 200 settimane: negli ultimi 4 anni è stato più alto di oggi in 1.196 giorni su 1.460 (82%); Mayer multiple a 0,80: negli ultimi 4 anni è stato più alto di oggi in 1.233 giorni su 1.460 (84%).
+
+Sforzo suggerito: settimana da 1,5x, cioè circa 25 EUR in più del ricorrente, da mettere in almeno 3 colpi e mai in uno solo. Tetto del ciclo: non l'hai ancora deciso, quindi non tengo un saldo e non propongo tranche oltre questa.
+
+Da tenere presente: questa fase può durare e peggiorare — nel 2022 il prezzo è rimasto 177 giorni sotto la media a 200 settimane, fino a -34% (docs/02 §5). Per questo lo sforzo va spalmato.
+
+L'ultima fase simile è cominciata il 11/02/2026 (15 giorni, prezzo 66.990 $) — da lì: dopo 6 mesi -5%. Un solo precedente recente non è una previsione, e l'ampiezza dei cicli si sta riducendo.
+
+Dati usati: prezzo del 29/06/2026 (coinmetrics (PriceUSD, csv)) · MVRV del 29/06/2026.
+[1224 caratteri]
+
+--- ANALISI COMPLETA (su richiesta, un solo messaggio Telegram) ----------------------------------
+₿ <b>AphroditeBTC</b> · analisi del 29/06/2026
+
+🟢 <b>STRAORDINARIO</b>
+<i>fase rara ed economica: varrebbe versare più del solito, in più colpi</i>
+▸ quanto è ECONOMICO  ▮▮▮▮▮  <b>100% della strada</b> <i>(0,53 su 0,43 → straordinario)</i>
+     <i>spingono: MVRV, prezzo rispetto alla media a 200 settimane, Mayer multiple (prezzo/media 200 giorni) e altri 4</i>
+▸ quanto è CARO       ▯▯▯▯▯  <b>0% della strada</b> <i>(0,00 su 0,23 → caldo)</i>
+     <i>nessuno dei 7 indicatori è in zona cara</i>
+
+💵 <b>PREZZO</b>  <b>60.175 $</b>
+🟢 +1,1% 24h   🔴 -5,9% 7g   🔴 -18,4% 30g
+▸ dal massimo degli ultimi 12 mesi <b>-51,8%</b>
+     <i>124.824 $ il 06/10/2025 — è anche il massimo storico</i>
+▸ Mayer (media 200 giorni) <b>0,80</b>
+     <i>↳ negli ultimi 4 anni è stato più alto di oggi in 1.233 giorni su 1.460 (84%) · zona economica</i>
+▸ media 200 settimane <b>-4%</b>
+     <i>↳ negli ultimi 4 anni è stato più alto di oggi in 1.196 giorni su 1.460 (82%) · zona economica</i>
+
+⛓ <b>MVRV</b>  <b>1,13</b>
+     <i>↳ negli ultimi 4 anni è stato più alto di oggi in 1.236 giorni su 1.460 (85%) · zona economica</i>
+▸ ai massimi passati 4,43 · 3,43 · 2,85 · <b>2,29</b> (2017 → 2025)
+▸ dato del 29/06/2026
+
+📈 <b>MOMENTUM</b>
+▸ RSI <b>34</b> settimana · 34 giorno
+     <i>sotto 30 venduto · sopra 70 comprato</i>
+▸ Pi Cycle 0,40 <i>(spara a 1,00)</i>
+
+👥 <b>ATTENZIONE DELLA GENTE</b>
+▸ Fear &amp; Greed <b>12</b>/100 <i>(-6 vs ieri)</i>
+▸ ricerche Google <b>24</b>/100 <i>(mensile)</i>
+     <i>ai massimi passati 100 · 51 · 34 · <b>32</b> (2017 → 2025)</i>
+
+💶 <b>COSA VARREBBE FARE</b>
+• Sforzo suggerito: settimana da 1,5x, cioè circa 25 EUR in più del ricorrente, da mettere in almeno 3 colpi e mai in uno solo.
+• Tetto del ciclo: non l'hai ancora deciso, quindi non tengo un saldo e non propongo tranche oltre questa.
+
+⚠️ <b>ONESTÀ</b>
+• questa fase può durare e peggiorare
+   ↳ nel 2022 il prezzo è rimasto 177 giorni sotto la media a 200 settimane, fino a -34% (docs/02 §5)
+
+🕐 <b>L'ULTIMA VOLTA COSÌ</b>
+▸ 11/02/2026 · 15 giorni · 66.990 $
+     6 mesi <b>-5%</b>
+<i>Un solo precedente non è una previsione.</i>
+
+━━━━━━━━━━━━━━━
+📄 <i>Dati usati: prezzo del 29/06/2026 (coinmetrics (PriceUSD, csv)) · MVRV del 29/06/2026.</i>
+[2217 caratteri, limite Telegram 4096]
+
+========================== 2026-09-19 — oggi (ultimo giorno disponibile) ===========================
+
+--- POLSO (quotidiano, deve stare in due o tre righe) ---------------------------------------------
+⚪️ <b>81.262 $</b> · <b>normale</b> — nessun estremo: il ricorrente e basta
+A +24% sopra la media a 200 settimane, in allontanamento da 4 giorni · caro al 7% della strada verso il caldo · <i>dati del 19/09 · MVRV del 19/09 · manca il Fear & Greed</i>.
+[2 righe, 251 caratteri]
+
+--- CAMBIO DI STATO (solo quando cambia davvero) -------------------------------------------------
+Cambio di stato: da STRAORDINARIO a normale (19/09/2026)
+
+Cosa vuol dire: nessun estremo: il ricorrente e basta.
+
+BTC 81.262 $ · a +24% sopra la media a 200 settimane, in allontanamento da 4 giorni · caro al 7% della strada verso il caldo.
+
+Perché: RSI giornaliero a 64: negli ultimi 4 anni è stato più alto di oggi in 279 giorni su 1.460 (19%); prezzo a -35% dal massimo dell'ultimo anno: negli ultimi 4 anni è stato più alto di oggi in 1.033 giorni su 1.460 (71%); prezzo a 1,24 volte la media a 200 settimane: negli ultimi 4 anni è stato più alto di oggi in 863 giorni su 1.460 (59%).
+
+Dati usati: prezzo del 19/09/2026 (coinmetrics (PriceUSD, csv)) · MVRV del 19/09/2026 · mancano: il Fear & Greed.
+[702 caratteri]
+
+--- ANALISI COMPLETA (su richiesta, un solo messaggio Telegram) ----------------------------------
+₿ <b>AphroditeBTC</b> · analisi del 19/09/2026
+
+⚪️ <b>NORMALE</b>
+<i>nessun estremo: il ricorrente e basta</i>
+▸ quanto è ECONOMICO  ▯▯▯▯▯  <b>1% della strada</b> <i>(0,005 su 0,43 → straordinario)</i>
+     <i>spingono: distanza dal massimo dell'ultimo anno</i>
+▸ quanto è CARO       ▯▯▯▯▯  <b>7% della strada</b> <i>(0,016 su 0,23 → caldo)</i>
+     <i>spingono: RSI giornaliero</i>
+
+💵 <b>PREZZO</b>  <b>81.262 $</b>
+🟢 +0,4% 24h   🟢 +5,2% 7g   🟢 +11,2% 30g
+▸ dal massimo degli ultimi 12 mesi <b>-34,9%</b>
+     <i>124.824 $ il 06/10/2025 — è anche il massimo storico</i>
+▸ Mayer (media 200 giorni) <b>1,15</b>
+     <i>↳ negli ultimi 4 anni è stato più alto di oggi in 550 giorni su 1.460 (38%)</i>
+▸ media 200 settimane <b>+24%</b>
+     <i>↳ negli ultimi 4 anni è stato più alto di oggi in 863 giorni su 1.460 (59%)</i>
+
+⛓ <b>MVRV</b>  <b>1,53</b>
+     <i>↳ negli ultimi 4 anni è stato più alto di oggi in 831 giorni su 1.460 (57%)</i>
+▸ ai massimi passati 4,43 · 3,43 · 2,85 · <b>2,29</b> (2017 → 2025)
+▸ dato del 19/09/2026
+
+📈 <b>MOMENTUM</b>
+▸ RSI <b>59</b> settimana · 64 giorno
+     <i>sotto 30 venduto · sopra 70 comprato</i>
+▸ Pi Cycle 0,43 <i>(spara a 1,00)</i>
+
+👥 <b>ATTENZIONE DELLA GENTE</b>
+▸ ricerche Google <b>21</b>/100 <i>(mensile)</i>
+     <i>ai massimi passati 100 · 51 · 34 · <b>32</b> (2017 → 2025)</i>
+
+━━━━━━━━━━━━━━━
+📄 <i>Dati usati: prezzo del 19/09/2026 (coinmetrics (PriceUSD, csv)) · MVRV del 19/09/2026 · mancano: il Fear & Greed.</i>
+[1462 caratteri, limite Telegram 4096]
+
+====================================================================================================
+Ora la parte che nessun test può fare al posto tuo: rileggerli.
+  1. si capiscono senza conoscere gli indicatori?
+  2. dicono anche i limiti, o promettono?
+  3. sembrano ordini? (non devono: il bot descrive e suggerisce uno sforzo)

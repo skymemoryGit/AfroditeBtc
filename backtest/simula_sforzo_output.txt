@@ -1,0 +1,38 @@
+====================================================================================================
+SIMULAZIONE DELLO SFORZO — 2015-01-01 -> 2026-09-19, budget 200 EUR/mese, fee 0.1%
+====================================================================================================
+
+  Riferimento senza bot: solo 200 EUR/mese per 141 mesi = 28,200 EUR -> 16.3459 BTC
+
+tetto per ciclo      depositato          BTC  BTC col DCA  differenza  extra versati
+  nessuno               31,150E      18.3613      18.0559       +1.7%         2,950E
+  6 mesi equivalenti      30,740E      18.2478      17.8182       +2.4%         2,540E
+  12 mesi equivalenti      31,100E      18.3566      18.0269       +1.8%         2,900E
+  18 mesi equivalenti      31,150E      18.3613      18.0559       +1.7%         2,950E
+
+  Lettura: la colonna 'differenza' e' il confronto onesto (D1): a PARITA' di depositi, quanto
+  ha aggiunto il TEMPISMO. E' piccola, ed e' coerente con l'analisi v5.1 (il timing vale poco).
+  Il grosso del beneficio non e' il tempismo: e' aver messo piu' soldi nelle fasi economiche.
+  Rispetto al solo ricorrente: 18.3566 BTC contro 16.3459 (+12.3%) avendo versato 2,900 EUR in piu' (+10.3%).
+
+----------------------------------------------------------------------------------------------------
+Dettaglio per ciclo, con il tetto a 12 mesi equivalenti
+  ciclo  dal          al            settimane      speso  mesi eq.  prezzo medio  punteggio max  capienza residua
+    1    2015-01-05   2015-08-24           13       400E       2.0          240$           0.71             10.0 mesi
+    2    2018-11-19   2020-03-30           21     1,025E       5.1        4,049$           0.94              6.9 mesi
+    3    2022-05-16   2023-01-09           33     1,375E       6.9       20,477$           0.88              5.1 mesi
+    4    2026-02-16   2026-06-29            4       100E       0.5       64,181$           0.53              7.3 mesi
+
+----------------------------------------------------------------------------------------------------
+Verifiche richieste dal piano
+  OK  la tranche piu' grande vale 100E, cioe' il 4.2% del tetto (richiesto < 10%)
+  OK  nelle fasi economiche lunghe lo sforzo e' spalmato: 4 cicli su 4 con almeno 3 tranche
+  OK  2022-23: 33 tranche, la prima e' il 2% del totale del periodo
+  OK  nessun ciclo supera il tetto di 12 mesi equivalenti
+  OK  arrivando al punto piu' profondo restava capienza in ogni ciclo (minimo 5.1 mesi)
+
+----------------------------------------------------------------------------------------------------
+Il caso che ha fatto nascere il progetto: giugno 2026
+  2026-06-08: il bot avrebbe detto 'settimana da 1.5x' -> 25 EUR extra a 63,110 $ (punteggio 0.45)
+  2026-06-29: il bot avrebbe detto 'settimana da 1.5x' -> 25 EUR extra a 60,175 $ (punteggio 0.53)
+  Prezzo di oggi (2026-09-19): 81,262 $
