@@ -1,4 +1,4 @@
-# Decisioni del progetto Bot BTC
+# Decisioni del progetto AphroditeBTC
 
 Le decisioni prese finora, raccolte in un posto solo: le note di sessione raccontano *cosa è successo*,
 questo file dice *cosa vale adesso*. Chi arriva nuovo legge questo e non deve ricostruire nulla dalle note.
@@ -324,6 +324,17 @@ I pareggi si dicono quando pesano almeno l'1% — trovato dal test: il 30/12/202
 121 giorni, e "il valore più alto" avrebbe fatto credere a un caso unico. Nessun numero del motore cambia: è solo
 testo. Test permanenti in `tests/test_d42_frasi.py` (fra cui: più alti + uguali + più bassi = tutti gli altri
 giorni, esatto, per sette indicatori e sei date). Corretto anche "e altri 1" → "e un altro".
+
+**D43 — Repository git e messa in esercizio sul VPS con systemd; il progetto si chiama AphroditeBTC.** *(2026-09-26, decisa)*
+Dal 22/09 il bot non è mai partito (registro con una riga sola): il limite non era il codice, era che partisse a mano
+dal PC. Approvato dall'utente: repository git (primo commit `bdddac1`; esclusi `bot/.env`, il database e
+`docs/spunti/`), remoto GitHub privato `AphroditeBTC`, e i file di `deploy/`. L'ascolto è un servizio sempre acceso
+che riparte da solo; il report ha un timer alle 09:00 **Europe/Rome** (il cambio d'ora lo gestisce systemd: con
+l'orario in UTC, dopo il 25 ottobre sarebbe arrivato alle 8); il backup notturno usa l'API di SQLite, controlla
+l'integrità e tiene 30 copie. Il VPS legge il repository con una deploy key di sola lettura; token e database
+viaggiano via `scp`, mai da GitHub. Un solo ascoltatore per bot (Telegram risponde 409 Conflict al secondo): i `.bat`
+del PC restano come riserva. Nome di repository, cartella sul VPS e servizi: **AphroditeBTC**, come il bot.
+Corretto `bot/requirements.txt`: nessuna dipendenza (D37 aveva già superato D21). Aggiunto `bot/.env.example`.
 
 ## Proposte non ancora confermate
 

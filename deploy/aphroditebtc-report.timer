@@ -1,0 +1,13 @@
+# Ogni mattina alle 9:00 ora italiana. Il fuso è scritto qui, quindi il cambio d'ora di ottobre
+# e di marzo non sposta niente (prima l'orario era fissato in UTC: d'inverno sarebbe arrivato alle 8).
+# Persistent=true: se il server era spento alle 9:00, il report parte appena si riaccende.
+[Unit]
+Description=AphroditeBTC - report ogni mattina alle 9:00 (ora italiana)
+
+[Timer]
+OnCalendar=*-*-* 09:00:00 Europe/Rome
+Persistent=true
+Unit=aphroditebtc-report.service
+
+[Install]
+WantedBy=timers.target

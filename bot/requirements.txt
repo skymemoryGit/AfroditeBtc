@@ -1,4 +1,3 @@
-# Dipendenze del SOLO livello bot/ (Telegram). La libreria botbtc/ resta senza dipendenze:
-# gli indicatori, i fetcher, la cache e il motore girano con la sola libreria standard.
-# Decisione D21 (sessione 06).
-python-telegram-bot>=21.0
+# Nessuna dipendenza esterna: tutto il progetto usa solo la libreria standard di Python 3 (>= 3.10).
+# Telegram si parla con urllib (D37, che supera D21: python-telegram-bot non e' piu' usato da nessun file).
+# Sul VPS non servono pip install ne' virtualenv.

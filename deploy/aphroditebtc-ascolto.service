@@ -1,0 +1,20 @@
+# AphroditeBTC — ascolto dei comandi Telegram (/analisi, /stato, /perche, ...).
+# Sempre acceso: se si ferma (errore, riavvio del server) systemd lo fa ripartire da solo.
+# ATTENZIONE: Telegram accetta UN SOLO ascoltatore per bot. Quando questo è attivo,
+# sul PC bot\avvia_ascolto.bat NON va aperto (entrambi andrebbero in errore 409 Conflict).
+[Unit]
+Description=AphroditeBTC - ascolto comandi Telegram
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=skymemory
+WorkingDirectory=/home/skymemory/AphroditeBTC
+ExecStart=/usr/bin/python3 bot/main.py --ascolta
+Restart=always
+RestartSec=30
+Environment=PYTHONUNBUFFERED=1
+
+[Install]
+WantedBy=multi-user.target

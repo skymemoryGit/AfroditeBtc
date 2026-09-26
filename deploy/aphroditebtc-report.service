@@ -1,0 +1,15 @@
+# AphroditeBTC — il giro quotidiano: scarica i giorni mancanti, controlla i dati, decide lo stato,
+# manda il report su Telegram e scrive la riga nel registro (la memoria per l'autopsia a 12 mesi).
+# Non si avvia da solo: lo fa partire aphroditebtc-report.timer ogni mattina.
+[Unit]
+Description=AphroditeBTC - report quotidiano
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+User=skymemory
+WorkingDirectory=/home/skymemory/AphroditeBTC
+ExecStart=/usr/bin/python3 bot/main.py --report
+Environment=PYTHONUNBUFFERED=1
+TimeoutStartSec=600

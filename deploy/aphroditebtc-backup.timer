@@ -1,0 +1,11 @@
+# Ogni notte alle 3:30 ora italiana, lontano dal report delle 9:00.
+[Unit]
+Description=AphroditeBTC - backup ogni notte alle 3:30 (ora italiana)
+
+[Timer]
+OnCalendar=*-*-* 03:30:00 Europe/Rome
+Persistent=true
+Unit=aphroditebtc-backup.service
+
+[Install]
+WantedBy=timers.target

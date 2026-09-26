@@ -1,4 +1,6 @@
-# Bot BTC
+# AphroditeBTC
+
+*Love the asset. Analyze the market.*
 
 Bot personale che tiene Bitcoin sotto osservazione e manda su Telegram un **report giornaliero**:
 dove si trova il mercato rispetto alle medie e agli indicatori di ciclo, e se è un momento in cui vale
@@ -39,7 +41,8 @@ python3 backtest/validate_mvrv.py    # riproduce i numeri di docs/02_indicatori_
 ```
 
 Serve solo Python 3: la libreria e i backtest non hanno dipendenze e non chiedono chiavi API.
-L'unica dipendenza esterna del progetto (`python-telegram-bot`) servirà al livello `bot/` nella fase F4.
+Anche il livello Telegram usa solo la libreria standard (D37): niente da installare, né sul PC né sul VPS.
+Messa in esercizio sul VPS: [`deploy/DEPLOY.md`](deploy/DEPLOY.md).
 
 ## Documenti
 

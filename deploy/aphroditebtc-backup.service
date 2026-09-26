@@ -1,0 +1,9 @@
+# AphroditeBTC — copia di sicurezza del database (registro, impostazioni, cache dei dati).
+[Unit]
+Description=AphroditeBTC - backup giornaliero del database
+
+[Service]
+Type=oneshot
+User=skymemory
+WorkingDirectory=/home/skymemory/AphroditeBTC
+ExecStart=/usr/bin/python3 deploy/backup_db.py

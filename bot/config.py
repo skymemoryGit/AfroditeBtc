@@ -106,7 +106,9 @@ ETA_MASSIMA_FNG_GIORNI = 3
 
 # --------------------------------------------------------------- consegna
 
-ORA_REPORT_UTC = _env_int("BOTBTC_ORA_REPORT_UTC", 7)      # 09:00 in Italia d'estate
+# Solo storico: l'orario vero lo decide deploy/aphroditebtc-report.timer (09:00 Europe/Rome, gestisce
+# da solo il cambio d'ora). Nessun codice usa piu' queste due variabili per decidere quando mandare.
+ORA_REPORT_UTC = _env_int("BOTBTC_ORA_REPORT_UTC", 7)
 MINUTO_REPORT_UTC = _env_int("BOTBTC_MINUTO_REPORT_UTC", 0)
 FUSO_UTENTE = _env("BOTBTC_FUSO", "Europe/Rome")
 
@@ -152,7 +154,7 @@ def riassunto():
         "serie prezzo del bot live": SERIE_PREZZO_LIVE,
         "salto di prezzo sospetto": f"oltre {SALTO_PREZZO_MAX_GIORNALIERO*100:.0f} % in un giorno",
         "eta' massima dei dati (prezzo/MVRV/F&G)": f"{ETA_MASSIMA_PREZZO_GIORNI}/{ETA_MASSIMA_MVRV_GIORNI}/{ETA_MASSIMA_FNG_GIORNI} giorni",
-        "orario report": f"{ORA_REPORT_UTC:02d}:{MINUTO_REPORT_UTC:02d} UTC (fuso utente {FUSO_UTENTE})",
+        "orario report": "09:00 ora italiana sul VPS (lo decide deploy/aphroditebtc-report.timer); sul PC: a mano",
         "token Telegram": "configurato" if TELEGRAM_TOKEN else "MANCANTE (.env)",
         "chat_id Telegram": TELEGRAM_CHAT_ID or "MANCANTE (.env)",
         "rete": f"timeout {TIMEOUT_RETE_SECONDI}s, {TENTATIVI_RETE} tentativi",

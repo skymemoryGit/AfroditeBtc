@@ -1,12 +1,13 @@
-# STATO DEL PROGETTO — Bot BTC
+# STATO DEL PROGETTO — AphroditeBTC
 
-Aggiornato: **2026-09-23, sessione 13**. Questo è il foglio da guardare per primo: dice a che punto siamo.
+Aggiornato: **2026-09-26, sessione 14**. Questo è il foglio da guardare per primo: dice a che punto siamo.
 Il dettaglio di *cosa* va fatto in ogni fase è in [`03_piano_sviluppo.md`](03_piano_sviluppo.md).
 
 ## In una riga
 
 **Il bot vive**: @AphroBtcbot manda il report su Telegram, con i dati aggiornati dalle tre fonti e tutto
-registrato in archivio. Gira ancora a mano dal PC: manca il deploy sul VPS (F5) perché parta da solo ogni giorno.
+registrato in archivio. Gira ancora a mano dal PC, e dal 22/09 non è partito (registro: una riga sola). I file per il VPS sono
+pronti in `deploy/` con la guida passo passo `deploy/DEPLOY.md` (sessione 14): manca solo eseguirla.
 
 ## Le fasi
 
@@ -17,15 +18,14 @@ registrato in archivio. Gira ancora a mano dal PC: manca il deploy sul VPS (F5) 
 | **F2** | motore dei tre stati + test di accettazione storico | ✅ **FATTA** (sess. 07) | `botbtc/engine.py`, `docs/04_regola_stati.md` |
 | **F3** | il testo dei messaggi: polso, cambio stato, analisi completa | ✅ **FATTA** (sess. 09) | `botbtc/messaggi.py`, `docs/05_messaggi.md` |
 | **F4** | Telegram: invio, comandi, gestione errori | ✅ **FATTA** (sess. 12) — invio, 10 comandi, menu, autorizzazioni | `bot/telegram_client.py`, `bot/comandi.py` |
-| **F5** | messa in esercizio sul VPS Contabo (systemd, log, backup) | ⬜ **DA FARE — si riparte da qui** | — |
+| **F5** | messa in esercizio sul VPS Contabo (systemd, log, backup) | 🟡 **PRONTA, DA ESEGUIRE** (sess. 14) — si riparte da qui | `deploy/`, guida `deploy/DEPLOY.md` |
 | **F6** | esercizio, paper-trading del segnale di uscita, autopsia a 3/6/12 mesi | 🟡 il registro giornaliero (F6.1) è già attivo | tabella `registro` |
 | **F7** | presentazione per il cliente: slide per chi non ha contesto | 🟡 appunti iniziati | `docs/06_appunti_presentazione.md` |
 
 **Esperimento aperto**: far entrare Google Trends nel punteggio del motore (oggi è solo contesto nel
 messaggio, D34) — richiede ricalibrazione e nuovo test di accettazione F2.3 con otto ingredienti.
 
-**Dove si riparte**: F5 — mettere il bot sul VPS Contabo con un systemd timer, così il report arriva ogni
-mattina senza che il PC sia acceso. Poi F4.2, i comandi (`/analisi`, `/stato`, `/perche`, `/pausa`).
+**Dove si riparte**: eseguire `deploy/DEPLOY.md` sul VPS Contabo (una serata, un comando alla volta). Collaudo: il report delle 9:00 del giorno dopo arriva senza accendere il PC. Il repository git c'è dalla sessione 14 (D43); il remoto GitHub privato `AphroditeBTC` lo crea l'utente al passo 1 della guida.
 
 **Obiettivo dichiarato**: primo messaggio reale su Telegram entro due settimane. ✅ **Raggiunto il 2026-09-22**,
 tre giorni dopo la stesura del piano.
