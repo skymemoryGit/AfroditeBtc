@@ -4,7 +4,7 @@
 
 Le verifiche del piano che un test PUO' fare (le altre — "si capiscono?" — le fa un essere umano
 rileggendo `backtest/messaggi_storici_output.txt`):
-  F3.1  il polso sta in due righe · l'analisi completa entra in un solo messaggio Telegram
+  F3.1  il polso resta corto (D48: poche righe, una idea per riga) · l'analisi completa entra in un solo messaggio Telegram
   F3.2  il confronto storico cita l'episodio piu' recente, non la mediana di tutta la storia (D30)
   F3.3  ogni messaggio dichiara la data dei dati · lo straordinario dice sempre che puo' peggiorare ·
         nessun messaggio suona come un ordine (D16)
@@ -52,11 +52,23 @@ class MessaggiBase(unittest.TestCase):
 
 
 class F31Formati(MessaggiBase):
-    def test_il_polso_sta_in_due_righe(self):
+    def test_il_polso_resta_corto(self):
+        """D48: non piu' due righe fitte, ma poche righe corte con una idea ciascuna."""
         for giorno in self.DATE:
             testo = self.tutti_i_formati(giorno)["polso"]
-            self.assertLessEqual(len(testo.splitlines()), 2, f"{giorno}: {testo}")
-            self.assertLess(len(testo), 300, f"{giorno}: {len(testo)} caratteri")
+            self.assertLessEqual(len(testo.splitlines()), 7, f"{giorno}: {testo}")
+            self.assertLess(len(testo), 520, f"{giorno}: {len(testo)} caratteri")
+            for riga in testo.splitlines():
+                self.assertLess(len(riga), 170, f"{giorno}: riga troppo lunga: {riga}")
+
+    def test_il_polso_non_usa_il_gergo_vecchio(self):
+        """D48: "caro al 29% della strada verso il caldo" non lo capiva nessuno."""
+        for giorno in self.DATE:
+            testo = self.tutti_i_formati(giorno)["polso"]
+            self.assertNotIn("della strada", testo, str(giorno))
+            self.assertNotIn("ricorrente e basta", testo, str(giorno))
+            self.assertIn("💶", testo, f"{giorno}: deve dire cosa fare coi soldi")
+            self.assertNotIn("200 €", testo, f"{giorno}: l'importo mensile non si scrive (D50)")
 
     def test_l_analisi_entra_in_un_messaggio_telegram(self):
         for giorno in self.DATE:
@@ -68,11 +80,12 @@ class F31Formati(MessaggiBase):
         """E' la riga che sarebbe servita a giugno 2026: l'avvicinamento, non solo l'arrivo."""
         for giorno in self.DATE:
             testo = self.tutti_i_formati(giorno)["polso"]
-            self.assertIn("media a 200 settimane", testo, str(giorno))
+            self.assertIn("200 settimane", testo, str(giorno))
 
     def test_la_direzione_compare_quando_il_movimento_dura(self):
         testo = self.tutti_i_formati(datetime.date(2022, 11, 9))["polso"]
-        self.assertTrue("avvicinamento" in testo or "allontanamento" in testo, testo)
+        self.assertRegex(testo, r"da \d+ giorni (ci si sta avvicinando|se ne sta allontanando|"
+                                r"scende ancora|sta risalendo)")
 
 
 class F32ConfrontoStorico(MessaggiBase):
@@ -100,7 +113,7 @@ class F33Onesta(MessaggiBase):
     def test_ogni_messaggio_dichiara_la_data_dei_dati(self):
         for giorno in self.DATE:
             for nome, testo in self.tutti_i_formati(giorno).items():
-                self.assertTrue("dati del" in testo or "Dati usati" in testo,
+                self.assertTrue("dati del" in testo.lower() or "Dati usati" in testo,
                                 f"{giorno} / {nome}: manca la provenienza dei dati")
                 self.assertIn("MVRV", testo, f"{giorno} / {nome}")
 
@@ -109,7 +122,7 @@ class F33Onesta(MessaggiBase):
                        datetime.date(2022, 11, 9), datetime.date(2026, 6, 29)):
             for nome in ("cambio", "analisi"):
                 testo = self.tutti_i_formati(giorno)[nome]
-                if "STRAORDINARIO" in testo:
+                if "Straordinario</b>" in testo:
                     self.assertIn("può durare e peggiorare", testo, f"{giorno} / {nome}")
                     self.assertIn("177 giorni", testo, f"{giorno} / {nome}")
 
@@ -121,7 +134,7 @@ class F33Onesta(MessaggiBase):
 
     def test_il_freno_dice_che_non_e_un_invito_a_vendere(self):
         testo = self.tutti_i_formati(datetime.date(2020, 12, 30))["cambio"]
-        self.assertIn("FRENO", testo)
+        self.assertIn("Freno", testo)
         self.assertIn("non è un invito a vendere", testo)
 
     def test_senza_tetto_deciso_lo_dichiara_invece_di_inventarlo(self):
@@ -134,7 +147,7 @@ class F33Onesta(MessaggiBase):
         foto = dataset.fotografia(self.ds, giorno)
         testo = messaggi.cambio_stato(self.ds, self.righe, i, foto, PARAMETRI, engine.NORMALE,
                                       tetto_mesi=12.0, speso_mesi=3.4)
-        self.assertIn("usati 3,4 di 12 mesi equivalenti", testo.replace(".", ","))
+        self.assertIn("usati 3,4 di 12 mesi di budget", testo.replace(".", ","))
 
     def test_quando_manca_un_ingrediente_lo_dice_col_suo_nome(self):
         """Ultimo giorno: il Fear & Greed non c'e' ancora (F2.6, degrado con grazia)."""
@@ -183,7 +196,7 @@ class F42Comandi(unittest.TestCase):
 
     def test_perche_spiega_gli_ingredienti(self):
         risposta = self.comandi.gestisci(self.conn, "/perche")
-        self.assertIn("punteggio economico", risposta)
+        self.assertIn("I due punteggi", risposta)
         self.assertIn("▮", risposta, "serve la barretta che mostra quanto pesa ogni ingrediente")
 
     def test_analisi_e_stato_sono_i_messaggi_veri(self):
@@ -191,7 +204,7 @@ class F42Comandi(unittest.TestCase):
         self.assertIn("AphroditeBTC", analisi)
         self.assertLess(len(analisi), 4096)
         stato = self.comandi.gestisci(self.conn, "/stato")
-        self.assertLessEqual(len(stato.splitlines()), 2)
+        self.assertLessEqual(len(stato.splitlines()), 7)
 
     def test_il_comando_accetta_la_forma_con_chiocciola(self):
         self.assertIn("come si legge", self.comandi.gestisci(self.conn, "/guida@AphroBtcbot").lower())
@@ -261,7 +274,7 @@ class D40Caldo(MessaggiBase):
                 if nome == "cambio":
                     continue            # il cambio stato non si manda: lo stato resta "normale"
                 self.assertNotIn("nessun estremo", testo, f"{giorno} / {nome}")
-                self.assertIn("CALDO", testo, f"{giorno} / {nome}")
+                self.assertIn("🟠 <b>Caldo</b>", testo, f"{giorno} / {nome}")
 
     def test_il_caldo_non_dice_mai_vendere(self):
         for giorno in self.MASSIMI + (datetime.date(2020, 12, 15),):
@@ -291,7 +304,7 @@ class D40Caldo(MessaggiBase):
             if messaggi.condizione(self.righe[i], PARAMETRI) == engine.NORMALE:
                 testo = messaggi.analisi_completa(self.ds, self.righe, i,
                                                   dataset.fotografia(self.ds, self.ds.dates[i]), PARAMETRI)
-                self.assertNotIn("L'ULTIMA VOLTA", testo)
+                self.assertNotIn("L'ultima volta", testo)
                 break
 
 

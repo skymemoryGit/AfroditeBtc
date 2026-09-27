@@ -229,17 +229,17 @@ def invia(token, chat_id, testo, timeout=20, anteprima_link=False, formato="HTML
 
 
 MENU_COMANDI = [
-    ("analisi", "Il report completo di oggi"),
-    ("stato", "Due righe: dove siamo adesso"),
-    ("perche", "Perché siamo in questo stato"),
-    ("ai_commentary", "Il report spiegato a parole (AI)"),
-    ("guida", "Come si legge il report"),
-    ("silenzioso", "Scrivimi solo quando cambia lo stato"),
-    ("quotidiano", "Torna al battito di ogni giorno"),
-    ("registro", "Le ultime giornate"),
-    ("pausa", "Sospendi i messaggi"),
+    ("stato", "Com'è il mercato oggi, in breve"),
+    ("analisi", "Tutti i numeri di oggi"),
+    ("perche", "Come ho deciso la fase di oggi"),
+    ("ai_commentary", "L'analisi raccontata a parole (AI)"),
+    ("guida", "Come si leggono i messaggi"),
+    ("quotidiano", "Un messaggio breve ogni mattina"),
+    ("silenzioso", "Scrivimi solo quando cambia la fase"),
+    ("pausa", "Ferma tutti i messaggi"),
     ("riprendi", "Riattiva i messaggi"),
-    ("id", "Il tuo identificativo Telegram"),
+    ("registro", "Le ultime giornate"),
+    ("id", "Il tuo ID Telegram"),
 ]
 
 
@@ -305,11 +305,12 @@ def registra_menu(token, comandi=None, timeout=20):
 
 
 BENVENUTO = (
-    "<b>AphroditeBTC</b> — <i>Love the asset. Analyze the market.</i>\n\n"
-    "Guardo Bitcoin ogni giorno al posto tuo e ti dico in che fase siamo:\n"
-    "· STRAORDINARIO — fase rara ed economica: varrebbe versare più del solito, in più colpi\n"
-    "· normale — nessun estremo: il ricorrente e basta\n"
-    "· FRENO — fase cara da mesi: nessun versamento extra\n\n"
-    "Non compro e non vendo niente, e non ti dirò mai di vendere: eseguí tu, a mano.\n"
-    "Ogni messaggio dice con quali dati ho deciso e di che giorno sono."
+    "₿ <b>AphroditeBTC</b>\n<i>Love the asset. Analyze the market.</i>\n\n"
+    "Guardo Bitcoin ogni giorno al posto tuo e ti dico in che fase siamo:\n\n"
+    "🟢 <b>Straordinario</b> — prezzi bassi come capita di rado: vale la pena mettere qualcosa in più\n"
+    "⚪️ <b>Normale</b> — niente di speciale: bastano i soliti versamenti\n"
+    "🟠 <b>Caldo</b> — prezzi alti: niente extra\n"
+    "🔴 <b>Freno</b> — caro da mesi: niente extra\n\n"
+    "Non compro e non vendo niente, e non ti dirò mai di vendere: decidi ed esegui tu.\n"
+    "<i>Ogni messaggio dice di che giorno sono i dati.</i>"
 )

@@ -367,6 +367,27 @@ Ogni commento è una chiamata a pagamento sull'account dell'utente. Contatore pe
 nel database; si consuma solo un commento arrivato davvero (un errore del modello non conta); oltre il limite il bot
 non chiama nemmeno il modello. `BOTBTC_AI_AL_GIORNO` (default 1; 0 = nessun limite).
 
+**D48 — Il polso riscritto per essere capito al volo.** *(2026-09-27, decisa)*
+L'utente non capiva "caro al 29% della strada verso il caldo". Ora il polso è: titolo con prezzo e fase a parole,
+poi tre righe corte con una sola idea ciascuna — 💶 cosa fare coi soldi (i 200 € e basta, o quanti euro in più),
+📍 distanza dalla media a 200 settimane e direzione, 🌡 un termometro a parole (tranquillo sotto il 25% della strada,
+"un po' caro / un po' più basso del solito" fino al 60%, "si scalda / ci si avvicina allo sconto" oltre) — e in fondo la
+data dei dati. Motore e soglie invariati: cambia solo il testo. I numeri della strada restano nell'analisi completa.
+
+**D49 — Tutti i messaggi dei comandi riscritti per Telegram, con gli stessi nomi delle fasi.** *(2026-09-27, decisa)*
+Nomi uguali ovunque, maiuscola iniziale: ⚪️ Normale · 🟠 Caldo · 🟢 Straordinario · 🔴 Freno · 🟡 Straordinario in
+arrivo (scelta dell'utente). /analisi apre con la fase detta come nel messaggio breve (💶 + 🌡), poi un blocco per
+argomento con titolo ed emoji; la riga «negli ultimi 4 anni è stato più alto di oggi in N giorni su M» resta (l'utente
+la trova già chiara). Riscritti anche /perche (pesi in percentuale), il cambio di fase, /start, /registro, le risposte
+brevi, il menu e la /guida (completa ma più semplice, e sotto il limite di Telegram: la vecchia lo superava). Solo testo:
+motore, soglie e confronti invariati. Tolti i rimandi ai documenti interni (es. "docs/02 §5") dai messaggi.
+
+**D50 — L'importo del versamento mensile non compare nei messaggi.** *(2026-09-27, decisa)*
+L'utente lo conosce e non vuole leggerlo ogni giorno: al posto di "i soliti 200 € al mese" il bot dice "il solito
+versamento del mese". Resta in euro solo l'extra dello Straordinario, che cambia di settimana in settimana. Anche il
+commento AI non riceve più l'importo e ha la regola di non scriverlo. Il parametro `BOTBTC_BUDGET_EUR` resta: serve
+a calcolare l'extra.
+
 ## Proposte non ancora confermate
 
 **P1 — Logging dal giorno 1.** *(2026-09-20, proposta → **confermata come D33 il 2026-09-22**)*

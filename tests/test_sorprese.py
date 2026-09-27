@@ -142,7 +142,7 @@ class NelBot(unittest.TestCase):
         chat, inviato = self.inviati[-1]
         self.assertEqual(chat, comandi.padrone())
         self.assertIn("🔔", inviato)
-        self.assertLessEqual(len(inviato.splitlines()), 3, "corto: una riga + il polso di due")
+        self.assertLessEqual(len(inviato.splitlines()), 8, "corto: una riga + il polso (D48)")
 
     def test_rispetta_pausa_e_silenzioso(self):
         for chiave, valore in (("pausa", "1"), ("modalita", "silenzioso")):

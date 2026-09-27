@@ -9,7 +9,7 @@ Comandi:
   /start      chi sono e cosa faccio
   /guida      come si legge il report (da fissare in chat)
   /analisi    il report completo, adesso
-  /stato      il polso, due righe
+  /stato      il polso: il messaggio breve di oggi
   /perche     perche' oggi lo stato e' quello
   /silenzioso solo i cambi di stato (niente battito quotidiano)
   /quotidiano torna a ricevere il polso tutti i giorni
@@ -29,19 +29,21 @@ import time
 from bot import commento_ai, config, sorprese, telegram_client
 from botbtc import dataset, engine, messaggi, sanity, store
 
-AIUTO = ("Comandi:\n"
-         "/analisi — il report completo di oggi\n"
-         "/stato — due righe, al volo\n"
-         "/perche — perché oggi siamo in questo stato\n"
-         "/ai_commentary — il report di oggi spiegato a parole da un modello AI (uno al giorno)\n"
-         "/guida — come si legge il report\n"
-         "/silenzioso — scrivimi solo quando cambia lo stato\n"
-         "/quotidiano — torna al battito di ogni giorno\n"
-         "/pausa e /riprendi — sospendi o riattiva tutto\n"
+AIUTO = ("📋 <b>Comandi</b>\n"
+         "/stato — com'è il mercato oggi, in breve\n"
+         "/analisi — tutti i numeri di oggi\n"
+         "/perche — come ho deciso la fase di oggi\n"
+         "/ai_commentary — l'analisi raccontata a parole dall'AI\n"
+         "/guida — come si leggono i messaggi\n\n"
+         "🔔 <b>Quando ti scrivo</b>\n"
+         "/quotidiano — un messaggio breve ogni mattina\n"
+         "/silenzioso — solo quando cambia la fase\n"
+         "/pausa · /riprendi — ferma o riattiva tutto\n\n"
+         "🗂 <b>Altro</b>\n"
          "/registro — le ultime giornate\n"
-         "/id — il tuo identificativo Telegram")
+         "/id — il tuo ID Telegram")
 
-AIUTO_PADRONE = ("\n\n<b>Solo per te</b>\n"
+AIUTO_PADRONE = ("\n\n🔑 <b>Solo per te</b>\n"
                  "/utenti — chi può usare il bot\n"
                  "/autorizza — dai accesso a qualcuno (ti chiedo l'ID)\n"
                  "/revoca — togli l'accesso (scegli dall'elenco)")
@@ -124,48 +126,56 @@ def _contesto(conn, serie="coinbase"):
 
 
 def _perche(ds, righe, indice, foto, parametri):
+    """Come il motore è arrivato alla fase di oggi, indicatore per indicatore (D49: impaginato per Telegram)."""
     valutazione = righe[indice]
-    stato = valutazione.get("stato_confermato", valutazione["stato"])
     vista = messaggi.vista_stato(valutazione, parametri)
-    parti = [f"🔎 <b>Come ho calcolato lo stato di oggi</b>",
-             f"Risultato: {vista['icona']} <b>{vista['titolo']}</b> — <i>{vista['spiegazione']}</i>", ""]
+    spiegazione = vista["spiegazione"][0].upper() + vista["spiegazione"][1:]
+    parti = [f"🔎 <b>Perché oggi è {vista['icona']} {vista['titolo']}</b>\n<i>{spiegazione}.</i>"]
     if valutazione["punteggio_economico"] is None:
-        parti.append("Non ho abbastanza ingredienti per calcolare i punteggi.")
-        return "\n".join(parti)
-    parti.append(f"▸ punteggio economico <b>{messaggi._fisso(valutazione['punteggio_economico'])}</b>"
-                 f" (serve {messaggi._fisso(parametri.soglia_straordinario)})")
-    parti.append(f"▸ punteggio caro <b>{messaggi._fisso(valutazione['punteggio_caro'])}</b>"
-                 f" (serve {messaggi._fisso(parametri.soglia_freno)} per almeno "
-                 f"{parametri.durata_minima_caro} giorni)")
-    parti.append("")
-    parti.append("<b>Quanto pesa ogni indicatore oggi</b>")
-    parti.append("<i>La barretta è quanto è estremo rispetto ai suoi ultimi 4 anni: "
-                 "▯▯▯▯▯ = normale, ▮▮▮▮▮ = come non lo era da 4 anni.</i>")
+        parti.append("Non ho abbastanza indicatori per calcolare i punteggi.")
+        parti.append(f"<i>📄 {messaggi.riga_dati(foto)}</i>")
+        return "\n\n".join(parti)
+    eco, caro = valutazione["punteggio_economico"], valutazione["punteggio_caro"]
+    parti.append("\n".join([
+        "📊 <b>I due punteggi</b>",
+        f"▸ Sconto {messaggi.barra(eco, parametri.soglia_straordinario)} <b>{messaggi._fisso(eco)}</b>"
+        f" · lo Straordinario scatta a {messaggi._fisso(parametri.soglia_straordinario)}",
+        f"▸ Caro {messaggi.barra(caro, parametri.soglia_freno)} <b>{messaggi._fisso(caro)}</b>"
+        f" · il Caldo scatta a {messaggi._fisso(parametri.soglia_freno)}, il Freno se dura "
+        f"{parametri.durata_minima_caro} giorni",
+        "<i>Ogni punteggio è la media pesata delle barrette qui sotto.</i>"]))
+
+    blocco = ["🧩 <b>Indicatore per indicatore</b>",
+              "<i>La barretta dice quanto è estremo oggi rispetto ai suoi ultimi 4 anni: "
+              "vuota = nella media, piena = mai così da 4 anni.</i>"]
     contributi = sorted(valutazione["contributi"].items(),
                         key=lambda kv: max(kv[1]["economico"], kv[1]["caro"]) * kv[1]["peso"],
                         reverse=True)
+    peso_totale = sum(c["peso"] for _, c in contributi) or 1.0
     for chiave, c in contributi:
         modello, decimali = engine.FRASI.get(chiave, ("{v}", 2))
         valore = ds.ind.get(chiave, [None] * len(ds))[indice]
         nome = modello.format(v=messaggi._fisso(valore, decimali)) if valore is not None else chiave
+        nome = (nome[:1].upper() + nome[1:]).replace("&", "&amp;")
         quota = max(c["economico"], c["caro"])
-        verso = "economico" if c["economico"] >= c["caro"] else "caro"
         barretta = "▮" * round(quota * 5) + "▯" * (5 - round(quota * 5))
-        nome = nome.replace("&", "&amp;")
-        etichetta = ("verso economico" if verso == "economico" else "verso caro") if quota > 0 else "neutro"
-        peso = f"{c['peso']:g}".replace(".", ",")
-        parti.append(f"{barretta} {nome} <i>({etichetta}, conta {peso} su 1,20)</i>")
+        verso = ("verso sconto" if c["economico"] >= c["caro"] else "verso caro") if quota > 0 else "nella media"
+        peso = round(100 * c["peso"] / peso_totale)
+        blocco.append("")
+        blocco.append(f"{barretta} <b>{nome}</b>")
+        articolo = "l'" if str(peso).startswith("8") or peso in (1, 11) else "il "
+        blocco.append(f"     <i>{verso} · pesa {articolo}{peso}%</i>")
         conto = messaggi.quanti_piu_alti(ds, chiave, indice)
         if conto:   # la barretta detta con i giorni veri (D42)
-            parti.append("     <i>↳ " + engine.confronto_in_giorni(conto["piu_alti"], conto["totale"],
-                                                                  conto["anni"], conto["uguali"]) + "</i>")
+            blocco.append("     <i>↳ " + engine.confronto_in_giorni(conto["piu_alti"], conto["totale"],
+                                                                   conto["anni"], conto["uguali"]) + "</i>")
+    parti.append("\n".join(blocco))
     if valutazione.get("ingredienti_mancanti"):
-        parti.append("\nMancano oggi: " + ", ".join(messaggi._nome_umano(k)
+        parti.append("⚠️ Mancano oggi: " + ", ".join(messaggi._nome_umano(k)
                                                     for k in valutazione["ingredienti_mancanti"]))
-    parti.append("\n<i>Il punteggio è la media di queste barrette, pesata per quanto conta ogni "
-                 "indicatore. Si usano i percentili sugli ultimi 4 anni e non soglie fisse, perché le "
-                 "soglie fisse invecchiano: l'MVRV ai massimi è passato da 4,43 (2017) a 2,29 (2025).</i>")
-    return "\n".join(parti)
+    parti.append("<i>Perché i confronti coi 4 anni e non soglie fisse: le soglie invecchiano. "
+                 "L'MVRV ai massimi è passato da 4,43 (2017) a 2,29 (2025).</i>")
+    return "\n\n".join(parti)
 
 
 def gestisci(conn, comando, serie="coinbase", chat_id=None):
@@ -187,7 +197,7 @@ def gestisci(conn, comando, serie="coinbase", chat_id=None):
     if not ammesso:
         return PRIVATO.format(chi=chi)
     if comando == "/id":
-        return f"Il tuo identificativo Telegram è <code>{chi}</code>.\nSei autorizzato a usare il bot."
+        return f"🪪 Il tuo ID Telegram: <code>{chi}</code>\n<i>Sei autorizzato a usare il bot.</i>"
 
     # --- risposta a una domanda del bot (oggi solo: "mandami l'ID da autorizzare")
     chiave_attesa = f"attesa_{chi}"
@@ -239,27 +249,37 @@ def gestisci(conn, comando, serie="coinbase", chat_id=None):
         return messaggi.guida()
     if comando == "/pausa":
         store.scrivi_impostazione(conn, "pausa", "1")
-        return "⏸ Messo in pausa. Non ti scrivo più finché non mandi /riprendi."
+        return "⏸ <b>In pausa</b>\nNon ti scrivo più finché non mandi /riprendi."
     if comando == "/riprendi":
         store.scrivi_impostazione(conn, "pausa", "0")
-        return "▶️ Riprendo. Ti scrivo di nuovo ogni giorno."
+        if store.leggi_impostazione(conn, "modalita", "") == "silenzioso":
+            return "▶️ <b>Ripartito</b>\nTi scrivo di nuovo, solo quando cambia la fase.\n<i>Per il messaggio di ogni mattina: /quotidiano</i>"
+        return "▶️ <b>Ripartito</b>\nTi scrivo di nuovo ogni mattina."
     if comando == "/silenzioso":
         store.scrivi_impostazione(conn, "modalita", "silenzioso")
-        return ("🔕 Modalità silenziosa: ti scrivo <b>solo quando cambia lo stato</b> — per esempio "
-                "quando si accende una fase come giugno 2026. Il resto lo registro e basta.\n"
-                "Per rivedere il battito quotidiano: /quotidiano")
+        return ("🔕 <b>Modalità silenziosa</b>\n"
+                "Ti scrivo solo quando cambia la fase, per esempio quando si accende uno Straordinario "
+                "come a giugno 2026. I giorni normali li registro e basta.\n"
+                "<i>Per tornare al messaggio di ogni mattina: /quotidiano</i>")
     if comando == "/quotidiano":
         store.scrivi_impostazione(conn, "modalita", "quotidiano")
-        return "🔔 Torno a mandarti il polso tutti i giorni, due righe."
+        return ("🔔 <b>Messaggio quotidiano</b>\nOgni mattina ti mando il messaggio breve.\n"
+                "<i>Per riceverli solo quando cambia la fase: /silenzioso</i>")
     if comando == "/registro":
         righe = store.righe_registro(conn, 7)
         if not righe:
-            return "Il registro è vuoto: si riempie a ogni report."
-        fuori = ["📒 <b>Ultime giornate</b>"]
+            return "📒 Il registro è vuoto: si riempie con il report di ogni mattina."
+        fuori = ["📒 <b>Le ultime giornate</b>", ""]
         for r in righe:
-            punteggio = "n/d" if r["punteggio_economico"] is None else f"{r['punteggio_economico']:.2f}".replace(".", ",")
-            fuori.append(f"▸ {r['data']} · {r['stato']} · punteggio {punteggio} · "
-                         f"{r['prezzo']:,.0f} $".replace(",", "."))
+            try:
+                giorno = datetime.date.fromisoformat(str(r["data"])[:10]).strftime("%d/%m")
+            except ValueError:
+                giorno = r["data"]
+            fase = (f"{messaggi.ICONE_STATO.get(r['stato'], '')} "
+                    f"{messaggi.NOMI_STATO.get(r['stato'], r['stato'])}").strip()
+            fuori.append(f"▸ {giorno} · {fase} · {r['prezzo']:,.0f} $".replace(",", "."))
+        fuori.append("\n<i>Una riga per ogni report del mattino: è la memoria del bot per "
+                     "controllare, fra qualche mese, se aveva ragione.</i>")
         return "\n".join(fuori)
 
     if comando == "/ai_commentary":
@@ -270,10 +290,10 @@ def gestisci(conn, comando, serie="coinbase", chat_id=None):
         giorno, _, usati = (store.leggi_impostazione(conn, chiave_limite, "") or "").partition("|")
         usati = int(usati) if giorno == oggi and usati.isdigit() else 0
         if not e_padrone and 0 < config.AI_COMMENTI_AL_GIORNO <= usati:
-            return ("Il commento di oggi l'hai già chiesto: il prossimo da domani.\n"
-                    "<i>Il report completo resta disponibile con /analisi.</i>")
+            return ("🤖 Il commento di oggi l'hai già chiesto: il prossimo da domani.\n"
+                    "<i>I numeri di oggi restano disponibili con /analisi.</i>")
         if store.conteggi(conn)["prezzi"] == 0:
-            return "Non ho ancora dati in archivio."
+            return "⚠️ Non ho ancora dati in archivio: riprova dopo il primo aggiornamento."
         ds, righe = _contesto(conn, serie)
         indice = len(ds) - 1
         foto = dataset.fotografia(ds, ds.dates[indice])
@@ -288,7 +308,7 @@ def gestisci(conn, comando, serie="coinbase", chat_id=None):
 
     if comando in ("/analisi", "/stato", "/perche", "/perché"):
         if store.conteggi(conn)["prezzi"] == 0:
-            return "Non ho ancora dati in archivio."
+            return "⚠️ Non ho ancora dati in archivio: riprova dopo il primo aggiornamento."
         ds, righe = _contesto(conn, serie)
         indice = len(ds) - 1
         foto = dataset.fotografia(ds, ds.dates[indice])
@@ -300,7 +320,7 @@ def gestisci(conn, comando, serie="coinbase", chat_id=None):
             return messaggi.polso(ds, righe, indice, foto, parametri, config.BUDGET_MENSILE_EUR)
         return _perche(ds, righe, indice, foto, parametri)
 
-    return "Non conosco questo comando.\n\n" + AIUTO
+    return "🤔 Non conosco questo comando.\n\n" + AIUTO
 
 
 def gestisci_pulsante(conn, dati, utente_id):
@@ -312,7 +332,7 @@ def gestisci_pulsante(conn, dati, utente_id):
     if str(utente_id) != padrone():
         return {"testo": None, "avviso": "Solo il proprietario."}
     if dati == "annulla":
-        return {"testo": "Annullato: nessuna modifica.", "avviso": None}
+        return {"testo": "✕ Annullato: nessuna modifica.", "avviso": None}
     if dati.startswith("revoca:"):
         chi = dati.split(":", 1)[1]
         nome = etichetta(conn, chi)

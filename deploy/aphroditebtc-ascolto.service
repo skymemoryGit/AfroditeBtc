@@ -10,7 +10,7 @@ Wants=network-online.target
 [Service]
 Type=simple
 User=skymemory
-WorkingDirectory=/home/skymemory/AphroditeBTC
+WorkingDirectory=/home/skymemory/telegram_Bot/AfroditeBtc
 ExecStart=/usr/bin/python3 bot/main.py --ascolta
 Restart=always
 RestartSec=30

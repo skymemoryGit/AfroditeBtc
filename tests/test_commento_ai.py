@@ -112,7 +112,7 @@ class Flusso(unittest.TestCase):
     def test_due_volte_sbagliato_non_si_manda(self):
         ok, testo = ca.commenta(*self.ARGS, chiama=lambda m: "Compra: arriverà a 150 mila dollari.")
         self.assertFalse(ok)
-        self.assertIn("non ha passato i controlli", testo)
+        self.assertIn("non ha passato i miei controlli", testo)
         self.assertNotIn("Compra:", testo.split("\n", 1)[0])
 
     def test_errore_del_modello(self):
@@ -121,6 +121,44 @@ class Flusso(unittest.TestCase):
         ok, testo = ca.commenta(*self.ARGS, chiama=guasto)
         self.assertFalse(ok)
         self.assertIn("/analisi", testo)
+
+    def test_sovraccarico_frase_corta_e_una_seconda_prova(self):
+        """Il 503 "high demand" di Gemini arrivava su Telegram col JSON intero: ora una frase corta."""
+        ca.ATTESA_SE_OCCUPATO = 0
+        chiamate = []
+
+        def occupato(m):
+            chiamate.append(1)
+            raise ca.ErroreModello('HTTP 503: [{"error": {"code": 503, "status": "UNAVAILABLE"}}]', codice=503)
+        ok, testo = ca.commenta(*self.ARGS, chiama=occupato)
+        self.assertFalse(ok)
+        self.assertEqual(len(chiamate), 2, "una seconda prova da solo, non di più")
+        self.assertIn("molto richiesta", testo)
+        self.assertNotIn("UNAVAILABLE", testo)
+        self.assertNotIn("503", testo)
+        self.assertLessEqual(len(testo.splitlines()), 2)
+
+    def test_sovraccarico_passeggero_si_supera(self):
+        ca.ATTESA_SE_OCCUPATO = 0
+        risposte = [ca.ErroreModello("HTTP 503", codice=503)]
+
+        def una_volta(m):
+            if risposte:
+                raise risposte.pop()
+            return "Fase normale e tranquilla." + RIEMPITIVO
+        ok, testo = ca.commenta(*self.ARGS, chiama=una_volta)
+        self.assertTrue(ok, testo)
+
+    def test_errori_tecnici_non_arrivano_all_utente(self):
+        for errore in (ca.ErroreModello("HTTP 401: invalid key", codice=401),
+                       ca.ErroreModello("rete o risposta illeggibile: timed out", codice="rete")):
+            def guasto(m, errore=errore):
+                raise errore
+            ok, testo = ca.commenta(*self.ARGS, chiama=guasto)
+            self.assertFalse(ok)
+            self.assertNotIn("HTTP", testo)
+            self.assertNotIn("timed out", testo)
+            self.assertIn("/analisi", testo)
 
     def test_html_sicuro_e_markdown_tolto(self):
         ok, testo = ca.commenta(*self.ARGS, chiama=lambda m: "<think>ragiono</think>**Fase normale** & <b>tranquilla</b>." + RIEMPITIVO)
@@ -259,7 +297,7 @@ class Comando(unittest.TestCase):
         self.config.LLM_URL, self.config.LLM_MODELLO, self.config.LLM_CHIAVE = "https://x/v1/chat/completions", "m", "K"
 
         def finto(messaggi, *a, **k):          # un modello onesto: ripete il prezzo del report com'è
-            prezzo = re.search(r"PREZZO\s+([\d.]+) \$", messaggi[1]["content"]).group(1)
+            prezzo = re.search(r"Prezzo · ([\d.]+) \$", messaggi[1]["content"]).group(1)
             return lungo(f"Oggi Bitcoin vale {prezzo} dollari e il bot resta sul versamento ricorrente.")
         ca.chiama_modello = finto
         testo = self.comandi.gestisci(self.conn, "/Ai_commentary")
@@ -305,7 +343,8 @@ class Comando(unittest.TestCase):
         def guasto(*a, **k):
             raise ca.ErroreModello("HTTP 503")
         ca.chiama_modello = guasto
-        self.assertIn("Non riesco", self.comandi.gestisci(self.conn, "/ai_commentary", chat_id="778"))
+        ca.ATTESA_SE_OCCUPATO = 0
+        self.assertIn("molto richiesta", self.comandi.gestisci(self.conn, "/ai_commentary", chat_id="778"))
         ca.chiama_modello = lambda *a, **k: lungo("Il mercato è in fase normale.")
         self.assertIn("il commento di oggi", self.comandi.gestisci(self.conn, "/ai_commentary", chat_id="778"))
         self.comandi.revoca(self.conn, "778")

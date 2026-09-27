@@ -18,6 +18,7 @@ OpenAI (.../chat/completions) e quella di Anthropic (.../v1/messages). Chiave, U
 import html
 import json
 import re
+import time
 import urllib.error
 import urllib.request
 
@@ -28,7 +29,7 @@ ISTRUZIONI = """Sei il commentatore di AphroditeBTC, un bot personale che osserv
 STILE
 - Come un pezzo esplicativo di BBC News: apri con la notizia del giorno in una frase (in che fase è il mercato secondo il bot e cosa significa per chi versa ogni mese), poi il perché, poi cosa tenere d'occhio nei prossimi giorni.
 - Chiaro, sobrio, fattuale, ma umano e scorrevole: non burocratico, non rigido, niente enfasi da trader.
-- Il lettore è all'inizio con le cripto. Ogni termine tecnico (Mayer multiple, MVRV, RSI, media a 200 settimane, Fear & Greed, gli stati straordinario/normale/freno/caldo) va spiegato in parole semplici la prima volta che compare, in mezza frase.
+- Il lettore è all'inizio con le cripto. Ogni termine tecnico (Mayer multiple, MVRV, RSI, media a 200 settimane, Fear & Greed, le fasi Straordinario, Normale, Caldo e Freno) va spiegato in parole semplici la prima volta che compare, in mezza frase.
 - Tra 180 e 280 parole, da 3 a 5 paragrafi brevi. Niente titoli, niente elenchi puntati, niente markdown, niente asterischi.
 
 REGOLE CHE NON SI POSSONO VIOLARE
@@ -37,7 +38,8 @@ REGOLE CHE NON SI POSSONO VIOLARE
 3. Il bot non dà ordini e non fa previsioni. Per i soldi dell'utente usa solo le parole del bot: "versamento", "versare", "quota ricorrente", "versamento straordinario". Non usare mai i verbi comprare, vendere, acquistare, liquidare (unica eccezione: la frase "non vuol dire vendere"). Niente "dovresti", "ti conviene", "è il momento di". Niente futuro sul prezzo ("salirà", "scenderà"): se parli di ipotesi usa il condizionale ("se il prezzo scendesse...").
 4. Lo sforzo lo decide il bot: nello stato normale il versamento ricorrente e basta; nello straordinario un versamento in più, spalmato in più colpi; nel freno nessun versamento in più, che non vuol dire vendere; il caldo è un avviso dentro il normale.
 5. Se un dato manca o è del giorno prima, dillo come fa il report.
-6. Non aggiungere avvertenze finali: le aggiunge il bot."""
+6. Non aggiungere avvertenze finali: le aggiunge il bot.
+7. Non scrivere l'importo del versamento mensile: chiamalo solo "il versamento del mese"."""
 
 RIPROVA = ("Il commento non rispetta le regole: {problemi}. Riscrivilo da capo rispettando tutte le regole: "
            "solo numeri presenti nel report o nella guida (arrotondati solo dicendolo), per i soldi dell'utente "
@@ -45,7 +47,34 @@ RIPROVA = ("Il commento non rispetta le regole: {problemi}. Riscrivilo da capo r
 
 
 class ErroreModello(Exception):
-    """Il modello non ha risposto, o ha risposto in un modo che non sappiamo leggere."""
+    """Il modello non ha risposto, o ha risposto in un modo che non sappiamo leggere.
+
+    `codice`: il codice HTTP (429, 503...) o "rete". Serve a scegliere la frase per l'utente: il testo
+    tecnico dell'errore va solo nel log, mai su Telegram (richiesta dell'utente, sessione 15).
+    """
+
+    def __init__(self, messaggio, codice=None):
+        super().__init__(messaggio)
+        if codice is None:
+            trovato = re.match(r"HTTP (\d{3})", str(messaggio))
+            codice = int(trovato.group(1)) if trovato else None
+        self.codice = codice
+
+
+# Quando il servizio è sovraccarico (503 "high demand", 429) si riprova una volta da soli dopo qualche secondo.
+OCCUPATO = (429, 500, 502, 503, 504)
+ATTESA_SE_OCCUPATO = 4
+
+FINE_ERRORE = "\n<i>Intanto i numeri di oggi sono in /analisi.</i>"
+
+
+def frase_errore(errore):
+    """Il messaggio corto che vede l'utente al posto dell'errore tecnico."""
+    if errore.codice in OCCUPATO:
+        return "🧠 L'AI è molto richiesta in questo momento. Riprova fra qualche minuto." + FINE_ERRORE
+    if errore.codice == "rete":
+        return "🧠 L'AI non ha risposto in tempo. Riprova fra poco." + FINE_ERRORE
+    return "🧠 Il commento AI non è disponibile adesso. Riprova più tardi." + FINE_ERRORE
 
 
 class RispostaTroncata(ErroreModello):
@@ -68,7 +97,6 @@ def materiale(analisi_html, guida_html, budget_mensile):
     """Tutto quello che il modello può usare. È anche la fonte contro cui si controllano i numeri."""
     return ("GUIDA (come si legge il report: serve a spiegare i termini)\n"
             f"{testo_semplice(guida_html)}\n\n"
-            f"VERSAMENTO RICORRENTE DELL'UTENTE: {budget_mensile:g} euro al mese.\n\n"
             f"REPORT DI OGGI\n{testo_semplice(analisi_html)}")
 
 
@@ -220,12 +248,12 @@ def chiama_modello(messaggi, url, modello, chiave, timeout=90, _apri=None):
             break
         except urllib.error.HTTPError as e:
             dettaglio = _oscura(e.read().decode("utf-8", "ignore")[:300], chiave)
-            ultimo = ErroreModello(f"HTTP {e.code}: {dettaglio}")
+            ultimo = ErroreModello(f"HTTP {e.code}: {dettaglio}", codice=e.code)
             if e.code == 400 and corpo is not base:
                 continue                             # forse un parametro facoltativo: riprova senza
             raise ultimo
         except (urllib.error.URLError, TimeoutError, OSError, ValueError) as e:
-            raise ErroreModello(_oscura(f"rete o risposta illeggibile: {e}", chiave))
+            raise ErroreModello(_oscura(f"rete o risposta illeggibile: {e}", chiave), codice="rete")
     else:
         raise ultimo
     try:
@@ -263,16 +291,25 @@ def commenta(analisi_html, guida_html, budget_mensile, url, modello, chiave, dat
     fonte = materiale(analisi_html, guida_html, budget_mensile)
     messaggi = [{"role": "system", "content": ISTRUZIONI}, {"role": "user", "content": fonte}]
     problemi = []
+    ritentato = False
     for _tentativo in range(2):
         try:
-            bozza = pulisci(chiama(messaggi))
+            try:
+                bozza = pulisci(chiama(messaggi))
+            except ErroreModello as e:
+                if e.codice not in OCCUPATO or ritentato or isinstance(e, RispostaTroncata):
+                    raise
+                ritentato = True                 # sovraccarico: una seconda prova, dopo qualche secondo
+                print(f"[ai_commentary] {e} — riprovo fra {ATTESA_SE_OCCUPATO} secondi", flush=True)
+                time.sleep(ATTESA_SE_OCCUPATO)
+                bozza = pulisci(chiama(messaggi))
             problemi = controlla(bozza, fonte) if bozza else ["risposta vuota"]
         except RispostaTroncata as e:
             bozza = pulisci(e.parziale)
             problemi = ["risposta interrotta a metà per lunghezza: scrivi un testo completo e più breve"]
         except ErroreModello as e:
-            return False, ("🧠 Non riesco a ottenere il commento dal modello "
-                           f"(<i>{html.escape(str(e))}</i>). Il report resta disponibile con /analisi.")
+            print(f"[ai_commentary] errore del modello: {e}", flush=True)     # il dettaglio resta nel log
+            return False, frase_errore(e)
         if not problemi:
             giorno = f" del {data.strftime('%d/%m/%Y')}" if data else ""
             corpo = "\n\n".join(html.escape(p.strip(), quote=False) for p in bozza.split("\n\n") if p.strip())
@@ -281,5 +318,6 @@ def commenta(analisi_html, guida_html, budget_mensile, url, modello, chiave, dat
                           f"ogni numero è stato controllato sul report.</i>\n\n{corpo}\n\n<i>{CHIUSURA}</i>")
         messaggi = messaggi + [{"role": "assistant", "content": bozza or "(vuoto)"},
                                {"role": "user", "content": RIPROVA.format(problemi="; ".join(problemi))}]
-    return False, ("🧠 Il commento scritto dal modello non ha passato i controlli, quindi non te lo mando:\n<i>"
-                   + html.escape("; ".join(problemi)) + "</i>\nIl report resta disponibile con /analisi.")
+    print(f"[ai_commentary] scartato: {'; '.join(problemi)}", flush=True)
+    return False, ("🧠 Il commento dell'AI non ha passato i miei controlli, quindi non te lo mando. "
+                   "Riprova più tardi." + FINE_ERRORE)

@@ -1,7 +1,7 @@
 """Messaggi a sorpresa in settimana (D46): il bot si fa vivo anche quando nessuno gli scrive.
 
 Richiesta dell'utente: in un mercato orso, quando per settimane non succede niente, l'attenzione cala. Il bot
-manda il polso di due righe N volte a settimana (default 3), in giorni diversi, a un'ora casuale della fascia
+manda il polso (il messaggio breve) N volte a settimana (default 3), in giorni diversi, a un'ora casuale della fascia
 lavorativa (default 10-18, lunedì-venerdì, ora italiana). Tutto modificabile in bot/.env.
 
 Il piano della settimana si estrae una volta e si salva nel database: un riavvio del bot non lo rimescola e non

@@ -183,7 +183,7 @@ AI_COMMENTI_AL_GIORNO = _env_int("BOTBTC_AI_AL_GIORNO", 1)
 
 
 # ------------------------------------------------------ messaggi a sorpresa (D46)
-# Il polso di due righe N volte a settimana, a un'ora casuale della fascia lavorativa, perché il bot non stia
+# Il polso (il messaggio breve) N volte a settimana, a un'ora casuale della fascia lavorativa, perché il bot non stia
 # zitto per settimane quando il mercato è fermo. BOTBTC_SORPRESE_SETTIMANA=0 li spegne.
 PING_PER_SETTIMANA = _env_int("BOTBTC_SORPRESE_SETTIMANA", 3)
 try:

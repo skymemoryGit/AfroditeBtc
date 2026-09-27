@@ -9,7 +9,7 @@ Wants=network-online.target
 [Service]
 Type=oneshot
 User=skymemory
-WorkingDirectory=/home/skymemory/AphroditeBTC
+WorkingDirectory=/home/skymemory/telegram_Bot/AfroditeBtc
 ExecStart=/usr/bin/python3 bot/main.py --report
 Environment=PYTHONUNBUFFERED=1
 TimeoutStartSec=600

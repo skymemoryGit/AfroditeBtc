@@ -1,7 +1,7 @@
 """Il testo dei messaggi (F3 del piano) — da numeri a frasi in italiano.
 
 Tre formati (D19):
-- **polso**: due o tre righe, tutti i giorni, silenzioso. E' la rete di sicurezza per gli ingressi
+- **polso**: poche righe corte, una idea per riga (D48), tutti i giorni, silenzioso. E' la rete di sicurezza per gli ingressi
   lenti in zona: contiene la **riga di avvicinamento** (quanto manca alle soglie e in che direzione
   ci si sta muovendo), perche' a giugno 2026 il problema non e' stato mancare un annuncio, e' stato
   non vedere il mercato avvicinarsi per settimane;
@@ -26,21 +26,25 @@ import datetime
 from . import engine
 
 # --- fatti storici citabili, tutti verificati e con la fonte nel progetto
+# (fonte: docs/02 §5 — il riferimento resta qui, non nel messaggio: a chi legge su Telegram non serve)
 FATTO_2022 = ("nel 2022 il prezzo è rimasto 177 giorni sotto la media a 200 settimane, "
-              "fino a -34% (docs/02 §5)")
+              "fino a -34%")
 
+# I nomi delle fasi, uguali in tutti i messaggi (D49): maiuscola iniziale, mai tutto maiuscolo.
 NOMI_STATO = {
-    engine.STRAORDINARIO: "STRAORDINARIO",
-    engine.NORMALE: "normale",
-    engine.FRENO: "FRENO",
-    engine.SCONOSCIUTO: "dati insufficienti",
+    engine.STRAORDINARIO: "Straordinario",
+    engine.NORMALE: "Normale",
+    engine.FRENO: "Freno",
+    engine.SCONOSCIUTO: "Dati incompleti",
 }
 
+ICONE_STATO = {engine.STRAORDINARIO: "🟢", engine.FRENO: "🔴", engine.NORMALE: "⚪️", engine.SCONOSCIUTO: "⚠️"}
+
 SPIEGAZIONE_STATO = {
-    engine.STRAORDINARIO: "fase rara ed economica: varrebbe versare più del solito, in più colpi",
-    engine.NORMALE: "nessun estremo: il ricorrente e basta",
-    engine.FRENO: "fase cara da mesi: nessun versamento extra (non è un invito a vendere)",
-    engine.SCONOSCIUTO: "non ho abbastanza ingredienti per dire in che fase siamo",
+    engine.STRAORDINARIO: "prezzi bassi come capita di rado: vale la pena versare più del solito, in più volte",
+    engine.NORMALE: "niente di speciale: bastano i soliti versamenti",
+    engine.FRENO: "mercato caro da mesi: niente versamenti extra (non è un invito a vendere)",
+    engine.SCONOSCIUTO: "mi mancano dati per dire in che fase siamo",
 }
 
 
@@ -76,29 +80,29 @@ def condizione(valutazione, parametri):
 
 
 def vista_stato(valutazione, parametri):
-    """Icona, titolo e spiegazione da mostrare in testa a ogni messaggio."""
+    """Icona, nome e spiegazione della fase da mostrare in testa a ogni messaggio."""
     chiave = condizione(valutazione, parametri)
     if chiave == CALDO:
         giorni = valutazione.get("giorni_caro_consecutivi") or 0
         mancano = max(0, parametri.durata_minima_caro - giorni)
-        return {"chiave": CALDO, "icona": "🟠",
-                "titolo": f"normale · CALDO da {giorni} {'giorno' if giorni == 1 else 'giorni'}",
-                "spiegazione": (f"mercato tirato: niente versamenti straordinari. Il freno scatta a "
-                                f"{parametri.durata_minima_caro} giorni di fila"
-                                + (f" (ne mancano {mancano})" if mancano else "")
-                                + ". Non è un segnale di vendita"),
-                "breve": f"niente extra · freno a {parametri.durata_minima_caro} giorni · non vuol dire vendere"}
+        return {"chiave": CALDO, "icona": "🟠", "titolo": "Caldo",
+                "spiegazione": (f"prezzi alti rispetto agli ultimi 4 anni, da {_giorni(giorni)}: niente "
+                                f"versamenti extra. Se dura {parametri.durata_minima_caro} giorni di fila "
+                                "diventa Freno" + (f" (ne mancano {mancano})" if mancano else "")
+                                + ". Non è un segnale di vendita")}
     if chiave == IN_ARRIVO:
-        return {"chiave": IN_ARRIVO, "icona": "🟡",
-                "titolo": "normale · STRAORDINARIO IN ARRIVO",
-                "spiegazione": (f"il punteggio economico ha passato la soglia oggi: se regge per "
-                                f"{parametri.conferma_giorni} giorni di fila scatta lo straordinario. "
-                                "Per ora il ricorrente, ma tieni d'occhio i prossimi messaggi"),
-                "breve": "soglia economica passata oggi · se regge, domani scatta"}
-    icone = {engine.STRAORDINARIO: "🟢", engine.FRENO: "🔴",
-             engine.NORMALE: "⚪️", engine.SCONOSCIUTO: "⚠️"}
-    return {"chiave": chiave, "icona": icone.get(chiave, ""), "titolo": NOMI_STATO[chiave],
-            "spiegazione": SPIEGAZIONE_STATO[chiave], "breve": SPIEGAZIONE_STATO[chiave]}
+        return {"chiave": IN_ARRIVO, "icona": "🟡", "titolo": "Straordinario in arrivo",
+                "spiegazione": (f"oggi i prezzi sono entrati in zona sconto: se ci restano "
+                                f"{parametri.conferma_giorni} giorni di fila diventa Straordinario. "
+                                "Per ora i soliti versamenti")}
+    return {"chiave": chiave, "icona": ICONE_STATO.get(chiave, ""), "titolo": NOMI_STATO[chiave],
+            "spiegazione": SPIEGAZIONE_STATO[chiave]}
+
+
+def titolo_fase(valutazione, parametri):
+    """'⚪️ <b>Normale</b>': come si scrive la fase in testa a ogni messaggio."""
+    vista = vista_stato(valutazione, parametri)
+    return f"{vista['icona']} <b>{vista['titolo']}</b>"
 
 
 def _data(giorno):
@@ -331,86 +335,203 @@ def confronto_storico(ds, righe, indice, stato=engine.STRAORDINARIO, parametri=N
 
 
 def riga_confronto(confronto, stato):
+    """L'episodio precedente in poche righe da Telegram: quando, quanto è durato, cosa è successo dopo."""
     if not confronto:
         return None
-    pezzi = [f"L'ultima fase simile è cominciata il {_data(confronto['inizio'])} "
-             f"({confronto['giorni']} giorni, prezzo {_prezzo(confronto['prezzo'])})"]
+    righe = ["🕐 <b>L'ultima volta così</b>",
+             f"▸ Cominciata il {_data(confronto['inizio'])} a {_prezzo(confronto['prezzo'])}, "
+             f"durata {_giorni(confronto['giorni'])}"]
     if confronto["esiti"]:
-        dopo = ", ".join(f"dopo {k} {v:+.0f}%" for k, v in confronto["esiti"].items())
-        pezzi.append(f"da lì: {dopo}")
+        dopo = " · ".join(f"dopo {k} <b>{v:+.0f}%</b>" for k, v in confronto["esiti"].items())
+        righe.append(f"▸ Il prezzo da lì: {dopo}")
     else:
-        pezzi.append("non è ancora passato abbastanza tempo per dire com'è andata")
-    coda = ("Un solo precedente recente non è una previsione, e l'ampiezza dei cicli si sta "
-            "riducendo." if stato == engine.STRAORDINARIO else "Un solo precedente non è una previsione.")
-    return " — ".join(pezzi) + ". " + coda
+        righe.append("▸ È troppo presto per dire com'è andata")
+    coda = ("Un solo precedente non è una previsione, e l'ampiezza dei cicli si sta riducendo."
+            if stato in (engine.STRAORDINARIO, IN_ARRIVO) else "Un solo precedente non è una previsione.")
+    righe.append(f"<i>{coda}</i>")
+    return "\n".join(righe)
 
 # ------------------------------------------------------------- sforzo
 
 def riga_sforzo(valutazione, budget_mensile, tetto_mesi=None, speso_mesi=0.0, parametri=None):
-    """Da moltiplicatore a euro, col saldo del tetto se e' stato deciso (F2.5)."""
+    """Da moltiplicatore a euro, col saldo del tetto se è stato deciso (F2.5). Più righe, senza gergo."""
     p = parametri or engine.Parametri()
     m = valutazione.get("moltiplicatore")
     if not m:
         return None
     extra_settimana = (m - 1.0) * budget_mensile / 4.0
-    testo = (f"Sforzo suggerito: settimana da {_num(m, 1)}x, cioè circa {_soldi(extra_settimana)} in più "
-             f"del ricorrente, da mettere in almeno {p.colpi_minimi} colpi e mai in uno solo")
+    righe = [f"▸ Questa settimana un extra di circa <b>{_euro(extra_settimana)}</b> "
+             f"({_num(m, 1)} volte il versamento normale)",
+             f"▸ Divisi in almeno {p.colpi_minimi} volte, mai tutti insieme"]
     if tetto_mesi is None:
-        testo += (". Tetto del ciclo: non l'hai ancora deciso, quindi non tengo un saldo e non "
-                  "propongo tranche oltre questa")
+        righe.append("▸ Il tetto per questa fase non l'hai ancora deciso: per ora non tengo il conto "
+                      "di quanto hai messo in più")
     else:
         residuo = engine.tranche_consentita(valutazione["punteggio_economico"], speso_mesi,
                                             tetto_mesi, p)
-        testo += (f". Tetto del ciclo: usati {speso_mesi:.1f} di {tetto_mesi:.0f} mesi equivalenti, "
-                  f"disponibili adesso {max(0.0, residuo or 0.0):.1f}")
-    return testo + "."
+        righe.append(f"▸ Tetto della fase: usati {_num(speso_mesi, 1)} di {tetto_mesi:.0f} mesi di budget, "
+                     f"disponibili adesso {_num(max(0.0, residuo or 0.0), 1)}")
+    return "\n".join(righe)
 
 # ------------------------------------------------------------- i formati
 
+def _euro(valore):
+    return f"{valore:,.0f} €".replace(",", ".")
+
+
+def _giorni(n):
+    return f"{n} {'giorno' if n == 1 else 'giorni'}"
+
+
+def riga_media_200(ds, indice):
+    """La distanza dalla media a 200 settimane detta come la direbbe una persona (D48)."""
+    info = avvicinamento(ds, indice)
+    if info is None:
+        return "📍 Oggi non riesco a calcolare la distanza dalla media delle ultime 200 settimane."
+    d = info["distanza"]
+    if abs(d) < 1:
+        testo = "📍 Il prezzo è praticamente sulla media delle ultime 200 settimane"
+    elif d > 0:
+        testo = f"📍 Il prezzo è il {d:.0f}% sopra la media delle ultime 200 settimane"
+    else:
+        testo = f"📍 Il prezzo è il {abs(d):.0f}% sotto la media delle ultime 200 settimane"
+    if info["verso"] and info["giorni"] >= 3:
+        g = _giorni(info["giorni"])
+        if d >= 1:
+            testo += (f", e da {g} ci si sta avvicinando" if info["verso"] == "giu"
+                      else f", e da {g} se ne sta allontanando")
+        elif d <= -1:
+            testo += (f", e da {g} scende ancora più sotto" if info["verso"] == "giu"
+                      else f", e da {g} sta risalendo verso la media")
+    return testo + "."
+
+
+def riga_termometro(valutazione, parametri):
+    """Quanto è caro o a sconto il mercato, a parole e non in 'percentuali della strada' (D48)."""
+    chiave = condizione(valutazione, parametri)
+    if chiave == CALDO:
+        giorni = valutazione.get("giorni_caro_consecutivi") or 0
+        return (f"🌡 Prezzi alti rispetto agli ultimi 4 anni, da {_giorni(giorni)}. "
+                "Non è un segnale di vendita: vuol dire solo non aggiungere.")
+    if chiave == engine.FRENO:
+        giorni = valutazione.get("giorni_caro_consecutivi") or 0
+        return (f"🌡 Mercato caro da {_giorni(giorni)} di fila. "
+                "Non vuol dire vendere: vuol dire solo non aggiungere.")
+    if chiave == IN_ARRIVO:
+        return ("🌡 Oggi i prezzi sono entrati in zona sconto. "
+                f"Se ci restano {parametri.conferma_giorni} giorni di fila, scatta la fase straordinaria.")
+    if chiave == engine.STRAORDINARIO:
+        return "🌡 Prezzi bassi come capita di rado. Attenzione: può durare mesi e scendere ancora."
+    if chiave == engine.SCONOSCIUTO:
+        return "🌡 Mi mancano troppi dati per dire se il mercato è caro o a sconto."
+    eco = valutazione.get("punteggio_economico") or 0.0
+    caro = valutazione.get("punteggio_caro") or 0.0
+    verso_eco = eco / parametri.soglia_straordinario if parametri.soglia_straordinario else 0.0
+    verso_caro = caro / parametri.soglia_freno if parametri.soglia_freno else 0.0
+    if max(verso_eco, verso_caro) < 0.25:
+        return "🌡 Mercato tranquillo: né caro né a sconto."
+    if verso_caro > verso_eco:
+        if verso_caro < 0.6:
+            return "🌡 Un po' caro, ma lontano dagli eccessi."
+        return "🌡 Si sta scaldando: siamo vicini alla zona calda."
+    if verso_eco < 0.6:
+        return "🌡 Prezzi un po' più bassi del solito, ma non è ancora un'occasione."
+    return "🌡 Ci stiamo avvicinando alla zona sconto: vale la pena guardare i prossimi giorni."
+
+
+def riga_soldi(valutazione, parametri, budget_mensile):
+    """Cosa fare coi soldi, in una frase. Mai un ordine: il ricorrente, l'extra o niente extra.
+
+    L'importo del versamento mensile non si scrive (richiesta dell'utente, D50): lo conosce. Si scrive
+    solo l'extra dello Straordinario, che cambia di settimana in settimana.
+    """
+    chiave = condizione(valutazione, parametri)
+    if chiave == engine.STRAORDINARIO and valutazione.get("moltiplicatore"):
+        extra = (valutazione["moltiplicatore"] - 1.0) * budget_mensile / 4.0
+        return (f"💶 Oltre al versamento del mese, questa settimana varrebbe un extra di circa "
+                f"{_euro(extra)}, diviso in più volte (mai tutto insieme).")
+    if chiave == IN_ARRIVO:
+        return "💶 Per ora solo il versamento del mese: niente extra finché la fase non si conferma."
+    if chiave in (CALDO, engine.FRENO):
+        return "💶 Solo il versamento del mese, niente extra."
+    if chiave == engine.SCONOSCIUTO:
+        return "💶 Nel dubbio, solo il versamento del mese."
+    return "💶 Il solito versamento del mese, niente extra."
+
+
+def riga_date_polso(foto):
+    """Di che giorno sono i dati. L'MVRV si nomina a parte solo quando è di un altro giorno."""
+    giorno = foto["data"]
+    testo = f"Dati del {giorno.strftime('%d/%m')}"
+    mvrv = foto.get("mvrv_data")
+    if not mvrv:
+        testo += " · MVRV non disponibile"
+    elif mvrv != giorno:
+        testo += f" · MVRV del {mvrv.strftime('%d/%m')} (arriva con un giorno di ritardo)"
+    else:
+        testo += ", MVRV compreso"
+    if foto.get("ingredienti_mancanti"):
+        testo += " · manca " + ", ".join(_nome_umano(k) for k in foto["ingredienti_mancanti"])
+    return testo
+
+
 def polso(ds, righe, indice, foto, parametri, budget_mensile=200.0):
-    """Due o tre righe, tutti i giorni. Non chiede attenzione: la tiene allenata."""
+    """Il messaggio breve di tutti i giorni (e dei messaggi a sorpresa), scritto per Telegram (D48).
+
+    Quattro righe corte, ognuna con una sola idea: com'è il mercato, cosa fare coi soldi, dove
+    sta il prezzo rispetto alla media a 200 settimane (la riga che a giugno 2026 sarebbe servita),
+    quanto è caro o a sconto. In fondo le date dei dati.
+    """
     valutazione = righe[indice]
-    stato = valutazione.get("stato_confermato", valutazione["stato"])
     vista = vista_stato(valutazione, parametri)
-    testa = (f"{vista['icona']} <b>{_prezzo(foto['prezzo'])}</b> · <b>{vista['titolo']}</b> — "
-             f"{vista['breve']}")
-    seconda = riga_avvicinamento(ds, indice, valutazione, parametri).capitalize()
-    if stato == engine.STRAORDINARIO and valutazione.get("moltiplicatore"):
-        m = valutazione["moltiplicatore"]
-        extra = (m - 1.0) * budget_mensile / 4.0
-        seconda += f" · settimana da {_num(m, 1)}x (~{_soldi(extra)} in più, in più colpi)"
-    return f"{testa}\n{seconda} · <i>{riga_dati_breve(foto)}</i>."
+    righe_testo = [
+        f"{vista['icona']} <b>{vista['titolo']}</b> · BTC {_prezzo(foto['prezzo'])}",
+        "",
+        riga_soldi(valutazione, parametri, budget_mensile),
+        riga_media_200(ds, indice),
+        riga_termometro(valutazione, parametri),
+        "",
+        f"<i>{riga_date_polso(foto)} · dettagli con /analisi</i>",
+    ]
+    return "\n".join(righe_testo)
 
 
 def cambio_stato(ds, righe, indice, foto, parametri, precedente, budget_mensile=200.0,
                  tetto_mesi=None, speso_mesi=0.0):
-    """Il messaggio che chiede davvero attenzione: si manda solo quando lo stato cambia."""
+    """Il messaggio che chiede davvero attenzione: si manda solo quando la fase cambia."""
     valutazione = righe[indice]
     stato = valutazione.get("stato_confermato", valutazione["stato"])
     vista = vista_stato(valutazione, parametri)
-    parti = [f"Cambio di stato: da {NOMI_STATO.get(precedente, precedente)} a {NOMI_STATO[stato]}"
-             f" ({_data(foto['data'])})",
-             f"Cosa vuol dire: {vista['spiegazione']}.",
-             f"BTC {_prezzo(foto['prezzo'])} · {riga_avvicinamento(ds, indice, valutazione, parametri)}."]
+    prima = f"{ICONE_STATO.get(precedente, '')} {NOMI_STATO.get(precedente, precedente)}".strip()
+    parti = ["🔔 <b>Cambio di fase</b>\n"
+             f"{prima}  →  {vista['icona']} <b>{vista['titolo']}</b>\n"
+             f"<i>{vista['spiegazione'][0].upper() + vista['spiegazione'][1:]}.</i>",
+             "\n".join([f"💵 <b>BTC {_prezzo(foto['prezzo'])}</b>"]
+                       + ([] if valutazione.get("moltiplicatore") and stato == engine.STRAORDINARIO
+                          else [riga_soldi(valutazione, parametri, budget_mensile)])   # l'extra ha il suo blocco
+                       + [riga_media_200(ds, indice)])]
     motivi = motivi_del_giorno(ds, indice, valutazione, stato)
     if motivi:
-        parti.append("Perché: " + "; ".join(motivi) + ".")
+        blocco = ["🔎 <b>Perché</b>"]
+        for motivo in motivi:
+            testa, _, coda = motivo.partition(": ")
+            blocco.append(f"▸ {testa[:1].upper() + testa[1:]}" + (f"\n     <i>↳ {coda}</i>" if coda else ""))
+        parti.append("\n".join(blocco).replace("&", "&amp;"))
     sforzo = riga_sforzo(valutazione, budget_mensile, tetto_mesi, speso_mesi, parametri)
     if sforzo:
-        parti.append(sforzo)
+        parti.append("💶 <b>Quanto mettere in più</b>\n" + sforzo)
     if stato == engine.STRAORDINARIO:
-        parti.append(f"Da tenere presente: questa fase può durare e peggiorare — {FATTO_2022}. "
-                     "Per questo lo sforzo va spalmato.")
+        parti.append("⚠️ <b>Da sapere</b>\nQuesta fase può durare e peggiorare: "
+                     f"{FATTO_2022}. Per questo l'extra va diviso nel tempo.")
     if stato == engine.FRENO:
-        parti.append("Nota: «freno» vuol dire solo non aggiungere extra. Non è un invito a "
-                     "vendere, e su 4 massimi storici questo segnale ne ha colti 2.")
+        parti.append("⚠️ <b>Da sapere</b>\nFreno vuol dire solo non aggiungere extra: non è un invito a "
+                     "vendere. Su 4 massimi storici questo segnale ne ha colti 2.")
     confronto = riga_confronto(confronto_storico(ds, righe, indice, vista["chiave"], parametri),
                                vista["chiave"])
     if confronto:
         parti.append(confronto)
-    parti.append(riga_dati(foto))
+    parti.append(SEPARATORE + "\n<i>📄 " + riga_dati(foto) + "</i>")
     return "\n\n".join(parti)
-
 
 # Massimi di MVRV ai massimi di ciclo (docs/02 §2): servono a dare la scala di quanto sia
 # calato il "caro" di ciclo in ciclo, invece di far credere che 4,43 possa tornare.
@@ -481,6 +602,11 @@ def barra(valore, soglia, caselle=5):
     return "▮" * piene + "▯" * (caselle - piene)
 
 
+NOMI_BREVI = {"price_vs_wma200": "media 200 settimane", "mayer": "Mayer", "dd365": "distanza dal massimo",
+              "rsi14_w": "RSI settimanale", "rsi14_d": "RSI giornaliero", "mvrv": "MVRV",
+              "fng": "Fear & Greed"}
+
+
 def chi_contribuisce(valutazione, verso, quanti=3):
     """Quali indicatori stanno spingendo il punteggio, detti per nome. Vuoto = nessuno."""
     contributi = valutazione.get("contributi") or {}
@@ -488,7 +614,8 @@ def chi_contribuisce(valutazione, verso, quanti=3):
     if not attivi:
         return None
     attivi.sort(key=lambda kv: kv[1][verso] * kv[1]["peso"], reverse=True)
-    nomi = [engine.ETICHETTE.get(chiave, chiave).replace("&", "&amp;") for chiave, _ in attivi[:quanti]]
+    nomi = [NOMI_BREVI.get(chiave, engine.ETICHETTE.get(chiave, chiave)).replace("&", "&amp;")
+            for chiave, _ in attivi[:quanti]]
     resto = len(attivi) - len(nomi)
     coda = " e un altro" if resto == 1 else (f" e altri {resto}" if resto > 1 else "")
     testo = ", ".join(nomi) + coda
@@ -521,132 +648,160 @@ ORDINE_ANALISI = (
 )
 
 
+def livello(valore, soglia, verso):
+    """Il termometro detto a parole: 'lontano dal Caldo', 'a metà strada verso lo Straordinario'..."""
+    meta = "lo Straordinario" if verso == "economico" else "il Caldo"
+    dal = "dallo Straordinario" if verso == "economico" else "dal Caldo"
+    al = "allo Straordinario" if verso == "economico" else "al Caldo"
+    if valore is None or not soglia:
+        return "non calcolabile"
+    quota = valore / soglia
+    if quota >= 1:
+        return "soglia passata"
+    if quota < 0.25:
+        return f"lontano {dal}"
+    if quota < 0.6:
+        return f"a metà strada verso {meta}"
+    return f"vicino {al}"
+
+
+def umore_fng(valore):
+    """Le etichette di alternative.me, in italiano."""
+    if valore < 25:
+        return "paura estrema"
+    if valore < 47:
+        return "paura"
+    if valore <= 54:
+        return "neutro"
+    if valore <= 75:
+        return "avidità"
+    return "avidità estrema"
+
+
 def analisi_completa(ds, righe, indice, foto, parametri, budget_mensile=200.0,
                      tetto_mesi=None, speso_mesi=0.0, limite=4000):
     """Tutto quello che il bot sa oggi, in un solo messaggio Telegram, formattato in HTML.
 
-    Criterio di impaginazione (sessione 12, dopo averlo letto sul telefono): righe corte, una
-    informazione per riga, il numero prima e il commento dopo. Le spiegazioni lunghe vanno nella
-    guida (`guida()`), non dentro il report di ogni giorno.
+    Impaginazione (D49): in testa la fase e cosa fare coi soldi, detti come nel messaggio breve;
+    poi un blocco per argomento, titolo con emoji, una informazione per riga, il numero in
+    grassetto e sotto, in corsivo, il confronto coi 4 anni (la forma approvata in D42). Le
+    spiegazioni lunghe stanno nella guida (`guida()`).
     """
     valutazione = righe[indice]
     stato = valutazione.get("stato_confermato", valutazione["stato"])
     v = lambda chiave: ds.ind.get(chiave, [None] * len(ds))[indice]
-    pct = lambda chiave: (ds.ind.get(f"pct_{chiave}") or [None] * len(ds))[indice]
 
     def posizione(chiave):
-        """'negli ultimi 4 anni è stato più alto di oggi in 380 giorni su 1.460 (26%)' (D42).
+        """'↳ negli ultimi 4 anni è stato più alto di oggi in 380 giorni su 1.460 (26%)' (D42).
 
-        Giorni veri e verso unico. Se l'ingrediente conta nel punteggio lo si dice, con le stesse
-        parole di "spingono:", cosi' la riga e il punteggio non si contraddicono mai.
+        Se l'ingrediente conta nel punteggio lo si dice ("zona cara" / "zona sconto"), con le
+        stesse parole del blocco dei termometri, così le due parti non si contraddicono mai.
         """
         conto = quanti_piu_alti(ds, chiave, indice)
         if conto is None:
-            return None
+            return ""
         testo = "↳ " + engine.confronto_in_giorni(conto["piu_alti"], conto["totale"], conto["anni"],
                                                   conto["uguali"])
         c = (valutazione.get("contributi") or {}).get(chiave) or {}
         if c.get("caro", 0) > 0:
-            testo += " · zona cara"
+            testo += " · <b>zona cara</b>"
         elif c.get("economico", 0) > 0:
-            testo += " · zona economica"
-        return testo
+            testo += " · <b>zona sconto</b>"
+        return f"\n     <i>{testo}</i>"
 
     vista = vista_stato(valutazione, parametri)
-    parti = [f"₿ <b>AphroditeBTC</b> · analisi del {_data(foto['data'])}"]
+    parti = [f"₿ <b>AphroditeBTC</b> · <i>analisi del {_data(foto['data'])}</i>"]
 
-    # --- stato
-    blocco = [f"{vista['icona']} <b>{vista['titolo'].upper()}</b>",
-              f"<i>{vista['spiegazione']}</i>"]
+    # --- la fase, detta come nel messaggio breve
+    parti.append("\n".join([f"{vista['icona']} <b>{vista['titolo']}</b> · BTC {_prezzo(foto['prezzo'])}",
+                            riga_soldi(valutazione, parametri, budget_mensile),
+                            riga_termometro(valutazione, parametri)]))
+
+    # --- i due termometri
     if valutazione["punteggio_economico"] is not None:
         eco, caro_p = valutazione["punteggio_economico"], valutazione["punteggio_caro"]
-        blocco.append(f"▸ quanto è ECONOMICO  {barra(eco, parametri.soglia_straordinario)}  "
-                      f"<b>{strada(eco, parametri.soglia_straordinario)} della strada</b>"
-                      f" <i>({_punteggio(eco)} su {_fisso(parametri.soglia_straordinario)} → straordinario)</i>")
-        spinta = chi_contribuisce(valutazione, "economico")
-        blocco.append(f"     <i>{('spingono: ' + spinta) if spinta else 'nessuno dei 7 indicatori è in zona economica'}</i>")
-        blocco.append(f"▸ quanto è CARO       {barra(caro_p, parametri.soglia_freno)}  "
-                      f"<b>{strada(caro_p, parametri.soglia_freno)} della strada</b>"
-                      f" <i>({_punteggio(caro_p)} su {_fisso(parametri.soglia_freno)} → caldo)</i>")
-        spinta = chi_contribuisce(valutazione, "caro")
-        blocco.append(f"     <i>{('spingono: ' + spinta) if spinta else 'nessuno dei 7 indicatori è in zona cara'}</i>")
-    parti.append("\n".join(blocco))
+        blocco = ["📊 <b>I due termometri</b> <i>(pieno = scatta la fase)</i>",
+                  f"Sconto {barra(eco, parametri.soglia_straordinario)} "
+                  f"{strada(eco, parametri.soglia_straordinario)} · "
+                  f"{livello(eco, parametri.soglia_straordinario, 'economico')}",
+                  f"Caro {barra(caro_p, parametri.soglia_freno)} "
+                  f"{strada(caro_p, parametri.soglia_freno)} · "
+                  f"{livello(caro_p, parametri.soglia_freno, 'caro')}"]
+        spinta_eco = chi_contribuisce(valutazione, "economico")
+        spinta_caro = chi_contribuisce(valutazione, "caro")
+        blocco.append(f"<i>In zona sconto: {spinta_eco or 'nessuno dei 7 indicatori'}</i>")
+        blocco.append(f"<i>In zona cara: {spinta_caro or 'nessuno dei 7 indicatori'}</i>")
+        parti.append("\n".join(blocco))
 
     # --- prezzo
     massimo, quando = massimo_annuale(ds, indice)
-    blocco = [f"💵 <b>PREZZO</b>  <b>{_prezzo(foto['prezzo'])}</b>",
-              f"{_colorato(variazione(ds, indice, 1))} 24h   "
-              f"{_colorato(variazione(ds, indice, 7))} 7g   "
-              f"{_colorato(variazione(ds, indice, 30))} 30g",
-              f"▸ dal massimo degli ultimi 12 mesi <b>{_fisso(v('dd365'), 1)}%</b>",
-              f"     <i>{_prezzo(massimo)} il {_data(quando)}{_nota_ath(ds, indice, massimo, quando)}</i>"]
+    blocco = [f"💵 <b>Prezzo</b> · <b>{_prezzo(foto['prezzo'])}</b>",
+              f"{_colorato(variazione(ds, indice, 1))} in 24 ore · "
+              f"{_colorato(variazione(ds, indice, 7))} in 7 giorni · "
+              f"{_colorato(variazione(ds, indice, 30))} in 30 giorni",
+              f"▸ <b>{_fisso(v('dd365'), 1)}%</b> dal massimo degli ultimi 12 mesi"
+              f"\n     <i>{_prezzo(massimo)} il {_data(quando)}{_nota_ath(ds, indice, massimo, quando)}</i>"
+              + posizione("dd365")]
     if v("mayer") is not None:
-        blocco.append(f"▸ Mayer (media 200 giorni) <b>{_fisso(v('mayer'))}</b>")
-        if posizione("mayer"):
-            blocco.append(f"     <i>{posizione('mayer')}</i>")
+        scarto = (v("mayer") - 1) * 100
+        dove = f"{abs(scarto):.0f}% {'sopra' if scarto >= 0 else 'sotto'}"
+        blocco.append(f"▸ Mayer <b>{_fisso(v('mayer'))}</b>: il prezzo è il {dove} la media di 200 giorni"
+                      + posizione("mayer"))
     if v("price_vs_wma200") is not None:
-        distanza = (v("price_vs_wma200") - 1) * 100
-        blocco.append(f"▸ media 200 settimane <b>{'+' if distanza >= 0 else ''}"
-                      f"{_fisso(distanza, 0)}%</b>")
-        if posizione("price_vs_wma200"):
-            blocco.append(f"     <i>{posizione('price_vs_wma200')}</i>")
+        scarto = (v("price_vs_wma200") - 1) * 100
+        dove = f"{abs(scarto):.0f}% {'sopra' if scarto >= 0 else 'sotto'}"
+        blocco.append(f"▸ Media 200 settimane: il prezzo è il <b>{dove}</b>" + posizione("price_vs_wma200"))
     parti.append("\n".join(blocco))
 
     # --- on-chain
     if v("mvrv") is not None:
-        blocco = [f"⛓ <b>MVRV</b>  <b>{_fisso(v('mvrv'))}</b>"]
-        if posizione("mvrv"):
-            blocco.append(f"     <i>{posizione('mvrv')}</i>")
-        blocco.append(f"▸ ai massimi passati {MVRV_AI_MASSIMI_CORTO}")
         ritardo = foto.get("mvrv_ritardo_giorni") or 0
-        blocco.append(f"▸ dato del {_data(foto.get('mvrv_data'))}"
-                      + (" <i>(la fonte va un giorno indietro)</i>" if ritardo >= 1 else ""))
+        blocco = [f"⛓ <b>MVRV</b> · <b>{_fisso(v('mvrv'))}</b>",
+                  "<i>valore di mercato ÷ prezzo medio pagato da chi tiene i bitcoin</i>"
+                  + posizione("mvrv"),
+                  f"▸ Ai massimi passati: {MVRV_AI_MASSIMI_CORTO}",
+                  f"▸ Dato del {_data(foto.get('mvrv_data'))}"
+                  + (" <i>(la fonte pubblica con un giorno di ritardo)</i>" if ritardo >= 1 else "")]
         parti.append("\n".join(blocco))
 
     # --- momentum
-    blocco = ["📈 <b>MOMENTUM</b>"]
+    blocco = ["📈 <b>Slancio</b>"]
+    if v("rsi14_w") is not None:
+        blocco.append(f"▸ RSI settimanale <b>{_fisso(v('rsi14_w'), 0)}</b>" + posizione("rsi14_w"))
     if v("rsi14_d") is not None:
-        blocco.append(f"▸ RSI <b>{_fisso(v('rsi14_w'), 0)}</b> settimana "
-                      f"· {_fisso(v('rsi14_d'), 0)} giorno")
-        blocco.append("     <i>sotto 30 venduto · sopra 70 comprato</i>")
+        blocco.append(f"▸ RSI giornaliero <b>{_fisso(v('rsi14_d'), 0)}</b>" + posizione("rsi14_d"))
     if v("pi_ratio") is not None:
-        blocco.append(f"▸ Pi Cycle {_fisso(v('pi_ratio'))} <i>(spara a 1,00)</i>")
+        blocco.append(f"▸ Pi Cycle <b>{_fisso(v('pi_ratio'))}</b> <i>(scatta a 1,00)</i>")
     if len(blocco) > 1:
+        blocco.append("<i>RSI: sotto 30 = molto venduto · sopra 70 = molto comprato</i>")
         parti.append("\n".join(blocco))
 
     # --- sentiment
-    blocco = ["👥 <b>ATTENZIONE DELLA GENTE</b>"]
+    blocco = ["👥 <b>Umore della gente</b>"]
     if v("fng") is not None:
         ieri = ds.ind.get("fng", [None] * len(ds))[indice - 1] if indice else None
-        delta = f" <i>({_segno(v('fng') - ieri, 0).replace('%','')} vs ieri)</i>" if ieri is not None else ""
-        blocco.append(f"▸ Fear &amp; Greed <b>{_fisso(v('fng'), 0)}</b>/100{delta}")
+        delta = f" <i>(ieri {_fisso(ieri, 0)})</i>" if ieri is not None else ""
+        blocco.append(f"▸ Fear &amp; Greed <b>{_fisso(v('fng'), 0)}</b>/100 · {umore_fng(v('fng'))}{delta}"
+                      + posizione("fng"))
     if v("trends") is not None:
-        blocco.append(f"▸ ricerche Google <b>{_fisso(v('trends'), 0)}</b>/100 <i>(mensile)</i>")
-        blocco.append(f"     <i>ai massimi passati {TRENDS_AI_MASSIMI_CORTO}</i>")
+        blocco.append(f"▸ Ricerche Google <b>{_fisso(v('trends'), 0)}</b>/100 <i>(dato mensile)</i>"
+                      f"\n     <i>ai massimi passati {TRENDS_AI_MASSIMI_CORTO}</i>")
     if len(blocco) > 1:
         parti.append("\n".join(blocco))
 
-    # --- sforzo e onesta'
+    # --- sforzo e onestà
     sforzo = riga_sforzo(valutazione, budget_mensile, tetto_mesi, speso_mesi, parametri)
     if sforzo:
-        parti.append("💶 <b>COSA VARREBBE FARE</b>\n• " + sforzo.replace(". ", ".\n• "))
+        parti.append("💶 <b>Quanto mettere in più</b>\n" + sforzo)
     if stato == engine.STRAORDINARIO:
-        parti.append("⚠️ <b>ONESTÀ</b>\n• questa fase può durare e peggiorare\n"
-                     f"   ↳ {FATTO_2022}")
-    confronto = confronto_storico(ds, righe, indice, vista["chiave"], parametri)
+        parti.append("⚠️ <b>Da sapere</b>\nQuesta fase può durare e peggiorare: "
+                     f"{FATTO_2022}.")
+    confronto = riga_confronto(confronto_storico(ds, righe, indice, vista["chiave"], parametri),
+                               vista["chiave"])
     if confronto:
-        blocco = ["🕐 <b>L'ULTIMA VOLTA COSÌ</b>",
-                  f"▸ {_data(confronto['inizio'])} · {confronto['giorni']} giorni · "
-                  f"{_prezzo(confronto['prezzo'])}"]
-        if confronto["esiti"]:
-            blocco.append("     " + " · ".join(f"{k} <b>{v_:+.0f}%</b>"
-                                               for k, v_ in confronto["esiti"].items()))
-        else:
-            blocco.append("     <i>troppo presto per dire com'è andata</i>")
-        blocco.append("<i>Un solo precedente non è una previsione.</i>")
-        parti.append("\n".join(blocco))
+        parti.append(confronto)
 
-    parti.append(SEPARATORE + "\n📄 <i>" + riga_dati(foto) + "</i>")
+    parti.append(SEPARATORE + "\n<i>📄 " + riga_dati(foto) + "\nCosa vuol dire ogni riga: /guida</i>")
     testo = "\n\n".join(parti)
     if len(testo) > limite:                      # non deve mai spezzarsi in due messaggi
         testo = testo[:limite - 3].rstrip() + "..."
@@ -656,49 +811,48 @@ def analisi_completa(ds, righe, indice, foto, parametri, budget_mensile=200.0,
 GUIDA = """₿ <b>AphroditeBTC — come si legge</b>
 <i>Love the asset. Analyze the market.</i>
 
-🧭 <b>LO STATO è la sola cosa che conta</b>
-🟢 <b>straordinario</b> — fase rara ed economica: vale versare più del solito, spalmato in più settimane.
-⚪️ <b>normale</b> — nessun estremo: i 200 €/mese e basta.
-🔴 <b>freno</b> — mercato caro da mesi: nessun versamento extra. <b>Non</b> vuol dire vendere.
-🟠 <b>caldo</b> — non è un quarto stato, è un avviso dentro «normale»: il punteggio caro ha passato la soglia ma non da abbastanza tempo per il freno. Niente versamenti extra. Ai due massimi più recenti (nov 2021, ott 2025) era acceso; ma lo era anche a dicembre 2020, prima che il prezzo triplicasse. Per questo non è mai un invito a vendere.
-Tutto il resto del messaggio serve solo a spiegare <i>perché</i> siamo in quello stato.
+🧭 <b>Le fasi: è la sola cosa che conta</b>
+🟢 <b>Straordinario</b> — prezzi bassi come capita di rado. Vale la pena aggiungere un extra al versamento del mese, diviso in più settimane.
+⚪️ <b>Normale</b> — niente di speciale: basta il solito versamento del mese. È la fase più frequente.
+🟠 <b>Caldo</b> — prezzi alti rispetto agli ultimi 4 anni: niente extra. Non è un invito a vendere: era acceso ai massimi di nov 2021 e ott 2025, ma anche a dicembre 2020, prima che il prezzo triplicasse.
+🔴 <b>Freno</b> — Caldo che dura da 60 giorni di fila: niente extra. Anche qui, <b>non</b> vuol dire vendere.
+🟡 <b>Straordinario in arrivo</b> — il primo giorno di sconto: se regge un altro giorno, diventa Straordinario.
 
-🔢 <b>«PIÙ ALTO DI OGGI IN 386 GIORNI SU 1.460» — cosa vuol dire</b>
-Gli ultimi 4 anni sono 1.460 giorni. Per ogni indicatore conto in quanti di quei giorni era più alto di oggi. Esempio vero del 21/09/2026: il Mayer era a 1,23 ed era stato più alto solo in 386 giorni su 1.460 (26%), cioè oggi è più caro di tre giorni su quattro. L'MVRV a 1,62 era stato più alto in 777 giorni su 1.460 (53%): giusto a metà.
-La regola è la stessa in tutte le righe: <b>pochi giorni più alti = oggi è caro · tanti giorni più alti = oggi è a sconto</b>. Sotto il 30% l'indicatore entra nel punteggio caro e accanto trovi «zona cara»; sopra il 70% entra in quello economico e trovi «zona economica».
-Uso questo e non soglie fisse perché i valori assoluti invecchiano: l'MVRV ai massimi è passato da 4,43 (2017) a 2,29 (2025).
+📩 <b>Il messaggio breve</b> (ogni mattina e con /stato)
+💶 cosa fare coi soldi · 📍 quanto dista il prezzo dalla media delle ultime 200 settimane · 🌡 se il mercato è caro o a sconto, a parole. In fondo, di che giorno sono i dati.
 
-📐 <b>I DUE PUNTEGGI</b>
-Sono due termometri separati, non una scala da 0 a 10.
-• <b>quanto è ECONOMICO</b>: quanto sono estremi, <i>verso il basso</i>, i sette indicatori. Vale 0 quando nessuno di loro è nel suo 30% più economico degli ultimi 4 anni. A <b>0,43</b> scatta lo stato 🟢.
-• <b>quanto è CARO</b>: la stessa cosa verso l'alto. A <b>0,23</b> si accende l'avviso 🟠 caldo; se dura 60 giorni di fila, scatta il 🔴.
-Li scrivo come «<b>quanta strada</b>»: 0% = fermo, 100% = lo stato scatta. Sotto trovi <i>quali</i> indicatori stanno spingendo.
-Esempio vero del 21/09/2026: ECONOMICO <b>0% della strada</b> (nessuno dei sette è a sconto), CARO <b>32% della strada</b> (spingono RSI giornaliero, Fear &amp; Greed, Mayer e un altro, ma siamo lontani dal caldo). Entrambi bassi = normale, ed è la situazione più frequente.
+🔢 <b>«Più alto di oggi in 386 giorni su 1.460»</b>
+Gli ultimi 4 anni sono 1.460 giorni. Per ogni indicatore conto in quanti di quei giorni era più alto di oggi. Esempio del 21/09/2026: il Mayer era stato più alto in 386 giorni su 1.460 (26%), quindi oggi è più caro di tre giorni su quattro.
+<b>Pochi giorni più alti = oggi è caro · tanti = oggi è a sconto.</b> Sotto il 30% l'indicatore finisce in «zona cara», sopra il 70% in «zona sconto».
+Uso questo confronto e non soglie fisse perché le soglie invecchiano: l'MVRV ai massimi è sceso da 4,43 (2017) a 2,29 (2025).
 
-💵 <b>PREZZO</b>
-• <b>Mayer</b> = prezzo / media 200 giorni. Sotto 1 = sotto la media dell'anno; sopra 1,5 storicamente è caro. Ma la soglia invecchia, per questo accanto trovi in quanti giorni degli ultimi 4 anni è stato più alto di oggi.
-• <b>Media 200 settimane</b> = il livello che nei mercati orso ha fatto da pavimento… bucato del 34% nel 2022. Vicino o sotto = zona rara.
-• <b>dal massimo degli ultimi 12 mesi</b>: quanto siamo sotto il picco dell'ultimo anno — non il massimo storico, che è un'altra cosa e te lo scrivo accanto quando i due non coincidono.
+📊 <b>I due termometri</b>
+Due misure separate. <b>Sconto</b>: quanti indicatori sono in zona sconto e quanto. <b>Caro</b>: lo stesso verso l'alto. La barretta ▮▮▯▯▯ si riempie man mano: piena = scatta la fase (Straordinario per lo sconto, Caldo per il caro). Con /perche vedi quanto pesa ogni indicatore.
+
+💵 <b>Prezzo</b>
+• <b>Dal massimo degli ultimi 12 mesi</b>: quanto siamo sotto il picco dell'ultimo anno (se non è anche il record storico, te lo scrivo).
+• <b>Mayer</b>: prezzo diviso la media degli ultimi 200 giorni. 1,19 = il 19% sopra.
+• <b>Media 200 settimane</b>: nei crolli passati ha fatto da pavimento, ma nel 2022 è stata bucata del 34%. Vicino o sotto = fase rara.
 
 ⛓ <b>MVRV</b>
-Prezzo di mercato diviso il prezzo medio a cui i bitcoin si sono mossi l'ultima volta. Sotto 1 = in media il mercato è in perdita (storicamente i minimi). Sopra 3 = euforia, ma quel numero si abbassa a ogni ciclo: 4,43 nel 2017, 2,29 nel 2025. Per questo conta il confronto coi 4 anni, non il valore assoluto.
+Il valore di mercato diviso il prezzo medio a cui chi tiene i bitcoin li ha pagati. Sotto 1 = in media il mercato è in perdita (storicamente i minimi). Più è alto, più c'è guadagno da incassare.
 
-📈 <b>MOMENTUM</b>
-• <b>RSI</b> 0-100: sotto 30 = venduto, sopra 70 = comprato. Il settimanale conta più del giornaliero.
-• <b>Pi Cycle</b>: vale 1,00 quando spara. Ha centrato i massimi 2013, 2017 e 2021 e ha mancato gli ultimi due: lo mostro come curiosità, non come allarme.
+📈 <b>Slancio</b>
+• <b>RSI</b> da 0 a 100: sotto 30 = molto venduto, sopra 70 = molto comprato. Il settimanale conta più del giornaliero.
+• <b>Pi Cycle</b>: scatta a 1,00. Ha centrato i massimi 2013, 2017 e 2021 e mancato gli ultimi due: è una curiosità, non un allarme.
 
-👥 <b>ATTENZIONE DELLA GENTE</b>
-• <b>Fear &amp; Greed</b> 0-100: paura estrema sotto 20, avidità sopra 75.
-• <b>Ricerche Google</b>: quanto è affollato il mercato. Sotto 10 i 12 mesi dopo sono stati ottimi, sopra 35 pessimi. Ma il picco di ricerche arriva quasi un anno prima del massimo di prezzo: non è un allarme.
+👥 <b>Umore della gente</b>
+• <b>Fear &amp; Greed</b> da 0 a 100: sotto 25 paura estrema, sopra 75 avidità estrema.
+• <b>Ricerche Google</b>: quanta gente cerca «bitcoin». Sotto 10 i 12 mesi dopo sono stati ottimi, sopra 35 pessimi; ma il picco di ricerche arriva quasi un anno prima del massimo di prezzo.
 
-🕐 <b>PRECEDENTE PIÙ RECENTE</b>
-L'ultima volta in una fase simile, e cosa è successo dopo 6 e 12 mesi. Un caso solo non è una previsione: serve a ricordare che queste fasi esistono e finiscono.
+🕐 <b>L'ultima volta così</b>
+L'ultima fase simile e cosa ha fatto il prezzo 6 e 12 mesi dopo. Un caso solo non è una previsione.
 
-⚠️ <b>DA TENERE A MENTE</b>
-• Io non compro e non vendo, e non ti dirò mai di vendere.
-• Una fase economica può durare mesi e peggiorare: nel 2022 sono stati 177 giorni sotto la media a 200 settimane, fino a −34%.
-• L'ampiezza dei cicli si riduce: stesso segnale, premio più piccolo di una volta.
-• Se un dato manca, te lo dico. Non invento numeri."""
+⚠️ <b>Da tenere a mente</b>
+• Non compro e non vendo, e non ti dirò mai di vendere.
+• Una fase a sconto può durare mesi e peggiorare: nel 2022 il prezzo è rimasto 177 giorni sotto la media a 200 settimane, fino a −34%.
+• Ogni ciclo rende meno del precedente: stesso segnale, premio più piccolo.
+• Se un dato manca te lo dico. Non invento numeri."""
 
 
 def guida():

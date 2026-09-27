@@ -27,16 +27,23 @@ Non sono questioni di stile: vengono dalle decisioni del progetto.
 
 ## 2. I tre formati (D19)
 
-**Polso** — ogni giorno, due righe, silenzioso. Contiene la riga di avvicinamento, che è il pezzo
-che a giugno 2026 sarebbe servito davvero: non "sei arrivato", ma "ti stai avvicinando".
+**Polso** — ogni giorno, silenzioso. Riscritto in D48: prima erano due righe fitte ("caro al 29% della
+strada verso il caldo") che non si capivano. Ora poche righe corte, una idea per riga:
 
 ```
-BTC 60.175 $ · STRAORDINARIO — fase rara ed economica: varrebbe versare più del solito, in più colpi
-A 4% sotto la media a 200 settimane · settimana da 1,5x (~25 EUR in più, in più colpi) · dati del 29/06 · MVRV del 29/06.
+🟢 BTC 60.175 $ · fase STRAORDINARIA
+
+💶 Oltre ai soliti 200 € al mese, questa settimana varrebbe mettere circa 25 € in più, divisi in più volte (mai tutti insieme).
+📍 Il prezzo è il 4% sotto la media delle ultime 200 settimane.
+🌡 Prezzi bassi come capita di rado. Attenzione: può durare mesi e scendere ancora.
+
+Dati del 29/06, MVRV compreso · dettagli con /analisi
 ```
 
-In stato normale la seconda riga dice quanto manca alla soglia; in stato freno, da quanti giorni il
-mercato è caro di fila.
+💶 cosa fare coi soldi · 📍 la distanza dalla media a 200 settimane e la direzione (la riga che a giugno
+2026 sarebbe servita) · 🌡 il termometro a parole: in stato normale "tranquillo" sotto il 25% della strada
+verso la soglia più vicina, "un po' caro / un po' più basso del solito" fino al 60%, "si sta scaldando /
+ci si avvicina alla zona sconto" oltre. I numeri della strada restano nell'analisi completa.
 
 **Cambio di stato** — solo quando lo stato cambia davvero: è l'unico messaggio che chiede attenzione.
 Contiene il perché (i tre ingredienti che pesano di più, tradotti in italiano), lo sforzo suggerito
