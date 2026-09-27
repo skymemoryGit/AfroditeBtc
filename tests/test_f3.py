@@ -216,20 +216,20 @@ class F42Autorizzazioni(unittest.TestCase):
 
     def test_uno_sconosciuto_riceve_solo_il_suo_id(self):
         risposta = self.comandi.gestisci(self.conn, "/analisi", chat_id="123456")
-        self.assertIn("non sei fra le persone autorizzate", risposta)
+        self.assertIn("This is a private bot", risposta)       # richiesta dell'utente: il minimo, in inglese
         self.assertIn("123456", risposta)
         self.assertNotIn("MVRV", risposta, "a uno sconosciuto non si manda il report")
 
     def test_il_comando_id_funziona_per_tutti(self):
         risposta = self.comandi.gestisci(self.conn, "/id", chat_id="123456")
         self.assertIn("123456", risposta)
-        self.assertIn("Non sei ancora autorizzato", risposta)
+        self.assertIn("Your ID", risposta)
 
     def test_il_padrone_autorizza_e_revoca(self):
         self.comandi.gestisci(self.conn, "/autorizza 123456", chat_id=self.padrone)
         self.assertIn("123456", self.comandi.autorizzati(self.conn))
         risposta = self.comandi.gestisci(self.conn, "/stato", chat_id="123456")
-        self.assertNotIn("non sei fra le persone autorizzate", risposta)
+        self.assertNotIn("private bot", risposta)
         self.comandi.gestisci(self.conn, "/revoca 123456", chat_id=self.padrone)
         self.assertNotIn("123456", self.comandi.autorizzati(self.conn))
 

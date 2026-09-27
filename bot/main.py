@@ -329,6 +329,8 @@ def main(argv=None):
                         help="mostra le ultime righe registrate")
     gruppo.add_argument("--menu", action="store_true",
                         help="registra su Telegram il menu dei comandi (quello che appare con \"/\")")
+    gruppo.add_argument("--commento", action="store_true",
+                        help="stampa il commento AI di oggi (/ai_commentary) senza mandarlo su Telegram")
     gruppo.add_argument("--ascolta", action="store_true",
                         help="resta in ascolto e risponde ai comandi Telegram")
     gruppo.add_argument("--guida", action="store_true",
@@ -357,11 +359,20 @@ def main(argv=None):
         return comando_messaggio(args.db, serie, giorno, args.formato)
     if args.menu:
         config.load_dotenv()
-        ok, messaggio = telegram_client.registra_menu(config.TELEGRAM_TOKEN)
-        print(f"  menu comandi: {'registrato — ' if ok else 'PROBLEMA — '}{messaggio}")
-        for nome, descrizione in telegram_client.MENU_COMANDI:
-            print(f"    /{nome:12} {descrizione}")
+        ok, messaggio = comandi.sincronizza_menu(store.apri(args.db))
+        print(f"  menu per persona: {'fatto — ' if ok else 'PROBLEMA — '}{messaggio}")
+        for nome, descrizione in telegram_client.MENU_PADRONE:
+            solo_tuo = "   (solo nel tuo menu)" if (nome, descrizione) not in telegram_client.MENU_COMANDI else ""
+            print(f"    /{nome:14} {descrizione}{solo_tuo}")
         return 0 if ok else 1
+    if args.commento:
+        from botbtc import store as _store
+        try:                      # la console di Windows (cp1252) non sa scrivere le emoji del messaggio
+            sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+        except (AttributeError, ValueError):
+            pass
+        print(comandi.gestisci(_store.apri(args.db), "/ai_commentary", serie))
+        return 0
     if args.ascolta:
         return comandi.ascolta(args.db, serie, giri=args.giri)
     if args.guida:

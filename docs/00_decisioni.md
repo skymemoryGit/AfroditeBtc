@@ -336,6 +336,37 @@ viaggiano via `scp`, mai da GitHub. Un solo ascoltatore per bot (Telegram rispon
 del PC restano come riserva. Nome di repository, cartella sul VPS e servizi: **AphroditeBTC**, come il bot.
 Corretto `bot/requirements.txt`: nessuna dipendenza (D37 aveva già superato D21). Aggiunto `bot/.env.example`.
 
+**D44 — /ai_commentary: il report raccontato da un modello AI, con i numeri controllati.** *(2026-09-27, decisa)*
+Richiesta dell'utente: un commento umano e tecnico, comprensibile a chi è all'inizio con le cripto, nello stile di un
+pezzo esplicativo di BBC News (ma non rigido). `bot/commento_ai.py` manda al modello solo analisi, guida e budget;
+prima di rispondere controlla che **ogni numero del commento sia nel materiale** (arrotondamenti ammessi) e che non ci
+siano verbi di compravendita, consigli o previsioni (D16). Un errore → una riscrittura; due → il commento non si manda.
+Solo urllib; qualunque API compatibile con OpenAI o Anthropic; chiave `llmapi`, URL e modello in `bot/.env`.
+Test offline in `tests/test_commento_ai.py` (24). Prova da terminale senza invio: `python3 bot/main.py --commento`.
+Configurato con **Google Gemini `gemini-3.8-flash`** (chiave di formato nuovo `AQ.`, API compatibile OpenAI): prima prova vera il 27/09, 12 secondi, tutti i numeri del commento ritrovati nel report. La prima prova usciva **troncata** (il modello ragiona e consumava il limite): ora limite più alto, `reasoning_effort` basso, e un testo tagliato viene riconosciuto (segnale del modello, frase finale incompleta, meno di 80 parole) e fatto riscrivere.
+Il **menu di Telegram si registra a ogni avvio dell'ascolto**: ogni comando aggiunto a `MENU_COMANDI` compare da solo; un test verifica che ogni voce del menu sia un comando che il bot conosce.
+
+**D45 — Accessi gestiti da Telegram, meno informazioni possibile agli sconosciuti.** *(2026-09-27, decisa)*
+Richieste dell'utente. Chi non è autorizzato riceve, qualunque cosa scriva, solo *"This is a private bot. Your ID: …"*.
+`/autorizza` dal menu chiede l'ID (risposta guidata, una volta sola; un comando annulla la domanda); `/revoca` mostra un
+pulsante per ogni persona autorizzata (nome e ID) più *Annulla*; le forme con il numero restano. **Menu per persona**:
+nessuno per gli sconosciuti, i comandi del report per gli autorizzati, in più `/autorizza`, `/revoca`, `/utenti` solo per
+il proprietario; si ricalcolano a ogni avvio dell'ascolto e a ogni cambio di accessi (verificato leggendo i menu da
+Telegram). I pulsanti li può usare solo il proprietario: il controllo è sul mittente. Test in `tests/test_accessi.py` (18).
+
+**D46 — Messaggi a sorpresa: il bot si fa vivo anche quando nessuno gli scrive.** *(2026-09-27, decisa)*
+Richiesta dell'utente: in un mercato orso l'attenzione cala proprio quando serve. Il polso di due righe (con 🔔 e dati
+aggiornati) arriva **3 volte a settimana**, in giorni diversi, **lunedì-venerdì fra le 10 e le 18** ora italiana, a orari
+casuali; solo al proprietario. Parametri in `.env`: `BOTBTC_SORPRESE_SETTIMANA` (0 = spenti), `BOTBTC_SORPRESE_ORE`,
+`BOTBTC_SORPRESE_FERIALI`. Piano della settimana salvato nel database (un riavvio non lo rimescola); un orario passato
+col bot spento si salta se si è fuori fascia; mai due insieme; niente con `/pausa` o `/silenzioso`. Funziona solo
+mentre l'ascolto è acceso: un motivo in più per il VPS. `bot/sorprese.py`, test in `tests/test_sorprese.py` (15).
+
+**D47 — /ai_commentary: uno al giorno per chi è autorizzato, nessun limite per il proprietario.** *(2026-09-27, decisa)*
+Ogni commento è una chiamata a pagamento sull'account dell'utente. Contatore per persona e per giorno (ora italiana)
+nel database; si consuma solo un commento arrivato davvero (un errore del modello non conta); oltre il limite il bot
+non chiama nemmeno il modello. `BOTBTC_AI_AL_GIORNO` (default 1; 0 = nessun limite).
+
 ## Proposte non ancora confermate
 
 **P1 — Logging dal giorno 1.** *(2026-09-20, proposta → **confermata come D33 il 2026-09-22**)*

@@ -156,6 +156,38 @@ def riassunto():
         "eta' massima dei dati (prezzo/MVRV/F&G)": f"{ETA_MASSIMA_PREZZO_GIORNI}/{ETA_MASSIMA_MVRV_GIORNI}/{ETA_MASSIMA_FNG_GIORNI} giorni",
         "orario report": "09:00 ora italiana sul VPS (lo decide deploy/aphroditebtc-report.timer); sul PC: a mano",
         "token Telegram": "configurato" if TELEGRAM_TOKEN else "MANCANTE (.env)",
+        "messaggi a sorpresa": (f"{PING_PER_SETTIMANA} a settimana, {PING_ORA_DA}-{PING_ORA_A}, "
+                                f"{'lunedì-venerdì' if PING_SOLO_FERIALI else 'tutti i giorni'}"
+                                if PING_PER_SETTIMANA > 0 else "spenti"),
+        "commento AI": (f"{LLM_MODELLO} via {LLM_URL}" if (LLM_CHIAVE and LLM_URL and LLM_MODELLO)
+                        else "non configurato (servono llmapi, BOTBTC_LLM_URL, BOTBTC_LLM_MODELLO)"),
         "chat_id Telegram": TELEGRAM_CHAT_ID or "MANCANTE (.env)",
         "rete": f"timeout {TIMEOUT_RETE_SECONDI}s, {TENTATIVI_RETE} tentativi",
     }
+
+
+# ------------------------------------------------------------ commento AI (D44)
+# /ai_commentary: il report di oggi raccontato da un modello linguistico (bot/commento_ai.py).
+# La chiave sta in bot/.env con il nome che le ha dato l'utente, "llmapi" (oppure BOTBTC_LLM_KEY).
+# URL e modello dipendono dal fornitore: qualunque API compatibile con OpenAI (.../chat/completions)
+# oppure Anthropic (.../v1/messages). Esempi:
+#   BOTBTC_LLM_URL=https://api.openai.com/v1/chat/completions        BOTBTC_LLM_MODELLO=gpt-4o-mini
+#   BOTBTC_LLM_URL=https://api.anthropic.com/v1/messages             BOTBTC_LLM_MODELLO=claude-...
+LLM_CHIAVE = _env("BOTBTC_LLM_KEY") or _env("llmapi")
+LLM_URL = _env("BOTBTC_LLM_URL")
+LLM_MODELLO = _env("BOTBTC_LLM_MODELLO")
+LLM_TIMEOUT_SECONDI = _env_int("BOTBTC_LLM_TIMEOUT", 90)
+# Quanti /ai_commentary al giorno per ogni persona autorizzata (ogni commento è una chiamata a pagamento sul tuo
+# account). Il proprietario non ha limiti. 0 = nessun limite nemmeno per gli altri.
+AI_COMMENTI_AL_GIORNO = _env_int("BOTBTC_AI_AL_GIORNO", 1)
+
+
+# ------------------------------------------------------ messaggi a sorpresa (D46)
+# Il polso di due righe N volte a settimana, a un'ora casuale della fascia lavorativa, perché il bot non stia
+# zitto per settimane quando il mercato è fermo. BOTBTC_SORPRESE_SETTIMANA=0 li spegne.
+PING_PER_SETTIMANA = _env_int("BOTBTC_SORPRESE_SETTIMANA", 3)
+try:
+    PING_ORA_DA, PING_ORA_A = (int(x) for x in (_env("BOTBTC_SORPRESE_ORE", "10-18") or "10-18").split("-"))
+except ValueError:
+    PING_ORA_DA, PING_ORA_A = 10, 18
+PING_SOLO_FERIALI = (_env("BOTBTC_SORPRESE_FERIALI", "1") or "1") != "0"

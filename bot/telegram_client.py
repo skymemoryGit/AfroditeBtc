@@ -141,7 +141,61 @@ def escape_html(testo):
     return testo.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
 
 
-def invia(token, chat_id, testo, timeout=20, anteprima_link=False, formato="HTML"):
+def _chi(utente):
+    """Identificativo e nome leggibile di chi scrive ("Mario Rossi @mario")."""
+    utente = utente or {}
+    nome = " ".join(x for x in (utente.get("first_name"), utente.get("last_name")) if x)
+    if utente.get("username"):
+        nome = (nome + " " if nome else "") + "@" + utente["username"]
+    return {"utente_id": utente.get("id"), "nome": nome or None}
+
+
+def eventi(token, offset=0, timeout_attesa=30, timeout=45):
+    """Come `aggiornamenti`, ma riconosce anche i tocchi sui pulsanti (callback_query) e chi scrive.
+
+    Ritorna (ok, lista di dict). Ogni evento ha update_id e tipo: "messaggio" (con chat_id, testo,
+    utente_id, nome), "pulsante" (con chat_id, message_id, callback_id, dati, utente_id, nome) oppure
+    None per tutto il resto, che va solo saltato. Non solleva eccezioni.
+    """
+    ok, risultato = _chiama(token, "getUpdates",
+                            {"offset": offset, "timeout": timeout_attesa}, timeout=timeout)
+    if not ok:
+        return False, risultato
+    fuori = []
+    for aggiornamento in risultato or []:
+        evento = {"update_id": aggiornamento.get("update_id"), "tipo": None}
+        if aggiornamento.get("message"):
+            m = aggiornamento["message"]
+            evento.update(tipo="messaggio" if m.get("text") else None,
+                          chat_id=(m.get("chat") or {}).get("id"),
+                          testo=(m.get("text") or "").strip(), **_chi(m.get("from")))
+        elif aggiornamento.get("callback_query"):
+            q = aggiornamento["callback_query"]
+            m = q.get("message") or {}
+            evento.update(tipo="pulsante", chat_id=(m.get("chat") or {}).get("id"),
+                          message_id=m.get("message_id"), callback_id=q.get("id"),
+                          dati=q.get("data") or "", **_chi(q.get("from")))
+        fuori.append(evento)
+    return True, fuori
+
+
+def rispondi_pulsante(token, callback_id, avviso=None, timeout=20):
+    """Conferma a Telegram il tocco su un pulsante (senza, il pulsante resta "in caricamento")."""
+    parametri = {"callback_query_id": callback_id}
+    if avviso:
+        parametri["text"] = avviso
+    return _chiama(token, "answerCallbackQuery", parametri, timeout=timeout)
+
+
+def modifica(token, chat_id, message_id, testo, reply_markup=None, timeout=20):
+    """Riscrive un messaggio già mandato. Senza reply_markup i pulsanti spariscono."""
+    parametri = {"chat_id": chat_id, "message_id": message_id, "text": testo, "parse_mode": "HTML"}
+    if reply_markup is not None:
+        parametri["reply_markup"] = json.dumps(reply_markup, ensure_ascii=False)
+    return _chiama(token, "editMessageText", parametri, timeout=timeout)
+
+
+def invia(token, chat_id, testo, timeout=20, anteprima_link=False, formato="HTML", reply_markup=None):
     """Manda un messaggio. Non solleva eccezioni: ritorna un EsitoInvio.
 
     `formato` e' il parse_mode di Telegram ("HTML" o None). Se Telegram rifiuta il markup
@@ -153,9 +207,12 @@ def invia(token, chat_id, testo, timeout=20, anteprima_link=False, formato="HTML
     if not chat_id:
         return EsitoInvio(False, "chat_id mancante: scrivi una volta al bot e rilancia --telegram-chat")
     ultimo_id = None
-    for pezzo in spezza(testo):
+    pezzi = spezza(testo)
+    for numero, pezzo in enumerate(pezzi):
         parametri = {"chat_id": chat_id, "text": pezzo,
                      "disable_web_page_preview": "false" if anteprima_link else "true"}
+        if reply_markup is not None and numero == len(pezzi) - 1:     # i pulsanti sull'ultimo pezzo
+            parametri["reply_markup"] = json.dumps(reply_markup, ensure_ascii=False)
         if formato:
             parametri["parse_mode"] = formato
         ok, risultato = _chiama(token, "sendMessage", parametri, timeout=timeout)
@@ -175,6 +232,7 @@ MENU_COMANDI = [
     ("analisi", "Il report completo di oggi"),
     ("stato", "Due righe: dove siamo adesso"),
     ("perche", "Perché siamo in questo stato"),
+    ("ai_commentary", "Il report spiegato a parole (AI)"),
     ("guida", "Come si legge il report"),
     ("silenzioso", "Scrivimi solo quando cambia lo stato"),
     ("quotidiano", "Torna al battito di ogni giorno"),
@@ -183,6 +241,53 @@ MENU_COMANDI = [
     ("riprendi", "Riattiva i messaggi"),
     ("id", "Il tuo identificativo Telegram"),
 ]
+
+
+# Il proprietario vede anche la gestione degli accessi. Gli altri autorizzati NO: non devono nemmeno sapere
+# che esiste. Gli sconosciuti non vedono nessun menu.
+MENU_PADRONE = MENU_COMANDI + [
+    ("autorizza", "Dai accesso a una persona"),
+    ("revoca", "Togli l'accesso a una persona"),
+    ("utenti", "Chi può usare il bot"),
+]
+
+
+def _scope_chat(chat_id):
+    return json.dumps({"type": "chat", "chat_id": int(chat_id)})
+
+
+def sincronizza_menu(token, padrone, autorizzati, rimossi=(), timeout=20):
+    """Chi vede quale menu digitando "/":
+
+    - sconosciuti: nessun menu (si cancella quello generale: meno informazioni possibile);
+    - autorizzati: i comandi del report (MENU_COMANDI);
+    - proprietario: gli stessi più /autorizza, /revoca, /utenti (MENU_PADRONE);
+    - chi è stato appena revocato: il suo menu si cancella.
+    Si rifà a ogni avvio dell'ascolto e a ogni cambio degli accessi. Ritorna (ok, descrizione).
+    """
+    problemi = []
+    for scope in (None, {"type": "all_private_chats"}):
+        ok, risultato = _chiama(token, "deleteMyCommands",
+                                {"scope": json.dumps(scope)} if scope else {"scope": json.dumps({"type": "default"})},
+                                timeout=timeout)
+        if not ok:
+            problemi.append(f"menu generale: {risultato}")
+    persone = 0
+    for chat in sorted({str(x) for x in autorizzati} | ({str(padrone)} if padrone else set())):
+        voci = MENU_PADRONE if chat == str(padrone) else MENU_COMANDI
+        elenco = json.dumps([{"command": n, "description": d} for n, d in voci], ensure_ascii=False)
+        ok, risultato = _chiama(token, "setMyCommands", {"commands": elenco, "scope": _scope_chat(chat)},
+                                timeout=timeout)
+        if ok:
+            persone += 1
+        else:
+            problemi.append(f"{chat}: {risultato}")
+    for chat in rimossi:
+        ok, risultato = _chiama(token, "deleteMyCommands", {"scope": _scope_chat(chat)}, timeout=timeout)
+        if not ok:
+            problemi.append(f"{chat}: {risultato}")
+    esito = f"menu per {persone} {'persona' if persone == 1 else 'persone'}, nessuno per gli sconosciuti"
+    return (not problemi), esito + (" — problemi: " + "; ".join(problemi) if problemi else "")
 
 
 def registra_menu(token, comandi=None, timeout=20):
