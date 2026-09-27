@@ -7,7 +7,7 @@ Il dettaglio di *cosa* va fatto in ogni fase è in [`03_piano_sviluppo.md`](03_p
 
 **Il bot vive**: @AphroBtcbot manda il report su Telegram, con i dati aggiornati dalle tre fonti e tutto
 registrato in archivio. Gira ancora a mano dal PC, e dal 22/09 non è partito (registro: una riga sola). I file per il VPS sono
-pronti in `deploy/` con la guida passo passo `deploy/DEPLOY.md` (sessione 14): manca solo eseguirla.
+pronti in `deploy/` (sessione 14); il deploy lo fa l'utente a mano con un agente, con le note in `deploy/DEPLOY.md`.
 
 ## Le fasi
 
@@ -25,7 +25,7 @@ pronti in `deploy/` con la guida passo passo `deploy/DEPLOY.md` (sessione 14): m
 **Esperimento aperto**: far entrare Google Trends nel punteggio del motore (oggi è solo contesto nel
 messaggio, D34) — richiede ricalibrazione e nuovo test di accettazione F2.3 con otto ingredienti.
 
-**Dove si riparte**: eseguire `deploy/DEPLOY.md` sul VPS Contabo (una serata, un comando alla volta). Collaudo: il report delle 9:00 del giorno dopo arriva senza accendere il PC. Il repository git c'è dalla sessione 14 (D43); il remoto GitHub privato `AphroditeBTC` lo crea l'utente al passo 1 della guida.
+**Dove si riparte**: il deploy sul VPS Contabo, fatto dall'utente a mano con un agente (note in `deploy/DEPLOY.md`). Collaudo: il report delle 9:00 del giorno dopo arriva senza accendere il PC. Il repository git c'è dalla sessione 14 (D43); il remoto è GitHub privato `skymemoryGit/AfroditeBtc`, già caricato.
 
 **Obiettivo dichiarato**: primo messaggio reale su Telegram entro due settimane. ✅ **Raggiunto il 2026-09-22**,
 tre giorni dopo la stesura del piano.

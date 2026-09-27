@@ -42,7 +42,7 @@ python3 backtest/validate_mvrv.py    # riproduce i numeri di docs/02_indicatori_
 
 Serve solo Python 3: la libreria e i backtest non hanno dipendenze e non chiedono chiavi API.
 Anche il livello Telegram usa solo la libreria standard (D37): niente da installare, né sul PC né sul VPS.
-Messa in esercizio sul VPS: [`deploy/DEPLOY.md`](deploy/DEPLOY.md).
+Note del deploy sul VPS: [`deploy/DEPLOY.md`](deploy/DEPLOY.md).
 
 ## Documenti
 
