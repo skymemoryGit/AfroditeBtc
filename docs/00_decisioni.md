@@ -327,7 +327,7 @@ giorni, esatto, per sette indicatori e sei date). Corretto anche "e altri 1" →
 
 **D43 — Repository git e messa in esercizio sul VPS con systemd; il progetto si chiama AphroditeBTC.** *(2026-09-26, decisa)*
 Dal 22/09 il bot non è mai partito (registro con una riga sola): il limite non era il codice, era che partisse a mano
-dal PC. Approvato dall'utente: repository git (primo commit `bdddac1`; esclusi `bot/.env`, il database e
+dal PC. Approvato dall'utente: repository git (primo commit `ebf8a5b` (era `bdddac1` prima di togliere CLAUDE.md dalla storia); esclusi `bot/.env`, il database e
 `docs/spunti/`), remoto GitHub privato `AphroditeBTC`, e i file di `deploy/`. L'ascolto è un servizio sempre acceso
 che riparte da solo; il report ha un timer alle 09:00 **Europe/Rome** (il cambio d'ora lo gestisce systemd: con
 l'orario in UTC, dopo il 25 ottobre sarebbe arrivato alle 8); il backup notturno usa l'API di SQLite, controlla
